@@ -2,26 +2,25 @@
 
 import url from 'url';
 import React, {Component, Fragment} from 'react';
-import PropTypes from 'prop-types';
-import {map} from 'lodash';
 import ToggleOpen from './toggle-open';
+import _ from "lodash";
 
-const mkLinkToUrl = (url, text = url) => {
+function mkLinkToUrl(url: string, text = url) {
     return <a data-suite-view-link={url} className="section__icon_view-local" target="_blank" href={url}>{text}</a>;
 };
 
-const isUrl = (str) => {
+function isUrl(str: any): boolean{
     if (typeof str !== 'string') {
         return false;
     }
 
     const parsedUrl = url.parse(str);
 
-    return parsedUrl.host && parsedUrl.protocol;
+    return !(!parsedUrl.host || !parsedUrl.protocol);
 };
 
-const metaToElements = (metaInfo) => {
-    return map(metaInfo, (value, key) => {
+const metaToElements = (metaInfo: any) => {
+    return _.map(metaInfo, (value, key) => {
         if (isUrl(value)) {
             value = mkLinkToUrl(value);
         }
@@ -30,15 +29,15 @@ const metaToElements = (metaInfo) => {
     });
 };
 
-export default class MetaInfo extends Component {
-    static propTypes = {
-        metaInfo: PropTypes.object.isRequired,
-        suiteUrl: PropTypes.string.isRequired
-    }
+interface IMetaInfoChildProps extends React.Props<any>{
+    metaInfo: any;
+    suiteUrl: string;
+}
 
+export default class MetaInfo extends Component<IMetaInfoChildProps> {
     render() {
         const {metaInfo, suiteUrl} = this.props;
-        const formattedMetaInfo = Object.assign({}, metaInfo, {url: mkLinkToUrl(suiteUrl, metaInfo.url)});
+        const formattedMetaInfo = {...metaInfo,  url: mkLinkToUrl(suiteUrl, metaInfo.url)};
         const metaElements = metaToElements(formattedMetaInfo);
 
         return (

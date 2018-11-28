@@ -1,17 +1,16 @@
 'use strict';
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import Parser from 'html-react-parser';
+const Parser = require('html-react-parser');
 
-class SectionBrowserTitleSkipped extends Component {
-    static propTypes = {
-        result: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            reason: PropTypes.string
-        })
+interface ISectionBrowserTitleSkippedProp extends React.Props<any>{
+    result: {
+        name: string,
+        reason?: string
     }
+}
 
+class SectionBrowserTitleSkipped extends Component<ISectionBrowserTitleSkippedProp> {
     render() {
         const {name, reason} = this.props.result;
 
