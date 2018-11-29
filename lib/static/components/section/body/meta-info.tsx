@@ -7,8 +7,7 @@ import _ from "lodash";
 
 function mkLinkToUrl(url: string, text = url) {
     return <a data-suite-view-link={url} className="section__icon_view-local" target="_blank" href={url}>{text}</a>;
-};
-
+}
 function isUrl(str: any): boolean{
     if (typeof str !== 'string') {
         return false;
@@ -17,7 +16,7 @@ function isUrl(str: any): boolean{
     const parsedUrl = url.parse(str);
 
     return !(!parsedUrl.host || !parsedUrl.protocol);
-};
+}
 
 const metaToElements = (metaInfo: any) => {
     return _.map(metaInfo, (value, key) => {
