@@ -11,7 +11,7 @@ interface ISummaryProps {
         failed: number,
         skipped: number,
         retries: number
-    }
+    };
 }
 
 class Summary extends Component<ISummaryProps> {
@@ -20,17 +20,17 @@ class Summary extends Component<ISummaryProps> {
         const {total, passed, failed, skipped, retries} = this.props.stats;
 
         return (
-            <dl className="summary">
-                <SummaryKey label="Total Tests" value={total}/>
-                <SummaryKey label="Passed" value={passed}/>
-                <SummaryKey label="Failed" value={failed} isFailed={true}/>
-                <SummaryKey label="Skipped" value={skipped}/>
-                <SummaryKey label="Retries" value={retries}/>
+            <dl className='summary'>
+                <SummaryKey label='Total Tests' value={total}/>
+                <SummaryKey label='Passed' value={passed}/>
+                <SummaryKey label='Failed' value={failed} isFailed={true}/>
+                <SummaryKey label='Skipped' value={skipped}/>
+                <SummaryKey label='Retries' value={retries}/>
             </dl>
         );
     }
 }
 
 export default connect<ISummaryProps>((state: ISummaryProps) => ({
-            stats: state.stats
-        }))(Summary);
+    stats: state.stats
+}))(Summary);
