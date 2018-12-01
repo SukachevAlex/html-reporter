@@ -17,11 +17,12 @@ interface IControlButton {
 export default class ControlButton extends Component<IControlButton> {
 
     render() {
-        const {label, handler, isSuiteControl, isControlGroup, isDisabled = false} = this.props;
+        const {label, handler, isSuiteControl, isControlGroup, isDisabled = false, isActive} = this.props;
         const className = classNames(
             'button',
             {'button_type_suite-controls': isSuiteControl},
-            {'control-group__item': isControlGroup}
+            {'control-group__item': isControlGroup},
+            {active: isActive}
         );
 
         return (<Button onClick={handler} className={className} disabled={isDisabled}>{label}</Button>);
