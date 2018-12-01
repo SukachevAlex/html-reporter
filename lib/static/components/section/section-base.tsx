@@ -91,7 +91,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         const section = cn(
             'section'
         );
-        const baseClasses = section({'section_collapsed': collapsed});
+        const baseClasses = section({section_collapsed: collapsed});
 
         if (status) {
             return classnames(baseClasses, `section_status_${status}`);

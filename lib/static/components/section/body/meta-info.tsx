@@ -3,16 +3,16 @@
 import url from 'url';
 import React, {Component, Fragment} from 'react';
 import ToggleOpen from './toggle-open';
-import _ from "lodash";
+import _ from 'lodash';
 
 interface IMetaInfo {
-    file: string,
-    sessionId: string,
-    url: any
+    file: string;
+    sessionId: string;
+    url: any;
 }
 
 function mkLinkToUrl(url: string, text = url) {
-    return <a data-suite-view-link={url} className="section__icon_view-local" target="_blank" href={url}>{text}</a>;
+    return <a data-suite-view-link={url} className='section__icon_view-local' target='_blank' href={url}>{text}</a>;
 }
 
 function isUrl(str: any): boolean{
@@ -29,7 +29,7 @@ const metaToElements = (metaInfo: IMetaInfo) => {
     return _.map(metaInfo, (value, key) => {
         const element = isUrl(value) ? mkLinkToUrl(value) : value;
 
-        return <div key = {key} className="toggle-open__item"><span className="toggle-open__item-key">{key}</span>: {element}</div>;
+        return <div key = {key} className='toggle-open__item'><span className='toggle-open__item-key'>{key}</span>: {element}</div>;
     });
 };
 

@@ -16,16 +16,16 @@ class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
         const {name, result, handler, parsedHost} = this.props;
 
         return (
-            <div className="section__title" onClick={handler}>
+            <div className='section__title' onClick={handler}>
                 {name}
                 <a
-                    className="button section__icon section__icon_view-local"
+                    className='button section__icon section__icon_view-local'
                     href={this._buildUrl(result.suiteUrl, parsedHost)}
                     onClick={(e) => {
                         return e.stopPropagation();
                     }}
-                    title="view in browser"
-                    target="_blank">
+                    title='view in browser'
+                    target='_blank'>
                 </a>
             </div>
         );

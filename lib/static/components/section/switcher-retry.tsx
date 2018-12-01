@@ -4,12 +4,12 @@ import React, {Component, ComponentState} from 'react';
 import {cn} from '@bem-react/classname';
 
 interface ISwitcherRetryProps extends React.Props<any>{
-    retries?: any[],
+    retries?: any[];
     onChange(index: number): void;
 }
 
 interface ISwitcherRetryStates extends ComponentState{
-    retry: number
+    retry: number;
 }
 
 export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitcherRetryStates> {
@@ -41,7 +41,7 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
             );
         }
 
-        return (<div className="tab-switcher">{buttonsTmpl}</div>);
+        return (<div className='tab-switcher'>{buttonsTmpl}</div>);
     }
 
     private _onChange(index: number) {
@@ -49,4 +49,3 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
         this.props.onChange(index);
     }
 }
-

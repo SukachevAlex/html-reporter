@@ -9,22 +9,22 @@ import {allSkipped, hasFails, hasRetries} from '../../modules/utils';
 import Title from './title/simple';
 
 interface IBrowser{
-    name: string,
-    result: any,
-    retries: any[],
+    name: string;
+    result: any;
+    retries: any[];
 }
 
 interface IChild{
-    name: string,
-    suitePath: any[],
-    browsers: IBrowser[],
-    children: any[],
-    status?: string
+    name: string;
+    suitePath: any[];
+    browsers: IBrowser[];
+    children: any[];
+    status?: string;
 }
 
 interface ISectionCommonProps extends IBaseProps{
-    suiteId?: string,
-    suite: IChild
+    suiteId?: string;
+    suite: IChild;
 }
 
 export class SectionCommon extends Base<ISectionCommonProps>{
@@ -60,7 +60,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
         return (
             <div className={this._resolveSectionStatus(status)}>
                 <Title name={name} suite={suite} handler={this._toggleState}/>
-                <div className="section__body section__body_guided">
+                <div className='section__body section__body_guided'>
                     {browserTmpl}
                     {childrenTmpl}
                 </div>

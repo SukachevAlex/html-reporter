@@ -8,7 +8,7 @@ interface ISwitcherStyleProps extends React.Props<any>{
 }
 
 interface ISwitcherStyleStates extends ComponentState{
-    color: number
+    color: number;
 }
 
 export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitcherStyleStates> {
@@ -20,7 +20,7 @@ export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitc
 
     render() {
         return (
-            <div className="cswitcher">
+            <div className='cswitcher'>
                 {this._drawButton(1)}
                 {this._drawButton(2)}
                 {this._drawButton(3)}
@@ -48,4 +48,3 @@ export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitc
         this.props.onChange(index);
     }
 }
-

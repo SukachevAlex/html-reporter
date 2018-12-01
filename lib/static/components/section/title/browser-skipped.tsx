@@ -7,7 +7,7 @@ interface ISectionBrowserTitleSkippedProp extends React.Props<any>{
     result: {
         name: string,
         reason?: string
-    }
+    };
 }
 
 class SectionBrowserTitleSkipped extends Component<ISectionBrowserTitleSkippedProp> {
@@ -15,7 +15,7 @@ class SectionBrowserTitleSkipped extends Component<ISectionBrowserTitleSkippedPr
         const {name, reason} = this.props.result;
 
         return (
-            <div className="section__title section__title_skipped">
+            <div className='section__title section__title_skipped'>
                 [skipped] {name}
                 {reason && ', reason: '}
                 {reason && Parser(reason)}

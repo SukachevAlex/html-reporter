@@ -3,16 +3,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {retrySuite} from '../../../modules/actions';
-const CopyToClipboard = require('react-copy-to-clipboard')
+const CopyToClipboard = require('react-copy-to-clipboard');
 
 interface ISectionTitleProp extends React.Props<any>{
-    name: string,
+    name: string;
     suite: {
         suitePath: any[]
-    },
-    handler: (...args: any[]) => any,
-    gui?: boolean,
-    retrySuite?: any
+    };
+    handler: (...args: any[]) => any;
+    gui?: boolean;
+    retrySuite?: any;
 }
 
 class SectionTitle extends Component<ISectionTitleProp> {
@@ -34,7 +34,7 @@ class SectionTitle extends Component<ISectionTitleProp> {
         const {name, handler, gui} = this.props;
 
         return (
-            <div className="section__title" onClick={handler}>
+            <div className='section__title' onClick={handler}>
                 {name}
                 {this._drawCopyButton()}
                 {gui && this._drawRetryButton()}
@@ -44,7 +44,7 @@ class SectionTitle extends Component<ISectionTitleProp> {
 
    private _drawCopyButton() {
         return (
-            <CopyToClipboard className="button section__icon section__icon_copy-to-clipboard"
+            <CopyToClipboard className='button section__icon section__icon_copy-to-clipboard'
                 text={this.props.suite.suitePath.join(' ')}
                              onCopy={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}>
                 <button></button>
@@ -55,8 +55,8 @@ class SectionTitle extends Component<ISectionTitleProp> {
     private _drawRetryButton() {
         return (
             <button
-                className="button section__icon section__icon_retry"
-                title="retry suite"
+                className='button section__icon section__icon_retry'
+                title='retry suite'
                 onClick={this.onSuiteRetry}>
             </button>
         );

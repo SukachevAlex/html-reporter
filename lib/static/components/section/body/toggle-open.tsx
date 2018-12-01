@@ -31,8 +31,8 @@ export default class ToggleOpen extends Component<IToggleOpenChildProps, IToggle
 
         return (
             <div className={toggle(null, {collapsed: this.state.isCollapsed})}>
-                <div onClick={this.toggleHandler} className="toggle-open__switcher">{title}</div>
-                <div className="toggle-open__content">{content}</div>
+                <div onClick={this.toggleHandler} className='toggle-open__switcher'>{title}</div>
+                <div className='toggle-open__content'>{content}</div>
             </div>
         );
     }

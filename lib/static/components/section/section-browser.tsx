@@ -13,8 +13,8 @@ interface ISectionBrowserProps extends IBaseProps {
         name: string,
         result: any,
         retries: any[]
-    },
-    suite?: {}
+    };
+    suite?: {};
 }
 
 export class SectionBrowser extends Base<ISectionBrowserProps>{
