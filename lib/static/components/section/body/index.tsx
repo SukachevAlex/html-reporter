@@ -1,60 +1,73 @@
 'use strict';
 
-import {isEmpty} from 'lodash';
-import React, {Component} from 'react';
+import _ from 'lodash';
+import React, {Component, ComponentState} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import PropTypes from 'prop-types';
+import {bindActionCreators, Dispatch} from 'redux';
 import SwitcherStyle from '../switcher-style';
 import SwitcherRetry from '../switcher-retry';
 import ControlButton from '../../controls/button';
 import State from '../../state';
 import MetaInfo from './meta-info';
 import Description from './description';
-import * as actions from '../../../modules/actions';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
 
-class Body extends Component {
-    static propTypes = {
-        result: PropTypes.object.isRequired,
-        retries: PropTypes.array,
-        suite: PropTypes.object
-    }
+const actions = require('../../../modules/actions');
 
-    static defaultProps = {
+interface IBodyProps extends React.Props<any>{
+    result: any,
+    retries?: any,
+    suite?: {},
+    gui?: boolean,
+    running?: boolean,
+    actions?: any
+}
+
+interface IBodyStates extends ComponentState{
+    color: number,
+    retry: number
+}
+
+class Body extends Component<IBodyProps, IBodyStates> {
+
+    static defaultProps: Partial<IBodyProps> = {
         retries: []
-    }
+    };
 
-    constructor(props) {
-        super(props);
+    constructor(props: IBodyProps, state: IBodyStates) {
+        super(props, state);
 
         this.state = {
             color: 1,
             retry: this.props.retries.length
         };
-    }
+        this.onSwitcherStyleChange.bind(this);
+        this.onSwitcherRetryChange.bind(this);
+        this.onTestRetry.bind(this);
+        this.onTestAccept.bind(this);
+    };
 
-    onSwitcherStyleChange = (index) => {
+    onSwitcherStyleChange = (index: number) => {
         this.setState({color: index});
-    }
+    };
 
-    onSwitcherRetryChange = (index) => {
+    onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
-    }
+    };
 
-    onTestAccept = (stateName) => {
+    onTestAccept = (stateName: any) => {
         const {result, suite} = this.props;
 
         this.props.actions.acceptTest(suite, result.name, this.state.retry, stateName);
-    }
+    };
 
     onTestRetry = () => {
         const {result, suite} = this.props;
 
         this.props.actions.retryTest(suite, result.name);
-    }
+    };
 
-    _addRetryButton = () => {
+    private _addRetryButton = () => {
         const {gui, running} = this.props;
 
         return gui
@@ -69,22 +82,22 @@ class Body extends Component {
                 </div>
             )
             : null;
-    }
+    };
 
-    _getActiveResult = () => {
+    private _getActiveResult = () => {
         const {result, retries} = this.props;
 
         return retries.concat(result)[this.state.retry];
-    }
+    };
 
-    _getTabs() {
+    private _getTabs() {
         const activeResult = this._getActiveResult();
 
-        if (isEmpty(activeResult.imagesInfo)) {
+        if (_.isEmpty(activeResult.imagesInfo)) {
             return isSuccessStatus(activeResult.status) ? null : this._drawTab(activeResult);
         }
 
-        const tabs = activeResult.imagesInfo.map((imageInfo, idx) => {
+        const tabs = activeResult.imagesInfo.map((imageInfo: any, idx: number) => {
             const {stateName} = imageInfo;
             const reason = imageInfo.reason || activeResult.reason;
             const state = Object.assign({image: true, reason}, imageInfo);
@@ -95,9 +108,9 @@ class Body extends Component {
         return this._shouldAddErrorTab(activeResult)
             ? tabs.concat(this._drawTab(activeResult))
             : tabs;
-    }
+    };
 
-    _drawTab(state, key = '') {
+    private _drawTab(state: any, key: string = '') {
         return (
             <div key={key} className="tab">
                 <div className="tab__item tab__item_active">
@@ -105,11 +118,12 @@ class Body extends Component {
                 </div>
             </div>
         );
-    }
+    };
 
-    _shouldAddErrorTab({multipleTabs, status, screenshot}) {
+    private _shouldAddErrorTab({multipleTabs, status, screenshot}:
+                           {multipleTabs: boolean, status: string, screenshot: boolean}) {
         return multipleTabs && isErroredStatus(status) && !screenshot;
-    }
+    };
 
     render() {
         const {retries} = this.props;
@@ -132,10 +146,10 @@ class Body extends Component {
                 </div>
             </div>
         );
-    }
+    };
 }
 
-export default connect(
-    (state) => ({gui: state.gui, running: state.running}),
-    (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
+export default connect<{}, {}, IBodyProps>(
+    (state: any) => ({gui: state.gui, running: state.running}),
+    (dispatch: Dispatch) => ({actions: bindActionCreators(actions, dispatch)})
 )(Body);

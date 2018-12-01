@@ -13,6 +13,13 @@ export interface IBaseProps extends React.Props<any>{
     viewMode?: string;
 }
 
+export interface INextProps extends IBaseProps{
+    dispatch?: () => any;
+    expand?: string;
+    suite?: any;
+    suiteId?: string;
+}
+
 export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
 
     constructor(props: IBaseProps) {
@@ -20,7 +27,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         this._toggleState = this._toggleState.bind(this);
     }
 
-    _getStateFromProps() {
+    protected _getStateFromProps() {
         const returnParams: {
             failed: any;
             retried: any;
@@ -48,7 +55,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         });
     }
 
-    componentWillReceiveProps(nextProps: any) {
+    componentWillReceiveProps(nextProps: INextProps) {
         const {failed, retried, updated} = this._getStateFromProps();
         const updatedStatus = {failed, retried, updated, expand: nextProps.expand};
 
@@ -63,7 +70,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         return null;
     }
 
-    _shouldBeCollapsed({failed, retried, expand}: any) {
+    private _shouldBeCollapsed({failed, retried, expand}: any) {
         if (expand === 'errors' && failed) {
             return false;
         } else if (expand === 'retries' && retried) {
@@ -75,11 +82,11 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         return true;
     }
 
-    _toggleState() {
+    protected _toggleState() {
         this.setState({collapsed: !this.state.collapsed});
     }
 
-    _resolveSectionStatus(status: any) {
+    protected _resolveSectionStatus(status: any) {
         const {collapsed} = this.state;
         const section = cn(
             'section'

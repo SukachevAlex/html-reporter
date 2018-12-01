@@ -1,6 +1,6 @@
 'use strict';
 
-import React, {Fragment} from 'react';
+import React, {Fragment, Component} from 'react';
 import ToggleOpen from './toggle-open';
 const ReactMarkdown = require('react-markdown');
 
@@ -8,7 +8,7 @@ interface IDescriptionChildProps extends React.Props<any> {
     content: string;
 }
 
-export default class Description extends React.Component<IDescriptionChildProps> {
+export default class Description extends Component<IDescriptionChildProps> {
     render() {
         const mdContent = <ReactMarkdown source={this.props.content}/>;
 

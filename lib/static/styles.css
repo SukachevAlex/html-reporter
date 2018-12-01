@@ -293,12 +293,12 @@
     color: #c00;
 }
 
-.cswitcher__item, .tab-switcher__button {
+.cswitcher-item, .tab-switcher__button {
     width: 22px;
     padding: 0;
 }
 
-.cswitcher__item_selected.cswitcher__item::before {
+.cswitcher-item_selected.cswitcher__item::before {
     content: '';
     position: absolute;
     top: 0;
@@ -308,15 +308,15 @@
     width: 20px;
 }
 
-.cswitcher_color_1 {
+.cswitcher-item_color_1 {
     background: #c9c9c9;
 }
 
-.cswitcher_color_2 {
+.cswitcher-item_color_2 {
     background: #d5ff09;
 }
 
-.cswitcher_color_3 {
+.cswitcher-item_color_3 {
     background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg"><path fill="#cecece" d="m0 0h35c0 11.67 0 23.33 0 35-11.67 0-23.33 0-35 0v-35"/><g fill="#fff"><path d="m35 0h35v35c-11.67 0-23.33 0-35 0 0-11.67 0-23.33 0-35"/><path d="m0 35c11.67 0 23.33 0 35 0 0 11.67 0 23.33 0 35h-35v-35"/></g><path fill="#cecece" d="m35 35c11.67 0 23.33 0 35 0v35h-35c0-11.67 0-23.33 0-35"/></svg>');
 }
 
