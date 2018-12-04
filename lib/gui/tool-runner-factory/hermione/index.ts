@@ -13,8 +13,6 @@ interface IImageInfo {
     stateName?: string;
 }
 
-//tool: { [key: string]: any }, configs: { [key: string]: any }
-
 module.exports = class HermioneRunner extends BaseToolRunner {
     constructor(paths: [], tool: { [key: string]: any }, configs: { [key: string]: any }) {
         super(paths, tool, configs);

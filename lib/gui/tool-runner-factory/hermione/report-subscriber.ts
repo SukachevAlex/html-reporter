@@ -5,7 +5,7 @@ const {findTestResult} = require('../utils');
 import {saveTestImages, saveBase64Screenshot} from '../../../reporter-helpers';
 import {ISuite} from 'typings/suite-adapter';
 import {ITestResult, TestAdapterType} from 'typings/test-adapter';
-import { IHermione } from 'typings/hermione';
+import {IHermione} from 'typings/hermione';
 
 interface IData {
     sessionId: string;
