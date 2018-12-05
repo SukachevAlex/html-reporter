@@ -1,5 +1,6 @@
-.report {
+.Report {
     font: 14px Helvetica Neue, Arial, sans-serif;
+    padding: 32px 16px;
 }
 
 .summary__key {
