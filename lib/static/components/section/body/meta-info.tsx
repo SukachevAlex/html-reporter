@@ -1,9 +1,10 @@
-'use strict';
-
 import url from 'url';
 import React, {Component, Fragment} from 'react';
 import ToggleOpen from './toggle-open';
 import _ from 'lodash';
+
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import {agate as syntaxStyle} from 'react-syntax-highlighter/styles/hljs';
 
 interface IMetaInfo {
     file: string;
@@ -27,9 +28,13 @@ function isUrl(str: any): boolean{
 
 const metaToElements = (metaInfo: IMetaInfo) => {
     return _.map(metaInfo, (value, key) => {
-        const element = isUrl(value) ? mkLinkToUrl(value) : value;
+        const element = isUrl(value)
+            ? mkLinkToUrl(value)
+            : key === 'code'
+                ? <SyntaxHighlighter style={syntaxStyle} language='javascript'>{value}</SyntaxHighlighter>
+                : value;
 
-        return <div key = {key} className='toggle-open__item'><span className='toggle-open__item-key'>{key}</span>: {element}</div>;
+        return <div key={key} className='toggle-open__item'><span className='toggle-open__item-key'>{key}</span>: {element}</div>;
     });
 };
 

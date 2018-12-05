@@ -120,8 +120,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         );
     }
 
-    private _shouldAddErrorTab({multipleTabs, status, screenshot}:
-                           {multipleTabs: boolean, status: string, screenshot: boolean}) {
+    private _shouldAddErrorTab({multipleTabs, status, screenshot}: {multipleTabs: boolean, status: string, screenshot: boolean}) {
         return multipleTabs && isErroredStatus(status) && !screenshot;
     }
 

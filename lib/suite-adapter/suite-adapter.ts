@@ -18,7 +18,10 @@ export class SuiteAdapter {
     constructor(
         protected _suite: ISuite,
         protected _config: IOptions
-    ) {
+    ) {}
+
+    get body() {
+        return this._suite.body;
     }
 
     protected _wrapSkipComment(skipComment?: string): string {
