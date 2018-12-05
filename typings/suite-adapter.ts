@@ -38,6 +38,7 @@ export interface ISuite {
     file?: string;
     url?: string;
     ctx?: string;
+    name: string;
     meta?: {
         url: string;
     };
