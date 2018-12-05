@@ -4,7 +4,7 @@ const Runner = require('../runner');
 import {ISuite} from 'typings/suite-adapter';
 
 module.exports = class SpecificTestRunner extends Runner {
-    constructor(collection: any, tests: ISuite) {
+    constructor(collection: any, tests: ISuite[]) {
         super(collection);
 
         this._tests = tests;
