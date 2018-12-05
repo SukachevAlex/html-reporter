@@ -2,6 +2,7 @@
 node_modules
 hot
 build
+images
 *.log
 /lib/static/*.min.*
 # /lib/static/data.js
