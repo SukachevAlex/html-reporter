@@ -23,7 +23,6 @@ module.exports = class HermioneRunner extends BaseToolRunner {
     run(tests = []) {
         const {grep, set: sets, browser: browsers} = this._globalOpts;
         const formattedTests = _.flatMap([].concat(tests), (test: ITestResult) => formatTests(test));
-
         return Runner.create(this._toolName, this._collection, formattedTests)
             .run((collection: ISuite) => this._tool.run(collection, {grep, sets, browsers}));
     }
