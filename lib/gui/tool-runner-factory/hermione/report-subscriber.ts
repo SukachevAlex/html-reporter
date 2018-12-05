@@ -16,11 +16,11 @@ interface IData {
     duration: number;
 }
 
-interface iCLient extends EventSource {
+interface IClient extends EventSource {
     emit: Function;
 }
 
-module.exports = (hermione: IHermione, reportBuilder: TestAdapterType, client: iCLient, reportPath: string) => {
+module.exports = (hermione: IHermione, reportBuilder: TestAdapterType, client: IClient, reportPath: string) => {
     function failHandler(testResult: ITestResult) {
         const formattedResult = reportBuilder.format(testResult);
         const actions = [saveTestImages(formattedResult, reportPath)];

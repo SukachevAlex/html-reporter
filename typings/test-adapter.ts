@@ -40,11 +40,7 @@ export interface ITestResult {
     meta?: {
         url: string;
     };
-    metaInfo?: {
-        url?: string;
-        file?: string;
-        sessionId?: string;
-    };
+    metaInfo?: IMetaInfo;
     async?: number;
     sync?: boolean;
     timedOut?: boolean;
@@ -64,4 +60,10 @@ export interface ITestResult {
 
 export interface ITestTool {
     [key: string]: any;
+}
+
+export interface IMetaInfo {
+    url?: string;
+    file?: string;
+    sessionId?: string;
 }
