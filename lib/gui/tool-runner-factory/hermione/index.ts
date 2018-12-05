@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {ISuite} from 'typings/suite-adapter';
-import {ITestResult, IMetaInfo} from 'typings/test-adapter';
+import {ITestResult, IMetaInfo, ITestTool} from 'typings/test-adapter';
 const BaseToolRunner = require('../base-tool-runner');
 const Runner = require('../runner');
 const subscribeOnToolEvents = require('./report-subscriber');
@@ -14,7 +14,7 @@ interface IImageInfo {
 }
 
 module.exports = class HermioneRunner extends BaseToolRunner {
-    constructor(paths: [], tool: { [key: string]: any }, configs: { [key: string]: any }) {
+    constructor(paths: string[], tool: ITestTool, configs: any) {
         super(paths, tool, configs);
 
         this._tests = {};
