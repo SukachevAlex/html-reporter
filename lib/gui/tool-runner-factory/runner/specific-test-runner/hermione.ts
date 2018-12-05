@@ -10,7 +10,6 @@ module.exports = class HermioneSpecificTestRunner extends SpecificTestRunner {
         this._collection.disableAll();
 
         this._tests.forEach((test: ISuite) => {
-            console.log(test);
             this._collection.enableTest(mkFullTitle(test), test.browserId);
         });
     }
