@@ -22,6 +22,7 @@ interface IBodyProps extends React.Props<any>{
     gui?: boolean;
     running?: boolean;
     actions?: any;
+    browserName?: string;
 }
 
 interface IBodyStates extends ComponentState{
@@ -42,15 +43,15 @@ class Body extends Component<IBodyProps, IBodyStates> {
             color: 1,
             retry: this.props.retries.length
         };
-        this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
+        // this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
     }
 
-    onSwitcherStyleChange = (index: number) => {
-        this.setState({color: index});
-    }
+    // onSwitcherStyleChange = (index: number) => {
+    //     this.setState({color: index});
+    // }
 
     onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
