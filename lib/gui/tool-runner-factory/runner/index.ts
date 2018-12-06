@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const AllTestRunner = require('./all-test-runner');
 const SpecificTestRunners = {
@@ -7,7 +5,7 @@ const SpecificTestRunners = {
     hermione: require('./specific-test-runner/hermione')
 };
 
-exports.create = (toolName, collection, tests) => {
+exports.create = (toolName: string, collection: { [key: string]: any }, tests: any[]) => {
     return _.isEmpty(tests)
         ? new AllTestRunner(collection)
         : new SpecificTestRunners[toolName](collection, tests);

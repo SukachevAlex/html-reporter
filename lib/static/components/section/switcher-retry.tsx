@@ -31,9 +31,10 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
 
         return (
             <Pagination
-                defaultActivePage={1}
+                defaultActivePage={retries.length}
                 totalPages={retries.length}
-                onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)} />
+                onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)}
+            />
         );
     }
 
