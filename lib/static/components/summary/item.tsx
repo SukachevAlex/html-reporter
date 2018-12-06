@@ -1,32 +1,29 @@
 'use strict';
 
-import React, {Component, Fragment} from 'react';
-import classNames from 'classnames';
+import React, {Component} from 'react';
+import { cn } from '@bem-react/classname';
 
 interface ISummaryItemProps {
     label: string;
     value: number;
     isFailed?: boolean;
+    state?: string;
 }
+
+const cnSum = cn('Summary');
+
 export default class SummaryItem extends Component<ISummaryItemProps> {
 
     render() {
-        const {label, value, isFailed = false} = this.props;
+        const {label, value, isFailed = false, state} = this.props;
 
-        if (isFailed && value === 0) {
-            return null;
-        }
+        if (isFailed && value === 0) return null;
 
-        const className = classNames(
-            'summary__key',
-            {'summary__key_has-fails': isFailed}
-        );
-
-        return (
-            <Fragment>
-                <dt className={className}>{label}</dt>
-                <dd className='summary__value'>{value}</dd>
-            </Fragment>
-        );
+        return <>
+            <div className={cnSum({state})}>
+                <dt className={cnSum('Key', {'has-fails': isFailed})}>{label}</dt>
+                <dd className={cnSum('Value')}>{value}</dd>
+            </div>
+        </>;
     }
 }

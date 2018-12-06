@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {initial} from '../modules/actions';
 import ControlButtons from './controls/gui-controls';
@@ -16,13 +16,11 @@ class Gui extends Component<IGuiProps> {
     }
 
     render() {
-        return (
-            <Fragment>
-                <ControlButtons/>
-                <SkippedList/>
-                <Suites/>
-            </Fragment>
-        );
+        return <>
+            <ControlButtons/>
+            <SkippedList/>
+            <Suites/>
+        </>;
     }
 }
 
