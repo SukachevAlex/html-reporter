@@ -381,6 +381,7 @@ a:active {
     padding: 5px;
 }
 
+
 .cswitcher {
     padding-left: 0;
 }
@@ -394,8 +395,9 @@ a:active {
     content: 'Attempts:';
     padding-right: 4px;
     margin-right: 7px;
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
+
 
 /* retry-switcher semantic active color */
 .ui.pagination.menu .active.item {
