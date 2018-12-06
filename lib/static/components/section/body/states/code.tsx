@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import MetaInfo, {IMetaInfo} from './meta-info';
+import MetaInfo from './meta-info';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {agate as syntaxStyle} from 'react-syntax-highlighter/styles/hljs';
+
+import {IMetaInfo} from 'typings/test-adapter';
 
 interface ICodeProps {
     metaInfo: IMetaInfo;
