@@ -11,7 +11,6 @@ const SCRIPT_LOADER = {
     test: /\.(js|ts)x?$/,
     exclude: /node_modules/,
     use: [
-        'tslint-loader',
         'awesome-typescript-loader'
     ]
 };

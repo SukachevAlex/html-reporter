@@ -123,11 +123,16 @@ module.exports = class ReportBuilder {
     }
 
     _createTestResult(result: ITestResult, props: any) {
-        const {browserId = '', suite = {}, sessionId, description, imagesInfo, screenshot, multipleTabs} = result;
+        const {browserId = '', suite = {}, sessionId, description, imagesInfo, screenshot, multipleTabs, meta = {}} = result;
 
         const {baseHost} = this._pluginConfig;
         const suiteUrl = suite.getUrl && suite.getUrl({browserId, baseHost});
-        const metaInfo = _.merge(result.meta, {url: suite.fullUrl, file: suite.file, sessionId});
+        const metaInfo = _.merge(meta, {
+            url: suite.fullUrl,
+            file: suite.file,
+            sessionId,
+            code: suite.body
+        });
 
         return Object.assign({
             suiteUrl, name: browserId, metaInfo, description, imagesInfo,
