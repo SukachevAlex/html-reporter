@@ -18,7 +18,7 @@ export class Code extends Component<ICodeProps> {
 
         return <>
             <MetaInfo suiteUrl={suiteUrl} metaInfo={metaInfo} />
-            {code && <SyntaxHighlighter style={syntaxStyle} language='javascript'>{code}</SyntaxHighlighter>}
+            {code && <SyntaxHighlighter style={syntaxStyle} language='javascript'>{code.normalize()}</SyntaxHighlighter>}
         </>;
     }
 }
