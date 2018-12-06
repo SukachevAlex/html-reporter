@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {retrySuite} from '../../../modules/actions';
 import { Icon } from 'semantic-ui-react';
-// import { Icon } from 'semantic-ui-react';
 const CopyToClipboard = require('react-copy-to-clipboard');
 
 interface ISectionTitleProp extends React.Props<any>{
