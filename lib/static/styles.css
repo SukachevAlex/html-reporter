@@ -399,6 +399,13 @@ a:active {
 .tab-switcher__button_active {
     background: #ffeba0;
 }
+/* retry-switcher semantic active color */
+.ui.pagination.menu .active.item {
+    background-color:#D9E778
+}
+.ui.pagination.menu .item {
+    outline: none;
+}
 
 .toggle-open {
     margin: 5px 5px 5px 0;
