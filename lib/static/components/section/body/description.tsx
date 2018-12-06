@@ -11,9 +11,7 @@ export default class Description extends Component<IDescriptionChildProps> {
         const mdContent = <ReactMarkdown source={this.props.content}/>;
 
         return (
-            <>
-                <ToggleOpen title='Description' content={mdContent}/>
-            </>
+            <><ToggleOpen title='Description' content={mdContent}/></>
         );
     }
 }

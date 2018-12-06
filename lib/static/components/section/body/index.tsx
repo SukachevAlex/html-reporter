@@ -173,11 +173,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
         }
 
         return <Segment className='section__body'>
-            <div className='image-box'>
-                {this._addRetryButton()}
-                <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
-                <Tab menu={{secondary: true}} panes={tabs} />
-            </div>
+            {this._addRetryButton()}
+            <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
+            <Tab menu={{secondary: true}} panes={tabs} />
         </Segment>;
     }
 }
