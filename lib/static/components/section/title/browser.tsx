@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { cn, classnames } from '@bem-react/classname';
 
-const cnSect = cn('Section')
+const cnSect = cn('Section');
 const cnButton = cn('button');
 
 interface ISectionBrowserTitleChildProps extends React.Props<any>{

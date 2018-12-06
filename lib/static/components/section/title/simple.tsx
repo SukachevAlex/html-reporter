@@ -9,7 +9,7 @@ import {classnames} from '@bem-react/classname';
 const CopyToClipboard = require('react-copy-to-clipboard');
 
 const cnSect = cn('Section');
-const cnButton = cn('button')
+const cnButton = cn('button');
 
 interface ISectionTitleProp extends React.Props<any>{
     name: string;
