@@ -9,11 +9,7 @@ import {classnames} from '@bem-react/classname';
 const CopyToClipboard = require('react-copy-to-clipboard');
 
 const cnSect = cn('Section');
-<<<<<<< HEAD
-const cnButton = cn('button');
-=======
 const cnButton = cn('button')
->>>>>>> refactor: migration to bem-react-classname
 
 interface ISectionTitleProp extends React.Props<any>{
     name: string;
