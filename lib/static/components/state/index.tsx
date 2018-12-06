@@ -1,6 +1,6 @@
 'use strict';
 
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import StateError from './state-error';
@@ -73,12 +73,11 @@ class State extends Component<IState> {
         );
 
         return (
-            <Fragment>
-                <hr/>
+            <>
                 {this._getStateTitle(stateName, status)}
                 {this._getAcceptButton()}
                 <div className={className}>{elem}</div>
-            </Fragment>
+            </>
         );
     }
 }

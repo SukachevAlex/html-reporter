@@ -1,5 +1,3 @@
-'use strict';
-
 import React, {Component, ComponentState} from 'react';
 import {cn} from '@bem-react/classname';
 

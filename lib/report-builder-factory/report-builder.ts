@@ -130,13 +130,12 @@ module.exports = class ReportBuilder {
         const metaInfo = _.merge(meta, {
             url: suite.fullUrl,
             file: suite.file,
-            sessionId,
-            code: suite.body
+            sessionId
         });
 
         return Object.assign({
             suiteUrl, name: browserId, metaInfo, description, imagesInfo,
-            screenshot: Boolean(screenshot), multipleTabs
+            screenshot: Boolean(screenshot), multipleTabs, code: suite.body
         }, props);
     }
 

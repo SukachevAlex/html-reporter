@@ -4,13 +4,14 @@ import _ from 'lodash';
 import React, {Component, ComponentState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import SwitcherStyle from '../switcher-style';
-import SwitcherRetry from '../switcher-retry';
 import ControlButton from '../../controls/button';
 import State from '../../state/index';
-import MetaInfo from './meta-info';
 import Description from './description';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
+import { Segment, Tab } from 'semantic-ui-react';
+import SwitcherRetry from '../switcher-retry';
+import { Code } from './states/code';
+import { Scripts } from './states/scripts';
 
 const actions = require('../../../modules/actions');
 
@@ -71,16 +72,12 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const {gui, running} = this.props;
 
         return gui
-            ? (
-                <div className='controls__item'>
-                    <ControlButton
-                        label='↻ Retry'
-                        isSuiteControl={true}
-                        isDisabled={running}
-                        handler={this.onTestRetry}
-                    />
-                </div>
-            )
+            ? <ControlButton
+                label='↻ Retry'
+                isSuiteControl={true}
+                isDisabled={running}
+                handler={this.onTestRetry}
+            />
             : null;
     }
 
@@ -90,10 +87,14 @@ class Body extends Component<IBodyProps, IBodyStates> {
         return retries.concat(result)[this.state.retry];
     }
 
+    get hasImage() {
+        return !_.isEmpty(this._getActiveResult().imagesInfo);
+    }
+
     private _getTabs() {
         const activeResult = this._getActiveResult();
 
-        if (_.isEmpty(activeResult.imagesInfo)) {
+        if (!this.hasImage) {
             return isSuccessStatus(activeResult.status) ? null : this._drawTab(activeResult);
         }
 
@@ -111,13 +112,11 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
-        return (
-            <div key={key} className='tab'>
-                <div className='tab__item tab__item_active'>
-                    <State state={state} acceptHandler={this.onTestAccept} />
-                </div>
+        return <div key={key} className='tab'>
+            <div className='tab__item tab__item_active'>
+                <State state={state} acceptHandler={this.onTestAccept} />
             </div>
-        );
+        </div>;
     }
 
     private _shouldAddErrorTab({multipleTabs, status, screenshot}: {multipleTabs: boolean, status: string, screenshot: boolean}) {
@@ -125,26 +124,60 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     render() {
-        const {retries} = this.props;
         const activeResult = this._getActiveResult();
-        const {metaInfo, suiteUrl, description} = activeResult;
+        const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
 
-        return (
-            <div className='section__body'>
-                <div className={`image-box cswitcher_color_${this.state.color}`}>
-                    <div className='controls'>
-                        <div className='controls__item'>
-                            <SwitcherStyle onChange={this.onSwitcherStyleChange}/>
-                            <SwitcherRetry onChange={this.onSwitcherRetryChange} retries={retries}/>
-                        </div>
-                        {this._addRetryButton()}
-                    </div>
-                    <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl}/>
+        const {retries} = this.props;
+
+        const tabs = [];
+
+        if (this.hasImage) {
+            tabs.push({
+                menuItem: {
+                    key: 'image',
+                    icon: 'file image',
+                    content: 'Image'
+                },
+                render: () => <Tab.Pane attached={false}>
                     {description && <Description content={description}/>}
                     {this._getTabs()}
-                </div>
+                </Tab.Pane>
+            });
+        }
+
+        if (code || metaInfo) {
+            tabs.push({
+                menuItem: {
+                    key: 'code',
+                    icon: 'code',
+                    content: 'Code'
+                },
+                render: () => <Tab.Pane attached={false}>
+                    <Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} />
+                </Tab.Pane>
+            });
+        }
+
+        if (scripts) {
+            tabs.push({
+                menuItem: {
+                    key: 'scripts',
+                    icon: 'tasks',
+                    content: 'Tasks',
+                },
+                render: () => <Tab.Pane attached={false}>
+                    <Scripts/>
+                </Tab.Pane>
+            });
+        }
+
+        return <Segment className='section__body'>
+            <div className='image-box'>
+                {this._addRetryButton()}
+                <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
+                <Tab menu={{secondary: true}} panes={tabs} />
             </div>
-        );
+        </Segment>;
     }
 }
 

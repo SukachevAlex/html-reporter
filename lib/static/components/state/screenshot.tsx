@@ -9,8 +9,8 @@ interface IScreenshot{
     imagePath: string;
     lazyLoadOffset?: number;
 }
-class Screenshot extends Component<IScreenshot> {
 
+class Screenshot extends Component<IScreenshot> {
     static defaultProps = {
         noCache: false
     };
@@ -23,7 +23,7 @@ class Screenshot extends Component<IScreenshot> {
             : encodeUri(imagePath);
 
         const elem = <img src={url} className='image-box__screenshot' />;
-        return lazyLoadOffset ? (<LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad>) : elem;
+        return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }
 }

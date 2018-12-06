@@ -1,12 +1,9 @@
 import url from 'url';
 import React, {Component, Fragment} from 'react';
-import ToggleOpen from './toggle-open';
+import ToggleOpen from '../toggle-open';
 import _ from 'lodash';
 
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import {agate as syntaxStyle} from 'react-syntax-highlighter/styles/hljs';
-
-interface IMetaInfo {
+export interface IMetaInfo {
     file: string;
     sessionId: string;
     url: any;
@@ -28,17 +25,13 @@ function isUrl(str: any): boolean{
 
 const metaToElements = (metaInfo: IMetaInfo) => {
     return _.map(metaInfo, (value, key) => {
-        const element = isUrl(value)
-            ? mkLinkToUrl(value)
-            : key === 'code'
-                ? <SyntaxHighlighter style={syntaxStyle} language='javascript'>{value}</SyntaxHighlighter>
-                : value;
+        const element = isUrl(value) ? mkLinkToUrl(value) : value;
 
         return <div key={key} className='toggle-open__item'><span className='toggle-open__item-key'>{key}</span>: {element}</div>;
     });
 };
 
-interface IMetaInfoChildProps extends React.Props<any> {
+export interface IMetaInfoChildProps extends React.Props<any> {
     metaInfo: IMetaInfo;
     suiteUrl: string;
 }
