@@ -1,5 +1,7 @@
 import React, {Component, ComponentState} from 'react';
 import { Pagination } from 'semantic-ui-react';
+import { cn } from '@bem-react/classname';
+const cnPagination = cn('Pswitcher');
 
 interface ISwitcherRetryProps extends React.Props<any>{
     retries?: any[];
@@ -30,13 +32,15 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
         }
 
         return (
-            <Pagination
-                defaultActivePage={retries.length}
-                totalPages={retries.length}
-                firstItem={null}
-                lastItem={null}
-                onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)}
-            />
+            <div className={cnPagination()} >
+                <Pagination
+                    defaultActivePage={retries.length}
+                    totalPages={retries.length}
+                    firstItem={null}
+                    lastItem={null}
+                    onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)}
+                />
+            </div>
         );
     }
 

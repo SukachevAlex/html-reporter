@@ -376,9 +376,8 @@ a:active {
     border-color: #555;
 }
 
-.tab-switcher, .cswitcher {
+.Pswitcher, .cswitcher {
     display: inline-block;
-    vertical-align: top;
     padding: 5px;
 }
 
@@ -391,14 +390,13 @@ a:active {
     padding-right: 4px;
 }
 
-.tab-switcher:before {
+.Pswitcher:before{
     content: 'Attempts:';
     padding-right: 4px;
+    margin-right: 7px;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
-.tab-switcher__button_active {
-    background: #ffeba0;
-}
 /* retry-switcher semantic active color */
 .ui.pagination.menu .active.item {
     background-color:#D9E778
