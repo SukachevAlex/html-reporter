@@ -28,7 +28,7 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
 
         const body = this.state.collapsed
             ? null
-            : <Body result={result} suite={this.props.suite} retries={retries}/>;
+            : <Body result={result} suite={this.props.suite} retries={retries} browserName={name}/>;
 
         const section = this.state.skipped
             ? <BrowserSkippedTitle result={result}/>
