@@ -161,10 +161,12 @@
 }
 
 .Browser-Name {
+    display: inline-block;
+    min-width: 140px;
+    margin-right: 16px;
     font-size: 13px;
     line-height: 26px;
     font-weight: 600;
-    display: inline-block;
 }
 
 .Browser-Name::before {
@@ -337,6 +339,11 @@
 .state-title_fail,
 .state-title_error {
     color: #c00;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
 }
 
 .cswitcher__item, .tab-switcher__button {
