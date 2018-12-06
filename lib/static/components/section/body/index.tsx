@@ -4,13 +4,14 @@ import _ from 'lodash';
 import React, {Component, ComponentState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-import SwitcherStyle from '../switcher-style';
+// import SwitcherStyle from '../switcher-style';
 import SwitcherRetry from '../switcher-retry';
 import ControlButton from '../../controls/button';
 import State from '../../state/index';
 import MetaInfo from './meta-info';
 import Description from './description';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
+import {cn} from '@bem-react/classname';
 
 const actions = require('../../../modules/actions');
 
@@ -21,6 +22,7 @@ interface IBodyProps extends React.Props<any>{
     gui?: boolean;
     running?: boolean;
     actions?: any;
+    browserName?: string;
 }
 
 interface IBodyStates extends ComponentState{
@@ -41,15 +43,15 @@ class Body extends Component<IBodyProps, IBodyStates> {
             color: 1,
             retry: this.props.retries.length
         };
-        this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
+        // this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
     }
 
-    onSwitcherStyleChange = (index: number) => {
-        this.setState({color: index});
-    }
+    // onSwitcherStyleChange = (index: number) => {
+    //     this.setState({color: index});
+    // }
 
     onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
@@ -125,7 +127,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     render() {
-        const {retries} = this.props;
+        const {retries, browserName} = this.props;
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, description} = activeResult;
 
@@ -133,8 +135,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
             <div className='section__body'>
                 <div className={`image-box cswitcher_color_${this.state.color}`}>
                     <div className='controls'>
+                        <div className={cn('Browser-Name')()}>{browserName}</div>
                         <div className='controls__item'>
-                            <SwitcherStyle onChange={this.onSwitcherStyleChange}/>
+                            {/* <SwitcherStyle onChange={this.onSwitcherStyleChange}/> */}
                             <SwitcherRetry onChange={this.onSwitcherRetryChange} retries={retries}/>
                         </div>
                         {this._addRetryButton()}
