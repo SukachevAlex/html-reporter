@@ -12,6 +12,7 @@ import { Segment, Tab } from 'semantic-ui-react';
 import SwitcherRetry from '../switcher-retry';
 import { Code } from './states/code';
 import { Scripts } from './states/scripts';
+import { cn } from '@bem-react/classname';
 
 const actions = require('../../../modules/actions');
 
@@ -128,7 +129,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
 
-        const {retries} = this.props;
+        const {retries, browserName, result: {status}} = this.props;
 
         const tabs = [];
 
@@ -173,6 +174,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         }
 
         return <Segment className='section__body'>
+            <div className={cn('Browser-Name')({status})}>{browserName}</div>
             {this._addRetryButton()}
             <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
             <Tab menu={{secondary: true}} panes={tabs} />
