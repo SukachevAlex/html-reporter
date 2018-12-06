@@ -31,6 +31,25 @@ interface IBodyStates extends ComponentState{
     retry: number;
 }
 
+interface IMenuItem {
+    key: string;
+    icon?: string;
+    content: string;
+}
+
+type RenderType = () => JSX.Element;
+
+interface ITab {
+    menuItem?: IMenuItem;
+    render?: RenderType;
+}
+
+export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: any): ITab | null {
+    return toExpect
+        ? {menuItem, render}
+        : null;
+}
+
 class Body extends Component<IBodyProps, IBodyStates> {
 
     static defaultProps: Partial<IBodyProps> = {
@@ -131,47 +150,17 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         const {retries, browserName, result: {status}} = this.props;
 
-        const tabs = [];
+        const Pane = (props: any) => <Tab.Pane attached={false}>{props.children}</Tab.Pane>;
 
-        if (this.hasImage) {
-            tabs.push({
-                menuItem: {
-                    key: 'image',
-                    icon: 'file image',
-                    content: 'Image'
-                },
-                render: () => <Tab.Pane attached={false}>
-                    {description && <Description content={description}/>}
-                    {this._getTabs()}
-                </Tab.Pane>
-            });
-        }
+        const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
+        const CodePane = () => <Pane><Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} /></Pane>;
+        const ScriptsPane = () => <Pane><Scripts /></Pane>;
 
-        if (code || metaInfo) {
-            tabs.push({
-                menuItem: {
-                    key: 'code',
-                    icon: 'code',
-                    content: 'Code'
-                },
-                render: () => <Tab.Pane attached={false}>
-                    <Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} />
-                </Tab.Pane>
-            });
-        }
-
-        if (scripts) {
-            tabs.push({
-                menuItem: {
-                    key: 'scripts',
-                    icon: 'tasks',
-                    content: 'Tasks',
-                },
-                render: () => <Tab.Pane attached={false}>
-                    <Scripts/>
-                </Tab.Pane>
-            });
-        }
+        const tabs: ITab[] = [
+            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
+            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code || metaInfo),
+            tabCreate({key: 'scripts', icon: 'tasks', content: 'Tasks'}, ScriptsPane, scripts)
+        ].filter((item: ITab) => item !== null) as ITab[];
 
         return <Segment className='section__body'>
             <div className={cn('Browser-Name')({status})}>{browserName}</div>
