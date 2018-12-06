@@ -406,6 +406,9 @@ a:active {
 .ui.pagination.menu .item {
     outline: none;
 }
+.ui.menu {
+    font-size: 0.625rem;
+}
 
 .toggle-open {
     margin: 5px 5px 5px 0;
