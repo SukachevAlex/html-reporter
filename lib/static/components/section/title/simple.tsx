@@ -3,6 +3,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {retrySuite} from '../../../modules/actions';
+import { Icon } from 'semantic-ui-react';
+// import { Icon } from 'semantic-ui-react';
 const CopyToClipboard = require('react-copy-to-clipboard');
 
 interface ISectionTitleProp extends React.Props<any>{
@@ -46,11 +48,13 @@ class SectionTitle extends Component<ISectionTitleProp> {
    private _drawCopyButton() {
         return (
             <CopyToClipboard
+                title='Copy to clipboard'
                 className='button section__icon section__icon_copy-to-clipboard'
-                text={this.props.suite.suitePath.join(' ')}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}
+                text={this.props.suite.suitePath.join('/')}
+                
             >
-                <button></button>
+                <Icon name='copy' onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}></Icon>
+
             </CopyToClipboard>
         );
     }
