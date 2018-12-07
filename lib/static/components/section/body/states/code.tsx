@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import MetaInfo from './meta-info';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {agate as syntaxStyle} from 'react-syntax-highlighter/styles/hljs';
+// @ts-ignore
+import {agate as syntaxStyle} from 'react-syntax-highlighter/dist/styles/hljs';
 
 import {IMetaInfo} from 'typings/test-adapter';
 
