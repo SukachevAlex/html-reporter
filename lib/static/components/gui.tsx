@@ -4,6 +4,7 @@ import {initial} from '../modules/actions';
 import ControlButtons from './controls/gui-controls';
 import SkippedList from './skipped-list';
 import Suites from './suites';
+import Summary from './summary/index';
 
 interface IGuiProps extends React.Props<any> {
     gui?: any;
@@ -17,6 +18,7 @@ class Gui extends Component<IGuiProps> {
 
     render() {
         return <>
+            <Summary/>
             <ControlButtons/>
             <SkippedList/>
             <Suites/>
