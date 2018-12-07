@@ -3,6 +3,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {retrySuite} from '../../../modules/actions';
+import { Icon } from 'semantic-ui-react';
+import { cn, classnames } from '@bem-react/classname';
+
+const cnButton = cn('button');
+const cnSection = cn('Section');
+
 const CopyToClipboard = require('react-copy-to-clipboard');
 
 interface ISectionTitleProp extends React.Props<any>{
@@ -35,7 +41,7 @@ class SectionTitle extends Component<ISectionTitleProp> {
         const {name, handler, gui} = this.props;
 
         return (
-            <div className='section__title' onClick={handler}>
+            <div className={cnSection('Title')} onClick={handler}>
                 {name}
                 {this._drawCopyButton()}
                 {gui && this._drawRetryButton()}
@@ -46,11 +52,11 @@ class SectionTitle extends Component<ISectionTitleProp> {
    private _drawCopyButton() {
         return (
             <CopyToClipboard
-                className='button section__icon section__icon_copy-to-clipboard'
-                text={this.props.suite.suitePath.join(' ')}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}
+                title='Copy to clipboard'
+                className={classnames(cnButton(), cnSection('Icon'))}
+                text={this.props.suite.suitePath.join('/')}
             >
-                <button></button>
+                <Icon name='copy' onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}></Icon>
             </CopyToClipboard>
         );
     }
@@ -58,7 +64,7 @@ class SectionTitle extends Component<ISectionTitleProp> {
     private _drawRetryButton() {
         return (
             <button
-                className='button section__icon section__icon_retry'
+                className={classnames(cnButton(), cnSection('Icon', {retry: true}))}
                 title='retry suite'
                 onClick={this.onSuiteRetry}>
             </button>
