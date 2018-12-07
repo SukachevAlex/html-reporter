@@ -443,6 +443,9 @@ a:active {
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
+.ui.vertical.menu {
+    width: 100%;
+}
 
 /* retry-switcher semantic active color */
 .ui.pagination.menu .active.item {
@@ -451,7 +454,7 @@ a:active {
 .ui.pagination.menu .item {
     outline: none;
 }
-.ui.menu {
+.ui.pagination.menu {
     font-size: 0.625rem;
 }
 
