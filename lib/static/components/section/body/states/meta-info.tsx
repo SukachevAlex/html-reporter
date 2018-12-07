@@ -1,5 +1,5 @@
 import url from 'url';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import _ from 'lodash';
 import ToggleOpen from '../toggle-open';
 
@@ -38,8 +38,10 @@ export default class MetaInfo extends Component<IMetaInfoChildProps> {
         const formattedMetaInfo = {...metaInfo, url: mkLinkToUrl(suiteUrl, metaInfo.url)};
         const metaElements = metaToElements(formattedMetaInfo);
 
-        return <>
-            <ToggleOpen title='Meta-info' content={metaElements}/>
-        </>;
+        return (
+            <Fragment>
+                <ToggleOpen title='Meta-info' content={metaElements}/>
+            </Fragment>
+        );
     }
 }

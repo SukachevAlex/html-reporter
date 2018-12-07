@@ -252,7 +252,8 @@
     color: #6a737d;
 }
 
-.section_collapsed .section__body {
+.section_collapsed .section__body,
+.section_collapsed .Section-Body {
     display: none;
 }
 
@@ -397,21 +398,21 @@ a:active {
     text-decoration: underline;
 }
 
-.tab__item {
+.Tab-Item {
     display: none;
 }
 
-.tab__item_active {
+.Tab-Item_active {
     display: block;
 }
 
-.tab__item .button_type_suite-controls {
+.Tab-Item .button_type_suite-controls {
     position: sticky;
     top: 0;
     border-color: #bbb;
 }
 
-.tab__item .button_type_suite-controls:hover {
+.Tab-Item .button_type_suite-controls:hover {
     border-color: #555;
 }
 

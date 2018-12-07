@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ToggleOpen from './toggle-open';
 const ReactMarkdown = require('react-markdown');
 
@@ -11,7 +11,9 @@ export default class Description extends Component<IDescriptionChildProps> {
         const mdContent = <ReactMarkdown source={this.props.content}/>;
 
         return (
-            <><ToggleOpen title='Description' content={mdContent}/></>
+            <Fragment>
+                <ToggleOpen title='Description' content={mdContent}/>
+            </Fragment>
         );
     }
 }

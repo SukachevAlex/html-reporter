@@ -1,5 +1,3 @@
-'use strict';
-
 import _ from 'lodash';
 import React, {Component, ComponentState} from 'react';
 import {connect} from 'react-redux';
@@ -49,6 +47,11 @@ export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: an
         ? {menuItem, render}
         : null;
 }
+
+// ClassNames
+const cnTab = cn('Tab');
+const cnBrowserName = cn('Browser-Name');
+const cnSection = cn('Section');
 
 class Body extends Component<IBodyProps, IBodyStates> {
 
@@ -133,11 +136,13 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
-        return <div key={key} className='tab'>
-            <div className='tab__item tab__item_active'>
-                <State state={state} acceptHandler={this.onTestAccept} />
+        return (
+            <div key={key} className={cnTab()}>
+                <div className={cnTab('Item', { active: true })}>
+                    <State state={state} acceptHandler={this.onTestAccept} />
+                </div>
             </div>
-        </div>;
+        );
     }
 
     private _shouldAddErrorTab({multipleTabs, status, screenshot}: {multipleTabs: boolean, status: string, screenshot: boolean}) {
@@ -162,12 +167,14 @@ class Body extends Component<IBodyProps, IBodyStates> {
             tabCreate({key: 'scripts', icon: 'tasks', content: 'Tasks'}, ScriptsPane, scripts)
         ].filter((item: ITab) => item !== null) as ITab[];
 
-        return <Segment className='section__body'>
-            <div className={cn('Browser-Name')({status})}>{browserName}</div>
-            {this._addRetryButton()}
-            <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
-            <Tab menu={{secondary: true}} panes={tabs} />
-        </Segment>;
+        return (
+            <Segment className={cnSection('Body')}>
+                <div className={cnBrowserName({status})}>{browserName}</div>
+                {this._addRetryButton()}
+                <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
+                <Tab menu={{secondary: true}} panes={tabs} />
+            </Segment>
+        );
     }
 }
 
