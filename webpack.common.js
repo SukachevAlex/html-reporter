@@ -63,11 +63,12 @@ module.exports = {
             title: 'Gui report',
             filename: 'gui.html',
             template: 'template.html',
-            chunks: ['gui']
+            chunks: ['gui'],
+            assets: ['semantic.css']
         }),
         new HtmlWebpackIncludeAssetsPlugin({
             files: ['index.html'],
-            assets: ['data.js'],
+            assets: ['data.js', 'semantic.css'],
             append: false
         })
     ]

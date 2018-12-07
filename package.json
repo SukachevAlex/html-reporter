@@ -34,7 +34,6 @@
   "license": "MIT",
   "dependencies": {
     "@bem-react/classname": "1.1.1",
-    "@bem-react/core": "1.2.0",
     "@types/classnames": "2.2.6",
     "@types/enzyme-adapter-react-16": "1.0.3",
     "@types/express": "4.16.0",

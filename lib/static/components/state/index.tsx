@@ -74,7 +74,6 @@ class State extends Component<IState> {
 
         return (
             <Fragment>
-                <hr/>
                 {this._getStateTitle(stateName, status)}
                 {this._getAcceptButton()}
                 <div className={className}>{elem}</div>

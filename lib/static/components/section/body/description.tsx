@@ -1,6 +1,4 @@
-'use strict';
-
-import React, {Fragment, Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ToggleOpen from './toggle-open';
 const ReactMarkdown = require('react-markdown');
 

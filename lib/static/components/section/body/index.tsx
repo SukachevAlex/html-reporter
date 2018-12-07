@@ -1,17 +1,16 @@
-'use strict';
-
 import _ from 'lodash';
 import React, {Component, ComponentState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
-// import SwitcherStyle from '../switcher-style';
-import SwitcherRetry from '../switcher-retry';
 import ControlButton from '../../controls/button';
 import State from '../../state/index';
-import MetaInfo from './meta-info';
 import Description from './description';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
-import {cn} from '@bem-react/classname';
+import { Segment, Tab } from 'semantic-ui-react';
+import SwitcherRetry from '../switcher-retry';
+import { Code } from './states/code';
+import { Scripts } from './states/scripts';
+import { cn } from '@bem-react/classname';
 
 const actions = require('../../../modules/actions');
 
@@ -29,6 +28,30 @@ interface IBodyStates extends ComponentState{
     color: number;
     retry: number;
 }
+
+interface IMenuItem {
+    key: string;
+    icon?: string;
+    content: string;
+}
+
+type RenderType = () => JSX.Element;
+
+interface ITab {
+    menuItem?: IMenuItem;
+    render?: RenderType;
+}
+
+export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: any): ITab | null {
+    return toExpect
+        ? {menuItem, render}
+        : null;
+}
+
+// ClassNames
+const cnTab = cn('Tab');
+const cnBrowserName = cn('Browser-Name');
+const cnSection = cn('Section');
 
 class Body extends Component<IBodyProps, IBodyStates> {
 
@@ -73,16 +96,12 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const {gui, running} = this.props;
 
         return gui
-            ? (
-                <div className='controls__item'>
-                    <ControlButton
-                        label='↻ Retry'
-                        isSuiteControl={true}
-                        isDisabled={running}
-                        handler={this.onTestRetry}
-                    />
-                </div>
-            )
+            ? <ControlButton
+                label='↻ Retry'
+                isSuiteControl={true}
+                isDisabled={running}
+                handler={this.onTestRetry}
+            />
             : null;
     }
 
@@ -92,10 +111,14 @@ class Body extends Component<IBodyProps, IBodyStates> {
         return retries.concat(result)[this.state.retry];
     }
 
+    get hasImage() {
+        return !_.isEmpty(this._getActiveResult().imagesInfo);
+    }
+
     private _getTabs() {
         const activeResult = this._getActiveResult();
 
-        if (_.isEmpty(activeResult.imagesInfo)) {
+        if (!this.hasImage) {
             return isSuccessStatus(activeResult.status) ? null : this._drawTab(activeResult);
         }
 
@@ -114,8 +137,8 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
     private _drawTab(state: any, key: string = '') {
         return (
-            <div key={key} className='tab'>
-                <div className='tab__item tab__item_active'>
+            <div key={key} className={cnTab()}>
+                <div className={cnTab('Item', { active: true })}>
                     <State state={state} acceptHandler={this.onTestAccept} />
                 </div>
             </div>
@@ -127,26 +150,30 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     render() {
-        const {retries, browserName} = this.props;
         const activeResult = this._getActiveResult();
-        const {metaInfo, suiteUrl, description} = activeResult;
+        const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
+
+        const {retries, browserName, result: {status}} = this.props;
+
+        const Pane = (props: any) => <Tab.Pane attached={false}>{props.children}</Tab.Pane>;
+
+        const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
+        const CodePane = () => <Pane><Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} /></Pane>;
+        const ScriptsPane = () => <Pane><Scripts /></Pane>;
+
+        const tabs: ITab[] = [
+            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
+            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code || metaInfo),
+            tabCreate({key: 'scripts', icon: 'tasks', content: 'Tasks'}, ScriptsPane, scripts)
+        ].filter((item: ITab) => item !== null) as ITab[];
 
         return (
-            <div className='section__body'>
-                <div className={`image-box cswitcher_color_${this.state.color}`}>
-                    <div className='controls'>
-                        <div className={cn('Browser-Name')()}>{browserName}</div>
-                        <div className='controls__item'>
-                            {/* <SwitcherStyle onChange={this.onSwitcherStyleChange}/> */}
-                            <SwitcherRetry onChange={this.onSwitcherRetryChange} retries={retries}/>
-                        </div>
-                        {this._addRetryButton()}
-                    </div>
-                    <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl}/>
-                    {description && <Description content={description}/>}
-                    {this._getTabs()}
-                </div>
-            </div>
+            <Segment className={cnSection('Body')}>
+                <div className={cnBrowserName({status})}>{browserName}</div>
+                {this._addRetryButton()}
+                <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
+                <Tab menu={{secondary: true}} panes={tabs} />
+            </Segment>
         );
     }
 }
