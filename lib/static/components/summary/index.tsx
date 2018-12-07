@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SummaryKey from './item';
+import { Statistic } from 'semantic-ui-react';
 
 interface ISummaryProps {
     stats: {
@@ -15,19 +16,31 @@ interface ISummaryProps {
 class Summary extends Component<ISummaryProps> {
 
     render() {
-        const {total, passed, failed, skipped, retries} = this.props.stats;
+        const { total, passed, failed, skipped, retries } = this.props.stats;
 
         return <>
             <h1>Html-reporter</h1>
             <dl className='SummaryWrapper'>
-                <SummaryKey state='total' label='Total Tests' value={total}/>
-                <SummaryKey state='passed' label='Passed' value={passed}/>
-                <SummaryKey state='failed' label='Failed' value={failed} isFailed={failed > 0}/>
-                <SummaryKey state='skipped' label='Skipped' value={skipped}/>
-                <SummaryKey state='retries' label='Retries' value={retries}/>
+                <Statistic.Group widths='five' size={'mini'}>
+                    <Statistic color='black'>
+                        <SummaryKey state='total' label='Total Tests' value={total} />
+                    </Statistic>
+                    <Statistic color='olive'>
+                        <SummaryKey state='passed' label='Passed' value={passed} />
+                    </Statistic>
+                    <Statistic color='red'>
+                        <SummaryKey state='failed' label='Failed' value={failed} isFailed={failed > 0} />
+                    </Statistic>
+                    <Statistic color='grey'>
+                        <SummaryKey state='skipped' label='Skipped' value={skipped} />
+                    </Statistic>
+                    <Statistic color='orange'>
+                        <SummaryKey state='retries' label='Retries' value={retries} />
+                    </Statistic>
+                </Statistic.Group>
             </dl>
         </>;
     }
 }
 
-export default connect<ISummaryProps>(({stats}: ISummaryProps) => ({stats}))(Summary);
+export default connect<ISummaryProps>(({ stats }: ISummaryProps) => ({ stats }))(Summary);
