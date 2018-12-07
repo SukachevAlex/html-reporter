@@ -22,8 +22,8 @@ const resolve = {
 module.exports = {
     context: staticPath,
     entry: {
-        report: ['./index.tsx', './styles.css'],
-        gui: ['./gui.tsx', './styles.css', './gui.css'],
+        report: ['./index.tsx', './styles.css', './semantic.css'],
+        gui: ['./gui.tsx', './styles.css', './gui.css', './semantic.css'],
     },
     resolve,
     output: {
