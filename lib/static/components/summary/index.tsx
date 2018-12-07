@@ -19,24 +19,14 @@ class Summary extends Component<ISummaryProps> {
         const { total, passed, failed, skipped, retries } = this.props.stats;
 
         return <>
-            <h1>Html-reporter</h1>
+            <img src='logo.png'/>
             <dl className='SummaryWrapper'>
                 <Statistic.Group widths='five' size={'mini'}>
-                    <Statistic color='black'>
-                        <SummaryKey state='total' label='Total Tests' value={total} />
-                    </Statistic>
-                    <Statistic color='olive'>
-                        <SummaryKey state='passed' label='Passed' value={passed} />
-                    </Statistic>
-                    <Statistic color='red'>
-                        <SummaryKey state='failed' label='Failed' value={failed} isFailed={failed > 0} />
-                    </Statistic>
-                    <Statistic color='grey'>
-                        <SummaryKey state='skipped' label='Skipped' value={skipped} />
-                    </Statistic>
-                    <Statistic color='orange'>
-                        <SummaryKey state='retries' label='Retries' value={retries} />
-                    </Statistic>
+                        <SummaryKey color='black' state='total' label='Total Tests' value={total} />
+                        <SummaryKey color='olive' state='passed' label='Passed' value={passed} />
+                        <SummaryKey color='red' state='failed' label='Failed' value={failed} isFailed={failed > 0} />
+                        <SummaryKey color='grey' state='skipped' label='Skipped' value={skipped} />
+                        <SummaryKey color='red' state='retries' label='Retries' value={retries} />
                 </Statistic.Group>
             </dl>
         </>;
