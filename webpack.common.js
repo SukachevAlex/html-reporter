@@ -22,8 +22,8 @@ const resolve = {
 module.exports = {
     context: staticPath,
     entry: {
-        report: ['./index.tsx', './styles.css', './semantic.css'],
-        gui: ['./gui.tsx', './styles.css', './gui.css', './semantic.css'],
+        report: ['./index.tsx', './styles.css'],
+        gui: ['./gui.tsx', './styles.css', './gui.css'],
     },
     resolve,
     output: {
@@ -63,11 +63,12 @@ module.exports = {
             title: 'Gui report',
             filename: 'gui.html',
             template: 'template.html',
-            chunks: ['gui']
+            chunks: ['gui'],
+            assets: ['semantic.css']
         }),
         new HtmlWebpackIncludeAssetsPlugin({
             files: ['index.html'],
-            assets: ['data.js'],
+            assets: ['data.js', 'semantic.css'],
             append: false
         })
     ]
