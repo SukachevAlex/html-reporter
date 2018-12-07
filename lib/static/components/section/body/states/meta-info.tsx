@@ -2,11 +2,14 @@ import url from 'url';
 import React, {Component, Fragment} from 'react';
 import _ from 'lodash';
 import ToggleOpen from '../toggle-open';
+import {cn} from '@bem-react/classname';
 
 import {IMetaInfo} from 'typings/test-adapter';
 
+const cnSect = cn('Section');
+
 function mkLinkToUrl(url: string, text = url) {
-    return <a data-suite-view-link={url} className='section__icon_view-local' target='_blank' href={url}>{text}</a>;
+    return <a data-suite-view-link={url} className={cnSect('Icon', {'view-local': true})} target='_blank' href={url}>{text}</a>;
 }
 
 function isUrl(str: any): boolean{

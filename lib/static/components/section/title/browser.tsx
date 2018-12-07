@@ -3,6 +3,10 @@
 import url from 'url';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { cn, classnames } from '@bem-react/classname';
+
+const cnSect = cn('Section')
+const cnButton = cn('button');
 
 interface ISectionBrowserTitleChildProps extends React.Props<any>{
     name: string;
@@ -16,10 +20,10 @@ class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
         const {name, result, handler, parsedHost} = this.props;
 
         return (
-            <div className='section__title' onClick={handler}>
+            <div className={cnSect('Title')} onClick={handler}>
                 {name}
                 <a
-                    className='button section__icon section__icon_view-local'
+                    className={classnames(cnButton(), cnSect('Icon', {'view-local': true}))}
                     href={this._buildUrl(result.suiteUrl, parsedHost)}
                     onClick={(e) => {
                         return e.stopPropagation();
