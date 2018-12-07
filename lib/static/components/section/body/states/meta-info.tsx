@@ -6,10 +6,10 @@ import {cn} from '@bem-react/classname';
 
 import {IMetaInfo} from 'typings/test-adapter';
 
-const cnSect = cn('Section');
+const cnSection = cn('Section');
 
 function mkLinkToUrl(url: string, text = url) {
-    return <a data-suite-view-link={url} className={cnSect('Icon', {'view-local': true})} target='_blank' href={url}>{text}</a>;
+    return <a data-suite-view-link={url} className={cnSection('Icon', {'view-local': true})} target='_blank' href={url}>{text}</a>;
 }
 
 function isUrl(str: any): boolean{

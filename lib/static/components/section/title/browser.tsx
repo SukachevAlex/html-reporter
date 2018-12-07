@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { cn, classnames } from '@bem-react/classname';
 
-const cnSect = cn('Section');
+const cnSection = cn('Section');
 const cnButton = cn('button');
 
 interface ISectionBrowserTitleChildProps extends React.Props<any>{
@@ -20,10 +20,10 @@ class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
         const {name, result, handler, parsedHost} = this.props;
 
         return (
-            <div className={cnSect('Title')} onClick={handler}>
+            <div className={cnSection('Title')} onClick={handler}>
                 {name}
                 <a
-                    className={classnames(cnButton(), cnSect('Icon', {'view-local': true}))}
+                    className={classnames(cnButton(), cnSection('Icon', {'view-local': true}))}
                     href={this._buildUrl(result.suiteUrl, parsedHost)}
                     onClick={(e) => {
                         return e.stopPropagation();

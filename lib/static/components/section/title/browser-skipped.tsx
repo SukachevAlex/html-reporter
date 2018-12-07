@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import { cn } from '@bem-react/classname';
 
-const cnSect = cn('Section');
+const cnSection = cn('Section');
 const Parser = require('html-react-parser');
 
 interface ISectionBrowserTitleSkippedProp extends React.Props<any>{
@@ -18,7 +18,7 @@ class SectionBrowserTitleSkipped extends Component<ISectionBrowserTitleSkippedPr
         const {name, reason} = this.props.result;
 
         return (
-            <div className={cnSect('Title', {skipped: true})}>
+            <div className={cnSection('Title', {skipped: true})}>
                 [skipped] {name}
                 {reason && ', reason: '}
                 {reason && Parser(reason)}
