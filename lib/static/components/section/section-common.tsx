@@ -86,7 +86,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                     {merge(
                         children.map((child: IChild) => {
                             const key = uniqueId(`${suitePath}-${name}`);
-                            return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} />;
+                            return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} filter={filter} />;
                         }),
                         browsers.map((browser: IBrowser) => {
                             if ((filter && filter == 'all') || (filter && filter == browser.name)){
