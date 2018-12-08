@@ -19,7 +19,7 @@ class CommonControlButtons extends Component<IControlButtons> {
     }
 
     render() {
-        const { view, actions} = this.props;
+        const {view, actions} = this.props;
 
         return (
             <>
