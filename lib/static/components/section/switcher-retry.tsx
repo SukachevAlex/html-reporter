@@ -5,6 +5,7 @@ const cnPagination = cn('Pswitcher');
 
 interface ISwitcherRetryProps extends React.Props<any>{
     retries?: any[];
+    siblingRange?: number;
     onChange(index: number): void;
 }
 
@@ -15,7 +16,8 @@ interface ISwitcherRetryStates extends ComponentState{
 export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitcherRetryStates> {
 
     public static defaultProps: Partial<ISwitcherRetryProps> = {
-        retries: []
+        retries: [],
+        siblingRange: 3,
     };
 
     constructor(props: ISwitcherRetryProps, state: ISwitcherRetryStates) {
@@ -25,7 +27,7 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
     }
 
     render() {
-        const retries = this.props.retries;
+        const {retries, siblingRange} = this.props;
 
         if (!retries || retries.length === 0) {
             return null;
@@ -39,6 +41,7 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
                     firstItem={null}
                     lastItem={null}
                     onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)}
+                    siblingRange = {siblingRange}
                 />
             </div>
         );
