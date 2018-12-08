@@ -1,6 +1,5 @@
-'use strict';
+import React, {Component, Fragment} from 'react';
 
-import React, {Component} from 'react';
 const Parser = require('html-react-parser');
 
 interface ISectionBrowserTitleSkippedProp extends React.Props<any>{
@@ -15,11 +14,11 @@ class SectionBrowserTitleSkipped extends Component<ISectionBrowserTitleSkippedPr
         const {name, reason} = this.props.result;
 
         return (
-            <div className='section__title section__title_skipped'>
+            <Fragment>
                 [skipped] {name}
                 {reason && ', reason: '}
                 {reason && Parser(reason)}
-            </div>
+            </Fragment>
         );
     }
 }

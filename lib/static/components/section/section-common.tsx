@@ -1,12 +1,13 @@
-'use strict';
-
 import React from 'react';
 import {connect} from 'react-redux';
-import {uniqueId} from 'lodash';
+import {uniqueId, merge} from 'lodash';
 import {Base, IBaseProps} from './section-base';
 import SectionBrowser from './section-browser';
-import {allSkipped, hasFails, hasRetries} from '../../modules/utils';
+import {allSkipped, hasFails, hasRetries, getColorState} from '../../modules/utils';
 import Title from './title/simple';
+// import BrowserTitle from './title/browser';
+import { Accordion } from 'semantic-ui-react';
+import { cn } from '@bem-react/classname';
 
 interface IBrowser{
     name: string;
@@ -26,7 +27,12 @@ interface IChild{
 interface ISectionCommonProps extends IBaseProps{
     suiteId?: string;
     suite?: IChild;
+    titile?: string;
+    isRoot?: boolean;
+    actions?: any;
 }
+
+const cnSection = cn('Section');
 
 export class SectionCommon extends Base<ISectionCommonProps>{
     constructor(props: ISectionCommonProps) {
@@ -34,38 +40,71 @@ export class SectionCommon extends Base<ISectionCommonProps>{
     }
 
     render()  {
-        const {suite, expand} = this.props;
+        const {suite, expand, isRoot} = this.props;
 
-        if (!suite)
-            return null;
+        if (!suite) return null;
 
-        const {name, browsers = [], children = [], status} = suite;
+        const {name, suitePath, browsers = [], children = [], status} = suite;
 
-        if (this.state.collapsed) {
-            return (
-                <div className={this._resolveSectionStatus(status)}>
-                    <Title name={name} suite={suite} handler={this._toggleState}/>
-                </div>
-            );
-        }
+        const cnStatus = this._resolveSectionStatus(status);
+        const active = !this.state.collapsed;
 
-        const childrenTmpl = children.map((child: IChild) => {
-            const key = uniqueId(`${suite.suitePath}-${suite.name}`);
-            return <SectionCommon key={key} suite={child} expand={expand}/>;
-        });
-        const browserTmpl = browsers.map((browser: IBrowser) => {
-            return <SectionBrowser key={browser.name} browser={browser} suite={suite}/>;
-        });
+        const args = {
+            exclusive: false,
+            styled: true,
+            style: {
+                width: '100%',
+                marginTop: '5px'
+            },
+            className: cnStatus,
+        };
 
-        return (
-            <div className={this._resolveSectionStatus(status)}>
-                <Title name={name} suite={suite} handler={this._toggleState}/>
-                <div className='section__body section__body_guided'>
-                    {browserTmpl}
-                    {childrenTmpl}
-                </div>
-            </div>
+        const title = (
+            <Accordion.Title
+                onClick={this._toggleState}
+                active={active}
+                style={{
+                    color: getColorState(status),
+                }}
+                className={cnSection('Title')}
+            >
+                <Title name={name} suite={suite} />
+            </Accordion.Title>
         );
+
+        const content = (
+            <Accordion.Content
+                className={cnSection('Body')}
+                active={active}
+                style={{
+                    paddingRight: '0',
+                    paddingLeft: '10px'
+                }}
+            >
+                <Accordion {...args}>
+                    {merge(
+                        children.map((child: IChild) => {
+                            const key = uniqueId(`${suitePath}-${name}`);
+                            return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} />;
+                        }),
+                        browsers.map((browser: IBrowser) => {
+                            return <SectionBrowser key={browser.name} browser={browser} expand={expand} />;
+                        })
+                    )}
+                </Accordion>
+            </Accordion.Content>
+        );
+
+        return isRoot
+            ? <Accordion {...args}>
+                {title}
+                {content}
+            </Accordion>
+            : <>
+                {title}
+                {content}
+            </>;
+
     }
 
     protected _getStateFromProps() {
@@ -85,7 +124,9 @@ export default connect<{}, {}, ISectionCommonProps>(
         return {
             expand,
             viewMode,
-            suite: suites[ownProps.suiteId]
+            suite: suites[ownProps.suiteId],
+            title: ownProps.suiteId,
+            isRoot: true
         };
     }
 )(SectionCommon);

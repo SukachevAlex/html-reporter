@@ -1,12 +1,12 @@
 'use strict';
 
-import React, {Fragment} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Base, IBaseProps} from './section-base';
-import SectionBrowserTitle from './title/browser';
 import BrowserSkippedTitle from './title/browser-skipped';
 import Body from './body';
 import {isFailStatus, isErroredStatus, isSkippedStatus} from '../../../common-utils';
+import { Accordion } from 'semantic-ui-react';
 
 interface ISectionBrowserProps extends IBaseProps {
     browser: {
@@ -26,23 +26,14 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
     render() {
         const {name, result, retries, result: {status}} = this.props.browser;
 
-        const body = this.state.collapsed
-            ? null
-            : <Body result={result} suite={this.props.suite} retries={retries} browserName={name}/>;
-
-        const section = this.state.skipped
-            ? <BrowserSkippedTitle result={result}/>
-            : (
-                <Fragment>
-                    <SectionBrowserTitle name={name} result={result} handler={this._toggleState}/>
-                    {body}
-                </Fragment>
-            );
-
         return (
-            <div className={this._resolveSectionStatus(status)}>
-                {section}
-            </div>
+            <Accordion.Content className={this._resolveSectionStatus(status)}>
+                {
+                    this.state.skipped
+                        ? <BrowserSkippedTitle result={result}/>
+                        : <Body result={result} suite={this.props.suite} retries={retries} browserName={name}/>
+                }
+            </Accordion.Content>
         );
     }
 

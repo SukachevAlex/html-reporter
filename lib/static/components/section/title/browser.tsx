@@ -1,22 +1,19 @@
-'use strict';
-
 import url from 'url';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 
 interface ISectionBrowserTitleChildProps extends React.Props<any>{
     name: string;
     result: any;
-    handler: () => any;
     parsedHost: string;
 }
 
 class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
     render() {
-        const {name, result, handler, parsedHost} = this.props;
+        const {name, result, parsedHost} = this.props;
 
         return (
-            <div className='section__title' onClick={handler}>
+            <Fragment>
                 {name}
                 <a
                     className='button section__icon section__icon_view-local'
@@ -25,9 +22,9 @@ class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
                         return e.stopPropagation();
                     }}
                     title='view in browser'
-                    target='_blank'>
-                </a>
-            </div>
+                    target='_blank'
+                />
+            </Fragment>
         );
     }
 

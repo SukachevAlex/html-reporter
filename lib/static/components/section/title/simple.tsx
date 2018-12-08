@@ -1,6 +1,4 @@
-'use strict';
-
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {retrySuite} from '../../../modules/actions';
 import { Icon } from 'semantic-ui-react';
@@ -16,7 +14,6 @@ interface ISectionTitleProp extends React.Props<any>{
     suite: {
         suitePath: any[]
     };
-    handler: (...args: any[]) => any;
     gui?: boolean;
     retrySuite?: any;
 }
@@ -38,15 +35,13 @@ class SectionTitle extends Component<ISectionTitleProp> {
     }
 
     render() {
-        const {name, handler, gui} = this.props;
+        const {name, gui} = this.props;
 
-        return (
-            <div className={cnSection('Title')} onClick={handler}>
-                {name}
-                {this._drawCopyButton()}
-                {gui && this._drawRetryButton()}
-            </div>
-        );
+        return <Fragment>
+            {name}
+            {this._drawCopyButton()}
+            {gui && this._drawRetryButton()}
+        </Fragment>;
     }
 
    private _drawCopyButton() {
@@ -56,18 +51,19 @@ class SectionTitle extends Component<ISectionTitleProp> {
                 className={classnames(cnButton(), cnSection('Icon'))}
                 text={this.props.suite.suitePath.join('/')}
             >
-                <Icon name='copy' onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}></Icon>
+                <Icon name='copy outline' onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}></Icon>
             </CopyToClipboard>
         );
     }
 
     private _drawRetryButton() {
         return (
-            <button
+            <Icon
+                name='redo'
                 className={classnames(cnButton(), cnSection('Icon', {retry: true}))}
                 title='retry suite'
                 onClick={this.onSuiteRetry}>
-            </button>
+            </Icon>
         );
     }
 }

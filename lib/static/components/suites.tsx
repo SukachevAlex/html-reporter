@@ -6,13 +6,12 @@ import {suiteBegin, testBegin, testResult, testsEnd} from '../modules/actions';
 const clientEvents = require('../../gui/constants/client-events');
 
 interface ISuitesProps extends React.Props<any> {
-    suiteIds?: [string];
+    suiteIds?: string[];
     gui?: boolean;
     actions?: any;
 }
 
 class Suites extends Component<ISuitesProps> {
-
     componentDidMount() {
         this.props.gui && this._subscribeToEvents();
     }
@@ -48,7 +47,7 @@ class Suites extends Component<ISuitesProps> {
         return (
             <div className='sections'>
                 {suiteIds && suiteIds.map((suiteId) => {
-                    return <SectionCommon key={suiteId} suiteId={suiteId} />;
+                    return <SectionCommon isRoot={true} key={suiteId} suiteId={suiteId} />;
                 })}
             </div>
         );
