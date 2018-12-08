@@ -48,7 +48,6 @@ export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: an
         : null;
 }
 
-// ClassNames
 const cnTab = cn('Tab');
 const cnBrowserName = cn('Browser-Name');
 const cnSection = cn('Section');
@@ -66,15 +65,10 @@ class Body extends Component<IBodyProps, IBodyStates> {
             color: 1,
             retry: this.props.retries.length
         };
-        // this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
     }
-
-    // onSwitcherStyleChange = (index: number) => {
-    //     this.setState({color: index});
-    // }
 
     onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
@@ -155,7 +149,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         const {retries, browserName, result: {status}} = this.props;
 
-        const Pane = (props: any) => <Tab.Pane attached={false}>{props.children}</Tab.Pane>;
+        const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
 
         const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
         const CodePane = () => <Pane><Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} /></Pane>;
@@ -172,7 +166,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 <div className={cnBrowserName({status})}>{browserName}</div>
                 {this._addRetryButton()}
                 <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
-                <Tab menu={{secondary: true}} panes={tabs} />
+                <Tab panes={tabs} />
             </Segment>
         );
     }
