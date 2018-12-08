@@ -89,7 +89,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                             return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} />;
                         }),
                         browsers.map((browser: IBrowser) => {
-                            if((filter && filter == 'all') || (filter && filter == browser.name)){
+                            if ((filter && filter == 'all') || (filter && filter == browser.name)){
                                 return <SectionBrowser key={browser.name} browser={browser} suite={suite}/>;
                             } else {
                                 return null;
