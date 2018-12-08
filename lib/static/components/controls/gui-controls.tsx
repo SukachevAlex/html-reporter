@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {pick, values} from 'lodash';
 import * as actions from '../../modules/actions';
-import CommonControls from './common-controls';
 import ControlButton from './button';
 import RunButton from './run-button';
 
@@ -34,7 +33,7 @@ class ControlButtons extends Component<IControllButtonsProps> {
         const {actions, suiteIds, failed, running, autoRun} = this.props;
 
         return (
-            <div className='control-buttons'>
+            <>
                 <RunButton
                     autoRun={autoRun}
                     isDisabled={!suiteIds.all.length || running}
@@ -50,8 +49,7 @@ class ControlButtons extends Component<IControllButtonsProps> {
                     isDisabled={running || !failed.length}
                     handler={this._acceptAll}
                 />
-                <CommonControls/>
-            </div>
+            </>
         );
     }
 }

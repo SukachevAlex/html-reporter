@@ -9,7 +9,7 @@ exports.getShortMD5 = (str: string) => {
 interface IFullTitle {
     suite: {path: string[]};
     state: {name: string};
-};
+}
 
 exports.mkFullTitle = ({suite, state}: IFullTitle) => {
     // https://github.com/mochajs/mocha/blob/v2.4.5/lib/runnable.js#L165
