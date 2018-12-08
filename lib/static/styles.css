@@ -142,7 +142,9 @@
 }
 
 .report_show-only-errors .section_status_success,
-.report_show-only-errors .section_status_skipped {
+.report_show-only-errors .Section_status_success,
+.report_show-only-errors .section_status_skipped,
+.report_show-only-errors .Section_status_skipped {
     display: none;
 }
 
@@ -179,7 +181,6 @@
     background-size: 100%;
 }
 
-.section__title,
 .Section-Title {
     font-weight: bold;
     cursor: pointer;
@@ -190,7 +191,11 @@
     user-select: none;
 }
 
-.section__title_skipped {
+.active.title.Section-Title {
+    padding: 5px 14px 0;
+}
+
+.Section-Title_skipped {
     color: #ccc;
     cursor: default;
 
@@ -200,51 +205,21 @@
     user-select: text;
 }
 
-.section__title:before,
-.Section-Title:before {
-    height: 18px;
-}
-
-.section__title:before,
-.Section-Title:before,
-.toggle-open__switcher:before {
-    display: inline-block;
-    margin-right: 2px;
-    vertical-align: middle;
-    content: '\25bc';
-    color: black;
-}
-
-.section .section__title:hover,
-.section .Section-Title:hover {
-    color: #2d3e50;
-}
-
-.section__title.section__title_skipped:hover,
-.Section-Title.section__title_skipped:hover {
-    color: #ccc;
-}
-
-.section__title_skipped:before {
-    content: none;
-}
-
-.section_status_success > .section__title,
-.section_status_success > .Section-Title,
+.Section_status_success > .Section-Title,
 .Browser-Name_status_success {
     color: #1da83f;
 }
 
-.section_status_success .Browser-Name::before {
+.Section_status_success .Browser-Name::before {
     width: 12px;
     height: 12px;
     background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDI2IDI2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNiAyNiIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CiAgPHBhdGggZD0ibS4zLDE0Yy0wLjItMC4yLTAuMy0wLjUtMC4zLTAuN3MwLjEtMC41IDAuMy0wLjdsMS40LTEuNGMwLjQtMC40IDEtMC40IDEuNCwwbC4xLC4xIDUuNSw1LjljMC4yLDAuMiAwLjUsMC4yIDAuNywwbDEzLjQtMTMuOWgwLjF2LTguODgxNzhlLTE2YzAuNC0wLjQgMS0wLjQgMS40LDBsMS40LDEuNGMwLjQsMC40IDAuNCwxIDAsMS40bDAsMC0xNiwxNi42Yy0wLjIsMC4yLTAuNCwwLjMtMC43LDAuMy0wLjMsMC0wLjUtMC4xLTAuNy0wLjNsLTcuOC04LjQtLjItLjN6IiBmaWxsPSIjMWRhODNmIi8+Cjwvc3ZnPgo=);
 }
 
-.section_status_fail > .section__title,
-.section_status_error > .section__title,
-.section_status_fail > .Section-Title,
-.section_status_error > .Section-Title,
+.Section_status_fail > .Section-Title,
+.Section_status_error > .Section-Title,
+.Section_status_fail > .Section-Title,
+.Section_status_error > .Section-Title,
 .Browser-Name_status_fail,
 .Browser-Name_status_error {
     color: #d93845;

@@ -92,6 +92,27 @@ export function findNode(node: any, suitePath: any): any {
     return findNode(child, suitePath);
 }
 
+export function getColorState(status?: string) {
+    switch (status) {
+        case 'success':
+        case 'update':
+        case 'passed': {
+            return '#1da83f';
+        }
+        case 'fail':
+        case 'failed':
+        case 'error': {
+            return  '#d93845';
+        }
+        case 'skip':
+        case 'skipped': {
+            return '#6a737d';
+        }
+        default:
+            return '#333333';
+    }
+}
+
 export function setStatusForBranch(nodes: any, suitePath: any, status: any) {
     const node = findNode(nodes, suitePath);
     if (!node) {

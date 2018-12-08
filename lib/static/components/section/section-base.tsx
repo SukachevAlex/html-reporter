@@ -1,8 +1,9 @@
 'use strict';
 
 import React, {Component, ComponentState, ReactNode} from 'react';
-import {cn, classnames } from '@bem-react/classname';
+import {cn } from '@bem-react/classname';
 import {isFailStatus, isSkippedStatus} from '../../../common-utils';
+import { ISuite } from 'typings/suite-adapter';
 
 interface IBaseState extends ComponentState {
     collapsed: boolean;
@@ -17,7 +18,7 @@ export interface IBaseProps extends React.Props<any>{
 export interface INextProps extends IBaseProps{
     dispatch?: () => any;
     expand?: string;
-    suite?: any;
+    suites?: ISuite[];
     suiteId?: string;
 }
 
@@ -71,7 +72,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
         return null;
     }
 
-    private _shouldBeCollapsed({failed, retried, expand}: any) {
+    protected _shouldBeCollapsed({failed, retried, expand}: any) {
         if (expand === 'errors' && failed) {
             return false;
         } else if (expand === 'retries' && retried) {
@@ -89,17 +90,18 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
 
     protected _resolveSectionStatus(status: any) {
         const {collapsed} = this.state;
-        const section = cn(
-            'section'
-        );
-        const baseClasses = section({section_collapsed: collapsed});
+        const cnSection = cn('Section');
 
         if (status) {
-            return classnames(baseClasses, `section_status_${status}`);
+            return cnSection({collapsed, status});
         }
 
-        return classnames(baseClasses, section(null,
-            {section_status_skip: isSkippedStatus(status), section_status_fail: isFailStatus(status),
-                section_status_success: !(isSkippedStatus(status) || isFailStatus(status))}));
+        return cnSection({
+            collapsed,
+            status,
+            status_skip: isSkippedStatus(status),
+            status_fail: isFailStatus(status),
+            status_success: !(isSkippedStatus(status) || isFailStatus(status))
+        });
     }
 }
