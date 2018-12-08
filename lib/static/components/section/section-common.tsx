@@ -30,7 +30,7 @@ interface ISectionCommonProps extends IBaseProps{
     titile?: string;
     isRoot?: boolean;
     actions?: any;
-    filter?: string[];
+    filter?: string;
 }
 
 const cnSection = cn('Section');
@@ -89,7 +89,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                             return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} />;
                         }),
                         browsers.map((browser: IBrowser) => {
-                            if (filter && filter.indexOf(browser.name) > -1){
+                            if((filter && filter == 'all') || (filter && filter == browser.name)){
                                 return <SectionBrowser key={browser.name} browser={browser} suite={suite}/>;
                             } else {
                                 return null;

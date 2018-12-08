@@ -6,6 +6,7 @@ import * as actions from '../../modules/actions';
 import ViewSelect from './view-select';
 import BaseHostInput from './base-host';
 import ExpandSelect from './expand-select';
+import BrowserSelect from './browser-select';
 
 interface IControlButtons {
     view: any;
@@ -32,6 +33,12 @@ class CommonControlButtons extends Component<IControlButtons> {
                     {value: 'none', text: 'Collapse all'},
                     {value: 'errors', text: 'Expand errors'},
                     {value: 'retries', text: 'Expand retries'}
+                ]}/>
+                <BrowserSelect options = {[
+                    {value: 'chrome', text: 'Chrome'},
+                    {value: 'firefox', text: 'Firefox'},
+                    {value: 'ie', text: 'IE'},
+                    {value: 'all', text: 'All browsers'}
                 ]}/>
                 <Menu.Item
                     name='show_skipped'
