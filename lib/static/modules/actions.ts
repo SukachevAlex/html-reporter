@@ -85,6 +85,8 @@ export const toggleSkipped = () => ({type: actionNames.VIEW_TOGGLE_SKIPPED});
 export const toggleOnlyDiff = () => ({type: actionNames.VIEW_TOGGLE_ONLY_DIFF});
 export const toggleScaleImages = () => ({type: actionNames.VIEW_TOGGLE_SCALE_IMAGES});
 export const toggleLazyLoad = () => ({type: actionNames.VIEW_TOGGLE_LAZY_LOAD_IMAGES});
+export const manualMode = () => ({type: actionNames.MANUAL_MODE});
+
 export const updateBaseHost = (host: string) => {
     window.localStorage.setItem('_gemini-replace-host', host);
     return {type: actionNames.VIEW_UPDATE_BASE_HOST, host};

@@ -41,6 +41,9 @@ export default function reducer(state = getInitialState(compiledData), action: a
 
             return merge({}, state, {running: true, suites}); // TODO: rewrite store on run all tests
         }
+        case actionNames.MANUAL_MODE: {
+            return assign(clone(state), {expand: 'manual_mode'});
+        }
         case actionNames.RUN_FAILED_TESTS:
         case actionNames.RETRY_SUITE:
         case actionNames.RETRY_TEST: {
