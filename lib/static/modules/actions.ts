@@ -77,6 +77,7 @@ export const testBegin = (test: any) => ({type: actionNames.TEST_BEGIN, payload:
 export const testResult = (result: string) => ({type: actionNames.TEST_RESULT, payload: result});
 export const testsEnd = () => ({type: actionNames.TESTS_END});
 export const runFailed = () => ({type: actionNames.RUN_FAILED_TESTS});
+export const filterChrome = () => ({type: actionNames.VIEW_FILTER_BROWSER});
 export const toggleSkipped = () => ({type: actionNames.VIEW_TOGGLE_SKIPPED});
 export const toggleOnlyDiff = () => ({type: actionNames.VIEW_TOGGLE_ONLY_DIFF});
 export const toggleScaleImages = () => ({type: actionNames.VIEW_TOGGLE_SCALE_IMAGES});

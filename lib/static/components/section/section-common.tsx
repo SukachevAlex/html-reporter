@@ -30,6 +30,7 @@ interface ISectionCommonProps extends IBaseProps{
     titile?: string;
     isRoot?: boolean;
     actions?: any;
+    filter?: string[];
 }
 
 const cnSection = cn('Section');
@@ -40,7 +41,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
     }
 
     render()  {
-        const {suite, expand, isRoot} = this.props;
+        const {suite, expand, isRoot, filter} = this.props;
 
         if (!suite) return null;
 
@@ -88,7 +89,11 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                             return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} />;
                         }),
                         browsers.map((browser: IBrowser) => {
-                            return <SectionBrowser key={browser.name} browser={browser} expand={expand} />;
+                            if (filter && filter.indexOf(browser.name) > -1){
+                                return <SectionBrowser key={browser.name} browser={browser} suite={suite}/>;
+                            } else {
+                                return null;
+                            }
                         })
                     )}
                 </Accordion>
@@ -120,13 +125,14 @@ export class SectionCommon extends Base<ISectionCommonProps>{
 }
 
 export default connect<{}, {}, ISectionCommonProps>(
-    ({view: {expand, viewMode}, suites}: any, ownProps: any) => {
+    ({view: {expand, viewMode, filter}, suites}: any, ownProps: any) => {
         return {
             expand,
             viewMode,
             suite: suites[ownProps.suiteId],
             title: ownProps.suiteId,
-            isRoot: true
+            isRoot: true,
+            filter
         };
     }
 )(SectionCommon);

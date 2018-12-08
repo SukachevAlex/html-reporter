@@ -21,6 +21,7 @@ export default Object.assign(defaults, {
     },
     view: {
         viewMode: 'all',
+        filter: ['chrome', 'firefox', 'ie'],//read it from .hermione.conf.js
         expand: 'errors',
         showSkipped: false,
         showOnlyDiff: false,
