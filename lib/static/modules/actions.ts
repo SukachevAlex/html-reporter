@@ -77,10 +77,6 @@ export const testBegin = (test: any) => ({type: actionNames.TEST_BEGIN, payload:
 export const testResult = (result: string) => ({type: actionNames.TEST_RESULT, payload: result});
 export const testsEnd = () => ({type: actionNames.TESTS_END});
 export const runFailed = () => ({type: actionNames.RUN_FAILED_TESTS});
-export const expandAll = () => ({type: actionNames.VIEW_EXPAND_ALL});
-export const expandErrors = () => ({type: actionNames.VIEW_EXPAND_ERRORS});
-export const expandRetries = () => ({type: actionNames.VIEW_EXPAND_RETRIES});
-export const collapseAll = () => ({type: actionNames.VIEW_COLLAPSE_ALL});
 export const toggleSkipped = () => ({type: actionNames.VIEW_TOGGLE_SKIPPED});
 export const toggleOnlyDiff = () => ({type: actionNames.VIEW_TOGGLE_ONLY_DIFF});
 export const toggleScaleImages = () => ({type: actionNames.VIEW_TOGGLE_SCALE_IMAGES});
@@ -96,6 +92,19 @@ export function changeViewMode(mode: string) {
             return {type: actionNames.VIEW_SHOW_FAILED};
         default:
             return {type: actionNames.VIEW_SHOW_ALL};
+    }
+}
+
+export function changeExpandMode(mode: string) {
+    switch (mode) {
+        case 'all':
+            return {type: actionNames.VIEW_EXPAND_ALL};
+        case 'none':
+            return {type: actionNames.VIEW_COLLAPSE_ALL};
+        case 'retries':
+            return {type: actionNames.VIEW_EXPAND_RETRIES};
+        default:
+            return {type: actionNames.VIEW_EXPAND_ERRORS};
     }
 }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {initial} from '../modules/actions';
-import ControlButtons from './controls/gui-controls';
+import MenuControls from './controls/gui-menu-controls';
 import SkippedList from './skipped-list';
 import Suites from './suites';
 
@@ -17,9 +17,11 @@ class Gui extends Component<IGuiProps> {
 
     render() {
         return <>
-            <ControlButtons/>
-            <SkippedList/>
-            <Suites/>
+            <MenuControls/>
+            <div className='Container'>
+                <SkippedList/>
+                <Suites/>
+            </div>
         </>;
     }
 }

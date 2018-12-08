@@ -4,13 +4,13 @@ import {connect} from 'react-redux';
 import * as actions from '../../modules/actions';
 import {Dropdown} from 'semantic-ui-react';
 
-interface IViewSelect {
+interface IExpandSelect {
     view: any;
     actions: any;
     options: any;
 }
 
-class ViewSelect extends Component<IViewSelect> {
+class ExpandSelect extends Component<IExpandSelect> {
 
     constructor(props: any) {
         super(props);
@@ -21,16 +21,16 @@ class ViewSelect extends Component<IViewSelect> {
         const {view, options} = this.props;
 
         return (
-            <Dropdown item compact={true} search selection options={options} value={view.viewMode} onChange={this._onChange}/>
+            <Dropdown item search selection options={options} value={view.expand} onChange={this._onChange}/>
         );
     }
 
     _onChange(event: any, {value}: any) {
-        this.props.actions.changeViewMode(value);
+        this.props.actions.changeExpandMode(value);
     }
 }
 
 export default connect(
     (state: any) => ({view: state.view}),
     (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
-)(ViewSelect);
+)(ExpandSelect);

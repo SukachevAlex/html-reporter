@@ -12,12 +12,12 @@ interface IData {
     browserId: string;
     assertViewResults: [{stateName: string; refImagePath: string}] | [];
     meta: {url: string};
-    hermioneCtx: {assertViewResults: any}
+    hermioneCtx: {assertViewResults: any};
     duration: number;
 }
 
 interface IClient extends EventSource {
-    emit: Function;
+    emit: any;
 }
 
 module.exports = (hermione: IHermione, reportBuilder: TestAdapterType, client: IClient, reportPath: string) => {
