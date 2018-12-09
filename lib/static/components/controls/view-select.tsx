@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from '../../modules/actions';
-import {Dropdown} from 'semantic-ui-react';
+import {Dropdown, DropdownItemProps} from 'semantic-ui-react';
 
 interface IViewSelect {
     view: any;
     actions: any;
-    options: any;
+    options: DropdownItemProps[] | undefined;
 }
 
 class ViewSelect extends Component<IViewSelect> {
