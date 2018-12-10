@@ -468,6 +468,10 @@ a:active {
 .Sidebar{
     height: 100px;
 }
+.ScreeenshotViewMode{
+    display: flex;
+    justify-content: center;
+}
 
 @-webkit-keyframes scale {
     0% {

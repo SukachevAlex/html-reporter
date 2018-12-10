@@ -1,16 +1,17 @@
-'use strict';
-
-import React, {Component, Fragment} from 'react';
-import {connect} from 'react-redux';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { cn } from '@bem-react/classname';
 import StateError from './state-error';
 import StateSuccess from './state-success';
 import StateFail from './state-fail';
 import ControlButton from '../controls/button';
-import {isAcceptable} from '../../modules/utils';
-import {isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus} from '../../../common-utils';
+import { isAcceptable } from '../../modules/utils';
+import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus } from '../../../common-utils';
+import { Button } from 'semantic-ui-react';
+const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
 
-interface IState{
+interface IState {
     state: {
         status: string;
         image?: boolean;
@@ -32,7 +33,7 @@ class State extends Component<IState> {
             return null;
         }
 
-        const {state, state: {stateName}, acceptHandler} = this.props;
+        const { state, state: { stateName }, acceptHandler } = this.props;
         const isAcceptDisabled = !isAcceptable(state);
         const acceptFn = () => acceptHandler(stateName);
 
@@ -53,33 +54,45 @@ class State extends Component<IState> {
     }
 
     render() {
-        const {status, reason, image, expectedPath, actualPath, diffPath, stateName} = this.props.state;
+        const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
 
         let elem = null;
 
         if (isErroredStatus(status)) {
-            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;
+            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason} />;
         } else if (isSuccessStatus(status) || isUpdatedStatus(status) || (isIdleStatus(status) && expectedPath)) {
             elem = <StateSuccess status={status} expected={expectedPath} />;
         } else if (isFailStatus(status)) {
             elem = reason
-                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath}/>;
+                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason} />
+                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} />;
         }
 
         const className = classNames(
             'image-box__container',
-            {'image-box__container_scale': this.props.scaleImages}
+            { 'image-box__container_scale': this.props.scaleImages }
         );
 
         return (
             <Fragment>
                 {this._getStateTitle(stateName, status)}
                 {this._getAcceptButton()}
-                <div className={className}>{elem}</div>
+                <div className={className}>
+                    <div className={cnScreeenshotViewMode()}>
+                        <Button.Group basic>
+                            <Button active>Default</Button>
+                            <Button>2-up</Button>
+                            <Button>Only Diff</Button>
+                            <Button>Loupe</Button>
+                            <Button>Swipe</Button>
+                            <Button>Onion Skin</Button>
+                        </Button.Group>
+                    </div>
+                    {elem}
+                </div>
             </Fragment>
         );
     }
 }
 
-export default connect(({gui, view: {scaleImages}}: {gui: boolean, view: IState}) => ({gui, scaleImages}))(State);
+export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))(State);
