@@ -59,7 +59,7 @@ const actions = {testBegin, suiteBegin, testResult, testsEnd};
 export default connect(
     (state: any) => ({
         suiteIds: state.suiteIds[state.view.viewMode],
-        gui: state.gui
+        gui: state.gui,
     }),
     (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
 )(Suites);

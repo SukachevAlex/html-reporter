@@ -11,7 +11,7 @@ interface IBaseState extends ComponentState {
 
 export interface IBaseProps extends React.Props<any>{
     expand?: string;
-    viewMode?: string;
+    viewMode?: any;
     key?: string;
 }
 

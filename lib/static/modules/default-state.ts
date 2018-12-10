@@ -21,6 +21,7 @@ export default Object.assign(defaults, {
     },
     view: {
         viewMode: 'all',
+        filter: 'all',
         expand: 'errors',
         showSkipped: false,
         showOnlyDiff: false,
