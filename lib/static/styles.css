@@ -95,13 +95,13 @@
     border-radius: 0 2px 2px 0;
 }
 
-.image-box {
+.ImageBox {
     padding: 5px 10px;
     border: 1px solid #ccc;
     background: #c9c9c9;
 }
 
-.image-box__container_scale {
+.ImageBox-Container_scale {
     display: flex;
     flex-flow: row wrap;
 }

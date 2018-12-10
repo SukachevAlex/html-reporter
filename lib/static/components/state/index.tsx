@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import { cn } from '@bem-react/classname';
 import StateError from './state-error';
 import StateSuccess from './state-success';
@@ -10,6 +9,7 @@ import { isAcceptable } from '../../modules/utils';
 import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus } from '../../../common-utils';
 import { Button } from 'semantic-ui-react';
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
+const cnImageBox = cn('ImageBox');
 
 interface IState {
     state: {
@@ -68,26 +68,21 @@ class State extends Component<IState> {
                 : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} />;
         }
 
-        const className = classNames(
-            'image-box__container',
-            { 'image-box__container_scale': this.props.scaleImages }
-        );
-
         return (
             <Fragment>
                 {this._getStateTitle(stateName, status)}
                 {this._getAcceptButton()}
-                <div className={className}>
-                    <div className={cnScreeenshotViewMode()}>
-                        <Button.Group basic>
-                            <Button active>Default</Button>
-                            <Button>2-up</Button>
-                            <Button>Only Diff</Button>
-                            <Button>Loupe</Button>
-                            <Button>Swipe</Button>
-                            <Button>Onion Skin</Button>
-                        </Button.Group>
-                    </div>
+                <div className={cnScreeenshotViewMode()}>
+                    <Button.Group basic>
+                        <Button active>Default</Button>
+                        <Button>2-up</Button>
+                        <Button>Only Diff</Button>
+                        <Button>Loupe</Button>
+                        <Button>Swipe</Button>
+                        <Button>Onion Skin</Button>
+                    </Button.Group>
+                </div>
+                <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
                     {elem}
                 </div>
             </Fragment>
