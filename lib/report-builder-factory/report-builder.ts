@@ -3,7 +3,7 @@ import Promise from 'bluebird';
 import _ from 'lodash';
 
 import { ITestTool, ITestResult } from 'typings/test-adapter';
-import { ISuite } from 'typings/suite-adapter';
+import { ISuite, IBrowser } from 'typings/suite-adapter';
 import { IPluginConfig } from 'typings/pluginConfig';
 import { TestAdapterType } from 'typings/test-adapter';
 
@@ -23,7 +23,7 @@ interface ISkip {
 module.exports = class ReportBuilder {
     protected _tree: {
         name?: string;
-        children?: ISuite;
+        children?: ISuite[];
     };
 
     protected _skips: ISkip[];
@@ -246,6 +246,46 @@ module.exports = class ReportBuilder {
 
             return fs.copyAsync(from, to);
         });
+    }
+
+    itterBrowsersOver(
+        handler: (browser: IBrowser, index: number, link: IBrowser[]) => any,
+        methodName: string,
+        suite: ISuite | ISuite[] = this._tree.children || {}
+    ) {
+        if (Array.isArray(suite)) {
+            return suite.map((suite): any => {
+                return this.itterBrowsersOver(handler, methodName, suite);
+            });
+        }
+
+        if (suite.children) {
+            suite.children = suite.children.map((child: ISuite) => this.itterBrowsersOver(handler, methodName, child));
+        }
+
+        if (suite.browsers) {
+            suite.browsers = suite.browsers[methodName](handler);
+        }
+
+        return suite as ISuite[];
+    }
+
+    clearRetries() {
+        this._tree.children = this.itterBrowsersOver(this._lastRetrySave, 'map', this._tree.children);
+    }
+
+    _lastRetrySave(browser: IBrowser, idx: number, browsers: IBrowser[]) {
+        const {retries} = browser;
+        if (!retries.length) {
+            return browser;
+        }
+
+        const lastElem = retries[retries.length - 1];
+
+        browser.result = _.assign({}, browser, lastElem);
+        browser.retries = [lastElem];
+
+        return browser;
     }
 
     get reportPath() {

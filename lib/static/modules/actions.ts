@@ -21,6 +21,20 @@ export const initial = () => {
     };
 };
 
+export const clearRetries = () => {
+    return async (dispatch: DispatchType) => {
+        try {
+            const appState = await axios.post('/clear-retries');
+            dispatch({
+                type: actionNames.CLEAR_RETRIES,
+                payload: appState.data
+            });
+        } catch (e) {
+            console.error('Error while clearing retries:', e);
+        }
+    };
+};
+
 const runTests = ({tests = [], action = {}}: {tests?: any[], action?: any} = {}) => {
     return async (dispatch: DispatchType) => {
         try {
@@ -88,7 +102,7 @@ export const updateBaseHost = (host: string) => {
     return {type: actionNames.VIEW_UPDATE_BASE_HOST, host};
 };
 
-export function filterBrowser (mode: string) {
+export function filterBrowser(mode: string) {
     switch (mode) {
         case 'chrome':
             return {type: actionNames.VIEW_BROWSER_CHROME};
@@ -97,11 +111,11 @@ export function filterBrowser (mode: string) {
         case 'ie':
             return {type: actionNames.VIEW_BROWSER_IE};
         case 'all':
-            return {type: actionNames.VIEW_BROWSER_ALL}
+            return {type: actionNames.VIEW_BROWSER_ALL};
         default:
-            return {type: actionNames.VIEW_BROWSER_ALL}
+            return {type: actionNames.VIEW_BROWSER_ALL};
     }
-};
+}
 
 export function changeViewMode(mode: string) {
     switch (mode) {

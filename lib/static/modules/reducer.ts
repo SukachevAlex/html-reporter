@@ -29,6 +29,7 @@ function getInitialState(compiledData: any) {
 
 export default function reducer(state = getInitialState(compiledData), action: any) {
     switch (action.type) {
+        case actionNames.CLEAR_RETRIES:
         case actionNames.VIEW_INITIAL: {
             const {gui, autoRun, suites, skips, config: {scaleImages, lazyLoadOffset}} = action.payload;
             const formattedSuites = formatSuitesData(suites);

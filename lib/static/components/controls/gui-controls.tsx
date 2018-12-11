@@ -49,6 +49,11 @@ class ControlButtons extends Component<IControllButtonsProps> {
                     isDisabled={running || !failed.length}
                     handler={this._acceptAll}
                 />
+                <ControlButton
+                    label='Clear retries'
+                    isDisabled={!!running}
+                    handler={actions.clearRetries}
+                />
             </>
         );
     }
