@@ -25,7 +25,6 @@ export default Object.assign(defaults, {
         expand: 'errors',
         showSkipped: false,
         showOnlyDiff: false,
-        showSingleOnlyDiff: false,
         scaleImages: false,
         baseHost: ''
     }

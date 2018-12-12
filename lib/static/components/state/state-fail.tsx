@@ -25,7 +25,7 @@ class StateFail extends Component<IStateFail> {
                 </Fragment>
             ); 
         }
-        
+
         return (
             <Fragment>
                 {this._drawExpectedAndActual(expected, actual)}
