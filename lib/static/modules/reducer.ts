@@ -144,7 +144,7 @@ function addTestResult(state: any, action: any) {
     [].concat(action.payload).forEach((suite: ISuite) => {
         const {suitePath, browserResult, browserId} = suite;
         const test = findNode(suites, suitePath);
-        
+
         if (!test) {
             return;
         }
