@@ -10,6 +10,8 @@ import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdle
 import { Button } from 'semantic-ui-react';
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
 const cnImageBox = cn('ImageBox');
+import * as actions from '../../modules/actions';
+import {bindActionCreators} from 'redux';
 
 interface IState {
     state: {
@@ -20,13 +22,25 @@ interface IState {
         actualPath: string;
         diffPath: string;
         stateName: string;
+       
     };
     acceptHandler: (a: any) => any;
+   
     gui?: boolean;
     scaleImages?: boolean;
+    actions: any;
+    view: any;
+    toggleSingleOnlyDiff?: boolean; 
+    showSingleOnlyDiff?: boolean; 
+    
 }
 
 class State extends Component<IState> {
+
+    constructor(props: any) {
+        super(props);
+        this._onClick = this._onClick.bind(this);
+    }
 
     _getAcceptButton() {
         if (!this.props.gui) {
@@ -53,9 +67,16 @@ class State extends Component<IState> {
             : null;
     }
 
+    _onClick() {
+       
+        this.props.actions.toggleSingleOnlyDiff();
+        console.log(this.props.state, 'this.props.state in index');
+      
+    }
+
     render() {
         const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
-
+       
         let elem = null;
 
         if (isErroredStatus(status)) {
@@ -75,14 +96,14 @@ class State extends Component<IState> {
                 <div className={cnScreeenshotViewMode()}>
                     <Button.Group basic>
                         <Button active>Default</Button>
-                        <Button>2-up</Button>
-                        <Button>Only Diff</Button>
+                        <Button> 2-up</Button>
+                        <Button name='show_diff' onClick={this._onClick} >Only Diff</Button>
                         <Button>Loupe</Button>
                         <Button>Swipe</Button>
                         <Button>Onion Skin</Button>
                     </Button.Group>
                 </div>
-                <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
+                <div className={cnImageBox('Container', { scale: this.props.view.scaleImages })} >
                     {elem}
                 </div>
             </Fragment>
@@ -90,4 +111,11 @@ class State extends Component<IState> {
     }
 }
 
-export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))(State);
+// export default connect(
+//     ({ gui, view: { scaleImages, toggleSingleOnlyDiff}}: { gui: boolean, view: IState}) => ({ gui, scaleImages, toggleSingleOnlyDiff }))
+//     (State);
+
+export default connect(
+    (state: any) => ({view: state.view}),
+    (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
+)(State);

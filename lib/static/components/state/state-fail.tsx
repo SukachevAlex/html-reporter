@@ -1,19 +1,21 @@
 'use strict';
 
-import React, {Component, Fragment} from 'react';
-import {connect} from 'react-redux';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import Screenshot from './screenshot';
 
-interface IStateFail{
+interface IStateFail {
     expected: string;
     actual: string;
     diff: string;
     showOnlyDiff: boolean;
+    showSingleOnlyDiff: boolean;
 }
 class StateFail extends Component<IStateFail> {
 
     render() {
-        const {expected, actual, diff} = this.props;
+       
+        const { expected, actual, diff } = this.props;
 
         return (
             <Fragment>
@@ -22,12 +24,16 @@ class StateFail extends Component<IStateFail> {
             </Fragment>
         );
     }
-
+    
     _drawExpectedAndActual(expected: string, actual: string) {
         if (this.props.showOnlyDiff) {
             return null;
         }
-
+        // if (this.props.showSingleOnlyDiff) {
+        //     return null;
+        // }
+        console.log(this.props, 'this.props');
+        
         return (
             <Fragment>
                 {this._drawImageBox('Expected', expected)}
@@ -40,10 +46,10 @@ class StateFail extends Component<IStateFail> {
         return (
             <div className='image-box__image'>
                 <div className='image-box__title'>{label}</div>
-                <Screenshot imagePath={path}/>
+                <Screenshot imagePath={path} />
             </div>
         );
     }
 }
 
-export default connect(({view: {showOnlyDiff}}: {view: IStateFail}) => ({showOnlyDiff}))(StateFail);
+export default connect(({ view: { showOnlyDiff, showSingleOnlyDiff } }: { view: IStateFail }) => ({ showOnlyDiff, showSingleOnlyDiff }))(StateFail);

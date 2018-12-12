@@ -121,6 +121,9 @@ export default function reducer(state = getInitialState(compiledData), action: a
         case actionNames.VIEW_TOGGLE_ONLY_DIFF: {
             return _mutateStateView(state, {showOnlyDiff: !state.view.showOnlyDiff});
         }
+        case actionNames.VIEW_SINGLE_TOGGLE_ONLY_DIFF: {
+            return _mutateStateView(state, {showSingleOnlyDiff: !state.view.showSingleOnlyDiff});
+        }
         case actionNames.VIEW_TOGGLE_SCALE_IMAGES: {
             return _mutateStateView(state, {scaleImages: !state.view.scaleImages});
         }
@@ -144,14 +147,14 @@ function addTestResult(state: any, action: any) {
     [].concat(action.payload).forEach((suite: ISuite) => {
         const {suitePath, browserResult, browserId} = suite;
         const test = findNode(suites, suitePath);
-
+        
         if (!test) {
             return;
         }
-
+        const singleViewMode = {singleViewMode: 'default'};
         test.browsers.forEach((b: {name: string}) => {
             if (b.name === browserId) {
-                Object.assign(b, browserResult);
+                Object.assign(b, browserResult, singleViewMode);
             }
         });
         setStatusForBranch(suites, suitePath, browserResult.result.status);
