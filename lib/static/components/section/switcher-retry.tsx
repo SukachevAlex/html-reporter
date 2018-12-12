@@ -5,6 +5,7 @@ const cnPagination = cn('Pswitcher');
 
 interface ISwitcherRetryProps extends React.Props<any>{
     retries?: any[];
+    result: any;
     siblingRange?: number;
     onChange(index: number): void;
 }
@@ -24,12 +25,16 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
         super(props, state);
         this.state = {retry: !this.props.retries ? 0 : this.props.retries.length};
         this._onChange = this._onChange.bind(this);
+
+        // TODO: remove that
+        this.props.retries && this.props.retries.push(this.props.result);
     }
 
     render() {
-        const {retries, siblingRange} = this.props;
+        const {retries = [], siblingRange} = this.props;
 
-        if (!retries || retries.length === 0) {
+        // TODO: if "TODO: remove that" did, rewrite "1" to "0"
+        if (retries.length === 1) {
             return null;
         }
 
@@ -40,7 +45,7 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
                     totalPages={retries.length}
                     firstItem={null}
                     lastItem={null}
-                    onPageChange={(event, data: any) => data && this._onChange(data.activePage - 1)}
+                    onPageChange={(event, data: any) => data && this._onChange(data.activePage)}
                     siblingRange = {siblingRange}
                 />
             </div>

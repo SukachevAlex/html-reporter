@@ -272,18 +272,11 @@ module.exports = class ReportBuilder {
 
     clearRetries() {
         this._tree.children = this.itterBrowsersOver(this._lastRetrySave, 'map', this._tree.children);
+        this.saveDataFileSync();
     }
 
-    _lastRetrySave(browser: IBrowser, idx: number, browsers: IBrowser[]) {
-        const {retries} = browser;
-        if (!retries.length) {
-            return browser;
-        }
-
-        const lastElem = retries[retries.length - 1];
-
-        browser.result = _.assign({}, browser, lastElem);
-        browser.retries = [lastElem];
+    _lastRetrySave(browser: IBrowser) {
+        browser.retries = [];
 
         return browser;
     }

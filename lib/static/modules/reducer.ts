@@ -29,12 +29,17 @@ function getInitialState(compiledData: any) {
 
 export default function reducer(state = getInitialState(compiledData), action: any) {
     switch (action.type) {
-        case actionNames.CLEAR_RETRIES:
         case actionNames.VIEW_INITIAL: {
             const {gui, autoRun, suites, skips, config: {scaleImages, lazyLoadOffset}} = action.payload;
             const formattedSuites = formatSuitesData(suites);
 
             return merge({}, state, {gui, autoRun, skips, view: {scaleImages, lazyLoadOffset}}, formattedSuites);
+        }
+        case actionNames.CLEAR_RETRIES: {
+            const {suites} = action.payload;
+            const formattedSuites = formatSuitesData(suites);
+
+            return assign({}, state, formattedSuites);
         }
         case actionNames.RUN_ALL_TESTS: {
             const suites = clone(state.suites);
@@ -207,8 +212,7 @@ function formatSuitesData(suites = []) {
     };
 }
 
-function getFailedSuiteIds(suites: ISuite[]) {
-    // @ts-ignore
+function getFailedSuiteIds(suites: any[]) {
     return getSuiteIds(filter(suites, isSuiteFailed));
 }
 

@@ -109,10 +109,11 @@ module.exports = class ToolRunner {
     }
 
     clearRetries() {
-        this._reportBuilder.clearRetries();
-        this._fillTestsTree();
+       this._reportBuilder.clearRetries();
 
-        return this._tree;
+       const {autoRun} = this._guiOpts;
+
+       this._tree = Object.assign(this._reportBuilder.getResult(), {gui: true, autoRun});
     }
 
     _fillTestsTree() {
