@@ -9,14 +9,23 @@ interface IStateFail {
     actual: string;
     diff: string;
     showOnlyDiff: boolean;
-    showSingleOnlyDiff: boolean;
+    viewMode: string;
 }
 class StateFail extends Component<IStateFail> {
 
     render() {
        
-        const { expected, actual, diff } = this.props;
+        const { expected, actual, diff} = this.props;
 
+        if (this.props.viewMode === '2-up'){
+           
+            return (
+                <Fragment>
+                    {this._drawExpectedAndActual(expected, actual)}
+                </Fragment>
+            ); 
+        }
+        
         return (
             <Fragment>
                 {this._drawExpectedAndActual(expected, actual)}
@@ -25,14 +34,10 @@ class StateFail extends Component<IStateFail> {
         );
     }
     
-    _drawExpectedAndActual(expected: string, actual: string) {
-        if (this.props.showOnlyDiff) {
+    _drawExpectedAndActual(expected: string, actual: string, ) {
+        if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
-        // if (this.props.showSingleOnlyDiff) {
-        //     return null;
-        // }
-        console.log(this.props, 'this.props');
         
         return (
             <Fragment>
@@ -52,4 +57,4 @@ class StateFail extends Component<IStateFail> {
     }
 }
 
-export default connect(({ view: { showOnlyDiff, showSingleOnlyDiff } }: { view: IStateFail }) => ({ showOnlyDiff, showSingleOnlyDiff }))(StateFail);
+export default connect(({ view: { showOnlyDiff} }: { view: IStateFail }) => ({ showOnlyDiff}))(StateFail);

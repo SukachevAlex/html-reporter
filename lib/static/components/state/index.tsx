@@ -10,8 +10,6 @@ import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdle
 import { Button } from 'semantic-ui-react';
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
 const cnImageBox = cn('ImageBox');
-import * as actions from '../../modules/actions';
-import {bindActionCreators} from 'redux';
 
 interface IState {
     state: {
@@ -22,25 +20,13 @@ interface IState {
         actualPath: string;
         diffPath: string;
         stateName: string;
-       
     };
     acceptHandler: (a: any) => any;
-   
     gui?: boolean;
     scaleImages?: boolean;
-    actions: any;
-    view: any;
-    toggleSingleOnlyDiff?: boolean; 
-    showSingleOnlyDiff?: boolean; 
-    
 }
 
-class State extends Component<IState> {
-
-    constructor(props: any) {
-        super(props);
-        this._onClick = this._onClick.bind(this);
-    }
+class State extends Component<IState, {viewMode?: string}> {
 
     _getAcceptButton() {
         if (!this.props.gui) {
@@ -67,16 +53,20 @@ class State extends Component<IState> {
             : null;
     }
 
-    _onClick() {
-       
-        this.props.actions.toggleSingleOnlyDiff();
-        console.log(this.props.state, 'this.props.state in index');
-      
+    _screenshotViewMode(modeName: string) {
+        return (() => {
+            this.setState({ viewMode: modeName });
+        }).bind(this);
     }
 
     render() {
         const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
-       
+        let viewMode;
+
+        if (this.state) {
+            viewMode = this.state.viewMode;
+        }
+
         let elem = null;
 
         if (isErroredStatus(status)) {
@@ -86,7 +76,7 @@ class State extends Component<IState> {
         } else if (isFailStatus(status)) {
             elem = reason
                 ? <StateError image={Boolean(image)} actual={actualPath} reason={reason} />
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} />;
+                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} />;
         }
 
         return (
@@ -95,15 +85,15 @@ class State extends Component<IState> {
                 {this._getAcceptButton()}
                 <div className={cnScreeenshotViewMode()}>
                     <Button.Group basic>
-                        <Button active>Default</Button>
-                        <Button> 2-up</Button>
-                        <Button name='show_diff' onClick={this._onClick} >Only Diff</Button>
+                        <Button onClick={this._screenshotViewMode('Default')}>Default</Button>
+                        <Button onClick={this._screenshotViewMode('2-up')}>2-up</Button>
+                        <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
                         <Button>Loupe</Button>
                         <Button>Swipe</Button>
                         <Button>Onion Skin</Button>
                     </Button.Group>
                 </div>
-                <div className={cnImageBox('Container', { scale: this.props.view.scaleImages })} >
+                <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
                     {elem}
                 </div>
             </Fragment>
@@ -111,11 +101,6 @@ class State extends Component<IState> {
     }
 }
 
-// export default connect(
-//     ({ gui, view: { scaleImages, toggleSingleOnlyDiff}}: { gui: boolean, view: IState}) => ({ gui, scaleImages, toggleSingleOnlyDiff }))
-//     (State);
-
 export default connect(
-    (state: any) => ({view: state.view}),
-    (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
-)(State);
+    ({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))
+    (State);

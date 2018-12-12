@@ -149,7 +149,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
        
-        const {retries, browserName, result: {status}, singleViewMode} = this.props;
+        const {retries, browserName, result: {status}} = this.props;
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
 
         const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;

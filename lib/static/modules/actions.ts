@@ -79,7 +79,6 @@ export const testsEnd = () => ({type: actionNames.TESTS_END});
 export const runFailed = () => ({type: actionNames.RUN_FAILED_TESTS});
 export const toggleSkipped = () => ({type: actionNames.VIEW_TOGGLE_SKIPPED});
 export const toggleOnlyDiff = () => ({type: actionNames.VIEW_TOGGLE_ONLY_DIFF});
-export const toggleSingleOnlyDiff = () => ({type: actionNames.VIEW_SINGLE_TOGGLE_ONLY_DIFF});
 export const toggleScaleImages = () => ({type: actionNames.VIEW_TOGGLE_SCALE_IMAGES});
 export const toggleLazyLoad = () => ({type: actionNames.VIEW_TOGGLE_LAZY_LOAD_IMAGES});
 export const manualMode = () => ({type: actionNames.MANUAL_MODE});
@@ -89,7 +88,7 @@ export const updateBaseHost = (host: string) => {
     return {type: actionNames.VIEW_UPDATE_BASE_HOST, host};
 };
 
-export function filterBrowser (mode: string) {
+export function filterBrowser(mode: string) {
     switch (mode) {
         case 'chrome':
             return {type: actionNames.VIEW_BROWSER_CHROME};
@@ -98,11 +97,11 @@ export function filterBrowser (mode: string) {
         case 'ie':
             return {type: actionNames.VIEW_BROWSER_IE};
         case 'all':
-            return {type: actionNames.VIEW_BROWSER_ALL}
+            return {type: actionNames.VIEW_BROWSER_ALL};
         default:
-            return {type: actionNames.VIEW_BROWSER_ALL}
+            return {type: actionNames.VIEW_BROWSER_ALL};
     }
-};
+}
 
 export function changeViewMode(mode: string) {
     switch (mode) {
