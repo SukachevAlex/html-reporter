@@ -9,8 +9,8 @@ import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
 import { Segment, Tab } from 'semantic-ui-react';
 import SwitcherRetry from '../switcher-retry';
 import { Code } from './states/code';
-import { Scripts } from './states/scripts';
 import { cn } from '@bem-react/classname';
+import MetaInfo from './states/meta-info';
 
 const actions = require('../../../modules/actions');
 
@@ -145,20 +145,20 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
     render() {
         const activeResult = this._getActiveResult();
-        const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
+        const {metaInfo, suiteUrl, code, description} = activeResult;
 
         const {retries, browserName, result: {status}, result} = this.props;
 
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
 
         const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
-        const CodePane = () => <Pane><Code code={code} suiteUrl={suiteUrl} metaInfo={metaInfo} /></Pane>;
-        const ScriptsPane = () => <Pane><Scripts /></Pane>;
+        const CodePane = () => <Pane><Code code={code} /></Pane>;
+        const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
 
         const tabs: ITab[] = [
             tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
-            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code || metaInfo),
-            tabCreate({key: 'scripts', icon: 'tasks', content: 'Tasks'}, ScriptsPane, scripts)
+            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
+            tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo)
         ].filter((item: ITab) => item !== null) as ITab[];
 
         return (

@@ -1,7 +1,6 @@
 import url from 'url';
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import _ from 'lodash';
-import ToggleOpen from '../toggle-open';
 
 import {IMetaInfo} from 'typings/test-adapter';
 
@@ -39,9 +38,9 @@ export default class MetaInfo extends Component<IMetaInfoChildProps> {
         const metaElements = metaToElements(formattedMetaInfo);
 
         return (
-            <Fragment>
-                <ToggleOpen title='Meta-info' content={metaElements}/>
-            </Fragment>
+            <div className='MetaInfo'>
+                {metaElements}
+            </div>
         );
     }
 }

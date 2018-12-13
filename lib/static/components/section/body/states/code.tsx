@@ -1,27 +1,16 @@
-import React, {Component, Fragment} from 'react';
-import MetaInfo from './meta-info';
+import React, {Component} from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 // @ts-ignore
 import {agate as syntaxStyle} from 'react-syntax-highlighter/dist/styles/hljs';
 
-import {IMetaInfo} from 'typings/test-adapter';
-
 interface ICodeProps {
-    metaInfo: IMetaInfo;
-    className?: string;
-    suiteUrl: string;
     code?: string;
 }
 
 export class Code extends Component<ICodeProps> {
     render() {
-        const {metaInfo, suiteUrl, code} = this.props;
+        const {code} = this.props;
 
-        return (
-            <Fragment>
-                <MetaInfo suiteUrl={suiteUrl} metaInfo={metaInfo} />
-                {code && <SyntaxHighlighter style={syntaxStyle} language='javascript'>{code.normalize()}</SyntaxHighlighter>}
-            </Fragment>
-        );
+        return code ? <SyntaxHighlighter style={syntaxStyle} language='javascript'>{code.normalize()}</SyntaxHighlighter> : null;
     }
 }
