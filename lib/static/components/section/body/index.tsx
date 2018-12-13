@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, {Component, ComponentState} from 'react';
+import React, {Component, ComponentState, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import ControlButton from '../../controls/button';
@@ -150,15 +150,22 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const {retries, browserName, result: {status}, result} = this.props;
 
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
+        const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
 
-        const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
+        const ImagePane = () => <Pane><Image /></Pane>;
         const CodePane = () => <Pane><Code code={code} /></Pane>;
         const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
+        const AllPane = () => <Pane>
+            <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} />
+            <Image />
+            <Code code={code} />
+        </Pane>;
 
         const tabs: ITab[] = [
             tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
             tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
-            tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo)
+            tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo),
+            tabCreate({key: 'all', icon: 'th', content: 'All'}, AllPane, true)
         ].filter((item: ITab) => item !== null) as ITab[];
 
         return (
