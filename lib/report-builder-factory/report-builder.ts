@@ -248,19 +248,19 @@ module.exports = class ReportBuilder {
         });
     }
 
-    itterBrowsersOver(
+    iterationByBrowsers(
         handler: (browser: IBrowser, index: number, link: IBrowser[]) => any,
         methodName: string,
         suite: ISuite | ISuite[] = this._tree.children || {}
     ) {
         if (Array.isArray(suite)) {
             return suite.map((suite): any => {
-                return this.itterBrowsersOver(handler, methodName, suite);
+                return this.iterationByBrowsers(handler, methodName, suite);
             });
         }
 
         if (suite.children) {
-            suite.children = suite.children.map((child: ISuite) => this.itterBrowsersOver(handler, methodName, child));
+            suite.children = suite.children.map((child: ISuite) => this.iterationByBrowsers(handler, methodName, child));
         }
 
         if (suite.browsers) {
@@ -271,7 +271,7 @@ module.exports = class ReportBuilder {
     }
 
     clearRetries() {
-        this._tree.children = this.itterBrowsersOver(this._lastRetrySave, 'map', this._tree.children);
+        this._tree.children = this.iterationByBrowsers(this._lastRetrySave, 'map', this._tree.children);
         this.saveDataFileSync();
     }
 
