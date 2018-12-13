@@ -21,6 +21,20 @@ export const initial = () => {
     };
 };
 
+export const clearRetries = () => {
+    return async (dispatch: DispatchType) => {
+        try {
+            const appState = await axios.post('/clear-retries');
+            dispatch({
+                type: actionNames.CLEAR_RETRIES,
+                payload: appState.data
+            });
+        } catch (e) {
+            console.error('Error while clearing retries:', e);
+        }
+    };
+};
+
 const runTests = ({tests = [], action = {}}: {tests?: any[], action?: any} = {}) => {
     return async (dispatch: DispatchType) => {
         try {

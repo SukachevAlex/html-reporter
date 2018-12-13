@@ -146,7 +146,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
     render() {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description, scripts} = activeResult;
-        const {retries, browserName, result: {status}} = this.props;
+
+        const {retries, browserName, result: {status}, result} = this.props;
+
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
 
         const ImagePane = () => <Pane>{description && <Description content={description}/>} {this._getTabs()}</Pane>;
@@ -163,7 +165,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
             <Segment className={cnSection('Body')}>
                 <div className={cnBrowserName({status})}>{browserName}</div>
                 {this._addRetryButton()}
-                <SwitcherRetry retries={retries} onChange={this.onSwitcherRetryChange} />
+                <SwitcherRetry retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
                 <Tab panes={tabs} />
             </Segment>
         );

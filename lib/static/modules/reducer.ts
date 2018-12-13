@@ -35,6 +35,12 @@ export default function reducer(state = getInitialState(compiledData), action: a
 
             return merge({}, state, {gui, autoRun, skips, view: {scaleImages, lazyLoadOffset}}, formattedSuites);
         }
+        case actionNames.CLEAR_RETRIES: {
+            const {suites} = action.payload;
+            const formattedSuites = formatSuitesData(suites);
+
+            return assign({}, state, formattedSuites);
+        }
         case actionNames.RUN_ALL_TESTS: {
             const suites = clone(state.suites);
             setStatusToAll(suites, action.payload.status);
@@ -206,8 +212,7 @@ function formatSuitesData(suites = []) {
     };
 }
 
-function getFailedSuiteIds(suites: ISuite[]) {
-    // @ts-ignore
+function getFailedSuiteIds(suites: any[]) {
     return getSuiteIds(filter(suites, isSuiteFailed));
 }
 

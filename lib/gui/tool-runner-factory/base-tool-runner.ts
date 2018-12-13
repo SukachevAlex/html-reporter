@@ -21,9 +21,9 @@ module.exports = class ToolRunner {
     protected _reportPath: string;
     protected _eventSource: { [key: string]: any};
     protected _reportBuilder: { [key: string]: any};
-    _handleRunnableCollection: any;
-    _subscribeOnEvents: any;
-    _prepareUpdateResult: any;
+    protected _handleRunnableCollection: any;
+    protected _subscribeOnEvents: any;
+    protected _prepareUpdateResult: any;
 
     static create(paths: string[], tool: ITestTool, configs: any) {
         return new this(paths, tool, configs);
@@ -106,6 +106,14 @@ module.exports = class ToolRunner {
                 return findTestResult(reportBuilder.getSuites(), formattedResult.prepareTestResult());
             });
         });
+    }
+
+    clearRetries() {
+       this._reportBuilder.clearRetries();
+
+       const {autoRun} = this._guiOpts;
+
+       this._tree = Object.assign(this._reportBuilder.getResult(), {gui: true, autoRun});
     }
 
     _fillTestsTree() {
