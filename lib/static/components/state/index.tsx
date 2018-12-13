@@ -26,7 +26,7 @@ interface IState {
     scaleImages?: boolean;
 }
 
-class State extends Component<IState> {
+class State extends Component<IState, {viewMode?: string}> {
 
     _getAcceptButton() {
         if (!this.props.gui) {
@@ -53,8 +53,19 @@ class State extends Component<IState> {
             : null;
     }
 
+    _screenshotViewMode(modeName: string) {
+        return (() => {
+            this.setState({ viewMode: modeName });
+        }).bind(this);
+    }
+
     render() {
         const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
+        let viewMode;
+
+        if (this.state) {
+            viewMode = this.state.viewMode;
+        }
 
         let elem = null;
 
@@ -65,7 +76,7 @@ class State extends Component<IState> {
         } else if (isFailStatus(status)) {
             elem = reason
                 ? <StateError image={Boolean(image)} actual={actualPath} reason={reason} />
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} />;
+                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} />;
         }
 
         return (
@@ -74,9 +85,9 @@ class State extends Component<IState> {
                 {this._getAcceptButton()}
                 <div className={cnScreeenshotViewMode()}>
                     <Button.Group basic>
-                        <Button active>Default</Button>
-                        <Button>2-up</Button>
-                        <Button>Only Diff</Button>
+                        <Button onClick={this._screenshotViewMode('Default')}>Default</Button>
+                        <Button onClick={this._screenshotViewMode('2-up')}>2-up</Button>
+                        <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
                         <Button>Loupe</Button>
                         <Button>Swipe</Button>
                         <Button>Onion Skin</Button>
