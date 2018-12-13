@@ -38,7 +38,7 @@ export default class MetaInfo extends Component<IMetaInfoChildProps> {
         const metaElements = metaToElements(formattedMetaInfo);
 
         return (
-            <div className='meta-info'>
+            <div className='MetaInfo'>
                 {metaElements}
             </div>
         );
