@@ -1,16 +1,17 @@
-'use strict';
-
-import React, {Component, Fragment} from 'react';
-import {connect} from 'react-redux';
-import classNames from 'classnames';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { cn } from '@bem-react/classname';
 import StateError from './state-error';
 import StateSuccess from './state-success';
 import StateFail from './state-fail';
 import ControlButton from '../controls/button';
-import {isAcceptable} from '../../modules/utils';
-import {isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus} from '../../../common-utils';
+import { isAcceptable } from '../../modules/utils';
+import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus } from '../../../common-utils';
+import { Button } from 'semantic-ui-react';
+const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
+const cnImageBox = cn('ImageBox');
 
-interface IState{
+interface IState {
     state: {
         status: string;
         image?: boolean;
@@ -25,14 +26,14 @@ interface IState{
     scaleImages?: boolean;
 }
 
-class State extends Component<IState> {
+class State extends Component<IState, {viewMode?: string}> {
 
     _getAcceptButton() {
         if (!this.props.gui) {
             return null;
         }
 
-        const {state, state: {stateName}, acceptHandler} = this.props;
+        const { state, state: { stateName }, acceptHandler } = this.props;
         const isAcceptDisabled = !isAcceptable(state);
         const acceptFn = () => acceptHandler(stateName);
 
@@ -52,34 +53,52 @@ class State extends Component<IState> {
             : null;
     }
 
+    _screenshotViewMode(modeName: string) {
+        return (() => {
+            this.setState({ viewMode: modeName });
+        }).bind(this);
+    }
+
     render() {
-        const {status, reason, image, expectedPath, actualPath, diffPath, stateName} = this.props.state;
+        const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
+        let viewMode;
+
+        if (this.state) {
+            viewMode = this.state.viewMode;
+        }
 
         let elem = null;
 
         if (isErroredStatus(status)) {
-            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;
+            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason} />;
         } else if (isSuccessStatus(status) || isUpdatedStatus(status) || (isIdleStatus(status) && expectedPath)) {
             elem = <StateSuccess status={status} expected={expectedPath} />;
         } else if (isFailStatus(status)) {
             elem = reason
-                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath}/>;
+                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason} />
+                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} />;
         }
-
-        const className = classNames(
-            'image-box__container',
-            {'image-box__container_scale': this.props.scaleImages}
-        );
 
         return (
             <Fragment>
                 {this._getStateTitle(stateName, status)}
                 {this._getAcceptButton()}
-                <div className={className}>{elem}</div>
+                <div className={cnScreeenshotViewMode()}>
+                    <Button.Group basic>
+                        <Button onClick={this._screenshotViewMode('Default')}>Default</Button>
+                        <Button onClick={this._screenshotViewMode('2-up')}>2-up</Button>
+                        <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
+                        <Button>Loupe</Button>
+                        <Button>Swipe</Button>
+                        <Button>Onion Skin</Button>
+                    </Button.Group>
+                </div>
+                <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
+                    {elem}
+                </div>
             </Fragment>
         );
     }
 }
 
-export default connect(({gui, view: {scaleImages}}: {gui: boolean, view: IState}) => ({gui, scaleImages}))(State);
+export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))(State);
