@@ -32,7 +32,7 @@ class StateFail extends Component<IStateFail> {
         );
     }
 
-    _drawExpectedAndActual(expected: string, actual: string, ) {
+    _drawExpectedAndActual(expected: string, actual: string) {
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
