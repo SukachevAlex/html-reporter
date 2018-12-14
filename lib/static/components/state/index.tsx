@@ -89,8 +89,7 @@ class State extends Component<IState, {viewMode?: string}> {
                         <Button onClick={this._screenshotViewMode('2-up')}>2-up</Button>
                         <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
                         <Button>Loupe</Button>
-                        <Button>Swipe</Button>
-                        <Button>Onion Skin</Button>
+                        <Button onClick={this._screenshotViewMode('OnionSkin')}>Onion Skin</Button>
                     </Button.Group>
                 </div>
                 <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >

@@ -23,6 +23,14 @@ class StateFail extends Component<IStateFail> {
                 </Fragment>
             );
         }
+        if (this.props.viewMode === 'OnionSkin'){
+            console.log('OnionSkin');
+            return (
+                <Fragment>
+                    {this._drawExpectedAndActual(expected, actual)}
+                </Fragment>
+            );
+        }
 
         return (
             <Fragment>
