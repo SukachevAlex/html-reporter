@@ -1,5 +1,3 @@
-'use strict';
-
 const ReportBuilderFactory = require('../../../lib/report-builder-factory');
 const ReportBuilder = require('../../../lib/report-builder-factory/report-builder');
 const GeminiTestAdapter = require('../../../lib/test-adapter/gemini-test-adapter');

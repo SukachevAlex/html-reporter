@@ -1,5 +1,3 @@
-'use strict';
-
 const GeminiTestResultAdapter = require('lib/test-adapter/gemini-test-adapter');
 
 describe('gemini test adapter', () => {

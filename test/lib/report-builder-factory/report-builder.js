@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs-extra');
 const _ = require('lodash');
 const serverUtils = require('../../../lib/server-utils');
@@ -11,7 +9,8 @@ const {NO_REF_IMAGE_ERROR} = getCommonErrors();
 
 describe('ReportBuilder', () => {
     const sandbox = sinon.sandbox.create();
-    let hasImage, ReportBuilder;
+    let hasImage;
+    let ReportBuilder;
 
     const mkReportBuilder_ = ({toolConfig, pluginConfig} = {}) => {
         toolConfig = _.defaults(toolConfig || {}, {getAbsoluteUrl: _.noop});

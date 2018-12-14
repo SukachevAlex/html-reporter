@@ -1,5 +1,3 @@
-'use strict';
-
 const utils = require('../../lib/server-utils');
 
 describe('server-utils', () => {

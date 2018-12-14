@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const proxyquire = require('proxyquire');
 const ReportBuilder = require('lib/report-builder-factory/report-builder');

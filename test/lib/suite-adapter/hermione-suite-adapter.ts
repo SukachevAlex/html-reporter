@@ -1,5 +1,3 @@
-'use strict';
-
 import {assert} from 'chai';
 
 import HermioneSuiteAdapter from 'lib/suite-adapter/hermione-suite-adapter';

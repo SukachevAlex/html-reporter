@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const HermioneTestResultAdapter = require('lib/test-adapter/hermione-test-adapter');
 const {stubTool, stubConfig} = require('../../utils');

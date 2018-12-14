@@ -1,5 +1,3 @@
-'use strict';
-
 const {EventEmitter} = require('events');
 const guiEvents = require('lib/gui/constants/gui-events');
 const Api = require('lib/gui/api');

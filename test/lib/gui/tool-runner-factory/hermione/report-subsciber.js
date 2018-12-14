@@ -1,5 +1,3 @@
-'use strict';
-
 const {EventEmitter} = require('events');
 const reportSubscriber = require('lib/gui/tool-runner-factory/hermione/report-subscriber');
 const ReportBuilder = require('lib/report-builder-factory/report-builder');
