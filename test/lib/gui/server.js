@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const proxyquire = require('proxyquire');
 const App = require('lib/gui/app');

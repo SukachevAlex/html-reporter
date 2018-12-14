@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const fs = require('fs-extra');
 const ReportBuilder = require('lib/merge-reports/report-builder');
@@ -7,7 +5,7 @@ const DataTree = require('lib/merge-reports/data-tree');
 const serverUtils = require('lib/server-utils');
 
 describe('lib/merge-reports/report-builder', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const buildReport_ = async (srcPaths, destPath = 'default-dest-report/path') => {
         return await ReportBuilder.create(srcPaths, destPath).build();

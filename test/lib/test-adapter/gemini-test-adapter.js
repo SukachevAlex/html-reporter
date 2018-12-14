@@ -1,9 +1,7 @@
-'use strict';
-
 const GeminiTestResultAdapter = require('lib/test-adapter/gemini-test-adapter');
 
 describe('gemini test adapter', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     afterEach(() => sandbox.restore());
 

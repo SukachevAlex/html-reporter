@@ -1,5 +1,3 @@
-'use strict';
-
 const utils = require('../../lib/server-utils');
 
 describe('server-utils', () => {
@@ -45,7 +43,7 @@ describe('server-utils', () => {
         });
 
         describe(`get${testData.name}AbsolutePath`, () => {
-            const sandbox = sinon.sandbox.create();
+            const sandbox = sinon.createSandbox();
 
             beforeEach(() => {
                 sandbox.stub(process, 'cwd').returns('/root');
@@ -78,7 +76,7 @@ describe('server-utils', () => {
     });
 
     describe('prepareCommonJSData', () => {
-        const sandbox = sinon.sandbox.create();
+        const sandbox = sinon.createSandbox();
 
         afterEach(() => sandbox.restore());
 

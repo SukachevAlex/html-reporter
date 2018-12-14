@@ -4,7 +4,7 @@ import {assert} from 'chai';
 import GeminiSuiteAdapter from 'lib/suite-adapter/gemini-suite-adapter';
 
 describe('gemini suite adapter', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     afterEach(() => sandbox.restore());
 

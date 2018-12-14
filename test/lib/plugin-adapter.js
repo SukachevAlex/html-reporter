@@ -1,5 +1,3 @@
-'use strict';
-
 const {EventEmitter} = require('events');
 const _ = require('lodash');
 const proxyquire = require('proxyquire');

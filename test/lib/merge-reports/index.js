@@ -1,12 +1,10 @@
-'use strict';
-
 const _ = require('lodash');
 const Promise = require('bluebird');
 const mergeReports = require('lib/merge-reports');
 const ReportBuilder = require('lib/merge-reports/report-builder');
 
 describe('lib/merge-reports', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const execMergeReports_ = async (paths = [], opts = {}) => {
         opts = _.defaults(opts, {destination: 'default-dest-report/path'});

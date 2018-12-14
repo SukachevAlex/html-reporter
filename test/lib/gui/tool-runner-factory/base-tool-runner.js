@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const _ = require('lodash');
 const proxyquire = require('proxyquire');
@@ -26,7 +24,7 @@ describe('lib/gui/tool-runner-factory/base-tool-runner', () => {
         return {
             topLevelSuites: sandbox.stub().returns([]),
             allSuites: sandbox.stub().returns([]),
-            clone: function() {
+            clone() {
                 return this;
             }
         };

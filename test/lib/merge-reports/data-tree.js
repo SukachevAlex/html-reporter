@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const path = require('path');
 const fs = require('fs-extra');
@@ -8,7 +6,7 @@ const {mkSuiteTree, mkSuite, mkState, mkBrowserResult, mkTestResult} = require('
 const {SUCCESS, FAIL, ERROR, SKIPPED} = require('lib/constants/test-statuses');
 
 describe('lib/merge-reports/data-tree', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const mkDataTree_ = (initialData = {}, destPath = 'default-dest-report/path') => {
         return DataTree.create(initialData, destPath);
@@ -356,7 +354,8 @@ describe('lib/merge-reports/data-tree', () => {
         });
 
         describe('from existent browser', () => {
-            let srcDataSuites1, srcDataSuites2;
+            let srcDataSuites1;
+            let srcDataSuites2;
 
             describe('if current result in tree and source report are not successful', () => {
                 beforeEach(() => {
