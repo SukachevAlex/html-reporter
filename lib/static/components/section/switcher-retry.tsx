@@ -1,6 +1,5 @@
 import React, {Component, ComponentState} from 'react';
 import PaginationExtended from './pagination-redefinition';
-import {Pagination} from 'semantic-ui-react';
 import { cn } from '@bem-react/classname';
 const cnPagination = cn('Pswitcher');
 
