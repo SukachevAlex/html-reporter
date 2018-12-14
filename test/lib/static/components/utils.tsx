@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import defaultState from 'lib/static/modules/default-state';
+import defaultState from '../../../../lib/static/modules/default-state';
 
 export const mkStore = (state: any) => {
     const initialState = _.defaults(state, defaultState);
@@ -11,7 +11,7 @@ export const mkStore = (state: any) => {
     return mockStore(initialState);
 };
 
-export const mkConnectedComponent = (Component: React.Component, {initialState}: any = {}) => {
+export const mkConnectedComponent = (Component: any, {initialState}: any = {}) => {
     const store = exports.mkStore(initialState);
     // @ts-ignore
     return mount(<Provider store={store}>{Component}</Provider>);

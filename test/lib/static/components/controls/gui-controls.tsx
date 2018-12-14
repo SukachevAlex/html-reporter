@@ -28,7 +28,6 @@ describe('<ControlButtons />', () => {
 
     describe('"Run" button', () => {
         it('should be disabled if no suites to run', () => {
-            // @ts-ignore
             const component = mkConnectedComponent(<ControlButtons />, {
                 initialState: {suiteIds: {all: []}, running: false}
             });
@@ -37,7 +36,6 @@ describe('<ControlButtons />', () => {
         });
 
         it('should be enabled if suites exist to run', () => {
-            // @ts-ignore
             const component = mkConnectedComponent(<ControlButtons />, {
                 initialState: {suiteIds: {all: ['some-suite']}, running: false}
             });
@@ -46,7 +44,6 @@ describe('<ControlButtons />', () => {
         });
 
         it('should be disabled while tests running', () => {
-            // @ts-ignore
             const component = mkConnectedComponent(<ControlButtons />, {
                 initialState: {suiteIds: {all: ['some-suite']}, running: true}
             });
@@ -55,7 +52,6 @@ describe('<ControlButtons />', () => {
         });
 
         it('should pass "autoRun" prop', () => {
-            // @ts-ignore
             const component = mkConnectedComponent(<ControlButtons />, {
                 initialState: {autoRun: true}
             });
@@ -64,14 +60,12 @@ describe('<ControlButtons />', () => {
         });
 
         it('should call "runAllTests" action on click', () => {
-            // @ts-ignore
             const component = mkConnectedComponent(<ControlButtons />, {
                 initialState: {suiteIds: {all: ['some-suite']}, running: false}
             });
 
             component.find(RunButton).simulate('click');
 
-            // @ts-ignore
             assert.calledOnceWith(actionsStub.runAllTests);
         });
     });
@@ -82,7 +76,6 @@ describe('<ControlButtons />', () => {
     ].forEach((button) => {
         describe(`"${button.name}" button`, () => {
             it('should be disabled if no failed suites to run', () => {
-                // @ts-ignore
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {suiteIds: {all: [], failed: []}, running: false}
                 });
@@ -91,7 +84,6 @@ describe('<ControlButtons />', () => {
             });
 
             it('should be enabled if failed suites exist to run', () => {
-                // @ts-ignore
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {
                         suites: {suite1: {}},
@@ -104,7 +96,6 @@ describe('<ControlButtons />', () => {
             });
 
             it('should be disabled while tests running', () => {
-                // @ts-ignore
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {running: true}
                 });
@@ -114,7 +105,6 @@ describe('<ControlButtons />', () => {
 
             it(`should call "${button.handler}" action on click`, () => {
                 const failedSuite = {name: 'suite1', status: 'fail'};
-                // @ts-ignore
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {
                         suites: {suite1: failedSuite},

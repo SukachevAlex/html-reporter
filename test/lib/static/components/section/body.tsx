@@ -71,7 +71,6 @@ describe('<Body />', () => {
         ];
         const testResult = mkTestResult_({name: 'bro', imagesInfo});
 
-        // @ts-ignore
         const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}}/>);
 
         assert.lengthOf(component.find('.tab'), 2);
@@ -81,7 +80,6 @@ describe('<Body />', () => {
     // it('should not render state if state images does not exist and test passed succesfully', () => {
     //     const testResult = mkTestResult_({status: SUCCESS});
 
-    //     // @ts-ignore
     //     const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
     //     assert.lengthOf(component.find('.tab'), 0);
@@ -91,7 +89,6 @@ describe('<Body />', () => {
         const imagesInfo = [{stateName: 'plain1', status: SUCCESS, expectedPath: 'some/path'}];
         const testResult = mkTestResult_({status: ERROR, multipleTabs: true, reason: {}, imagesInfo});
 
-        // @ts-ignore
         const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
         assert.lengthOf(component.find('.tab'), 2);
@@ -102,7 +99,6 @@ describe('<Body />', () => {
             const imagesInfo = [{stateName: 'plain1', status: SUCCESS, expectedPath: 'some/path'}];
             const testResult = mkTestResult_({status: ERROR, multipleTabs: true, reason: {}, imagesInfo});
 
-            // @ts-ignore
             const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
             assert.lengthOf(component.find('.tab'), 2);
@@ -113,7 +109,6 @@ describe('<Body />', () => {
         //     const imagesInfo = [{stateName: 'plain1', status: SUCCESS, expectedPath: 'some/path'}];
         //     const testResult = mkTestResult_({status: ERROR, multipleTabs: false, reason: {}, screenshot: 'some-screen', imagesInfo});
 
-        //     // @ts-ignore
         //     const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
         //     assert.lengthOf(component.find('.tab'), 1);
@@ -124,7 +119,6 @@ describe('<Body />', () => {
         //     const imagesInfo = [{stateName: 'plain1', status: SUCCESS, expectedPath: 'some/path'}];
         //     const testResult = mkTestResult_({status: ERROR, multipleTabs: true, reason: {}, screenshot: 'some-screen', imagesInfo});
 
-        //     // @ts-ignore
         //     const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
         //     assert.lengthOf(component.find('.tab'), 1);
@@ -136,7 +130,6 @@ describe('<Body />', () => {
         //         const imagesInfo = [{stateName: 'plain1', status: SUCCESS, expectedPath: 'some/path'}];
         //         const testResult = mkTestResult_({status, multipleTabs: true, reason: {}, imagesInfo});
 
-        //         // @ts-ignore
         //         const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}} />);
 
         //         assert.lengthOf(component.find('.tab'), 1);
@@ -148,7 +141,6 @@ describe('<Body />', () => {
         it('should be disabled while tests running', () => {
             const testResult = mkTestResult_();
 
-            // @ts-ignore
             const component = mkConnectedComponent(<Body result={testResult} />, {initialState: {running: true}});
 
             assert.isTrue(component.find('[label="↻ Retry"]').prop('isDisabled'));
@@ -157,7 +149,6 @@ describe('<Body />', () => {
         it('should be enabled if tests are not started yet', () => {
             const testResult = mkTestResult_();
 
-            // @ts-ignore
             const component = mkConnectedComponent(<Body result={testResult} />, {initialState: {running: false}});
 
             assert.isFalse(component.find('[label="↻ Retry"]').prop('isDisabled'));

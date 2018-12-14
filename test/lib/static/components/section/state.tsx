@@ -46,7 +46,6 @@ describe('<State/>', () => {
             utilsStub.isAcceptable.withArgs(testResult).returns(false);
 
             const stateComponent = mkConnectedComponent(
-                // @ts-ignore
                 <State state={testResult} acceptHandler={() => {}} />,
                 {initialState: {gui: true}}
             );
@@ -59,7 +58,6 @@ describe('<State/>', () => {
             utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
             const stateComponent = mkConnectedComponent(
-                // @ts-ignore
                 <State state={testResult} acceptHandler={() => {}} />,
                 {initialState: {gui: true}}
             );
@@ -74,7 +72,6 @@ describe('<State/>', () => {
             utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
             const stateComponent = mkConnectedComponent(
-                // @ts-ignore
                 <State state={testResult} acceptHandler={acceptHandler} />,
                 {initialState: {gui: true}}
             );
@@ -90,7 +87,6 @@ describe('<State/>', () => {
         // it('should not scale images by default', () => {
         //     const testResult = mkTestResult_();
 
-        //     // @ts-ignore
         //     const stateComponent = mkConnectedComponent(<State state={testResult} acceptHandler={() => {}} />);
         //     const imageContainer = stateComponent.find('.image-box__container');
 
@@ -102,7 +98,6 @@ describe('<State/>', () => {
         //     const testResult = mkTestResult_();
 
         //     const stateComponent = mkConnectedComponent(
-        //         // @ts-ignore
         //         <State state={testResult} acceptHandler={() => {}} />,
         //         {initialState: {view: {scaleImages: true}}}
         //     );
@@ -113,10 +108,9 @@ describe('<State/>', () => {
     });
 
     describe('lazyLoad', () => {
-        // @ts-ignore
+        // TODO: rewrite
         // it('should load images lazy if lazy load offset is specified', () => {
         //     const stateComponent = mkConnectedComponent(
-        //         // @ts-ignore
         //         <State state={mkTestResult_({status: 'success'})} acceptHandler={() => {}} />,
         //         {initialState: {view: {lazyLoadOffset: 800}}}
         //     );
@@ -127,7 +121,6 @@ describe('<State/>', () => {
 
         it('should not load images lazy if lazy load offset is 0', () => {
             const stateComponent = mkConnectedComponent(
-                // @ts-ignore
                 <State state={mkTestResult_({status: 'success'})} acceptHandler={() => {}} />,
                 {initialState: {view: {lazyLoadOffset: 0}}}
             );
@@ -138,7 +131,6 @@ describe('<State/>', () => {
 
         it('should not load images lazy of lazy load offset is not specified', () => {
             const stateComponent = mkConnectedComponent(
-                // @ts-ignore
                 <State state={mkTestResult_({status: 'success'})} acceptHandler={() => {}} />
             );
             const lazyLoadContainer = stateComponent.find('.LazyLoad');
