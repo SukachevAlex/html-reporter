@@ -4,19 +4,20 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import defaultState from 'lib/static/modules/default-state';
 
-exports.mkStore = (state) => {
+export const mkStore = (state: any) => {
     const initialState = _.defaults(state, defaultState);
     const mockStore = configureStore();
 
     return mockStore(initialState);
 };
 
-exports.mkConnectedComponent = (Component, {initialState} = {}) => {
+export const mkConnectedComponent = (Component: React.Component, {initialState}: any = {}) => {
     const store = exports.mkStore(initialState);
+    // @ts-ignore
     return mount(<Provider store={store}>{Component}</Provider>);
 };
 
-exports.mkTestResult_ = (result) => {
+export const mkTestResult_ = (result?: any) => {
     return _.defaults(result, {
         suiteUrl: '',
         metaInfo: {},
