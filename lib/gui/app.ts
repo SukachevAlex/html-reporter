@@ -1,15 +1,19 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
+import { ITestTool, TestAdapterType, ITestResult } from 'typings/test-adapter';
+import { IOptions } from 'typings/options';
 
 const ToolRunnerFactory = require('./tool-runner-factory');
 
 module.exports = class App {
-    static create(paths, tool, configs) {
+    protected _tool: TestAdapterType;
+    protected _browserConfigs: any[];
+    protected _retryCache: any;
+
+    static create(paths: string[], tool: ITestTool, configs: IOptions) {
         return new this(paths, tool, configs);
     }
 
-    constructor(paths, tool, configs) {
+    constructor(paths: string[], tool: ITestTool, configs: IOptions) {
         const {program} = configs;
 
         this._tool = ToolRunnerFactory.create(program.name(), paths, tool, configs);
@@ -26,7 +30,7 @@ module.exports = class App {
         this._tool.finalize();
     }
 
-    run(tests) {
+    run(tests: ITestResult[]) {
         return _.isEmpty(tests)
             ? this._tool.run()
             : this._runWithoutRetries(tests);
@@ -36,7 +40,7 @@ module.exports = class App {
         this._tool.clearRetries();
     }
 
-    _runWithoutRetries(tests) {
+    _runWithoutRetries(tests: ITestResult[]) {
         if (_.isEmpty(this._browserConfigs)) {
             this._browserConfigs = _.map(this._tool.config.getBrowserIds(), (id) => this._tool.config.forBrowser(id));
         }
@@ -51,7 +55,7 @@ module.exports = class App {
         return this._tool.updateReferenceImage(failedTests);
     }
 
-    addClient(connection) {
+    addClient(connection: any) {
         this._tool.addClient(connection);
     }
 

@@ -1,15 +1,21 @@
-'use strict';
-
-const path = require('path');
-const express = require('express');
+import path from 'path';
+import express from 'express';
 const onExit = require('signal-exit');
-const Promise = require('bluebird');
-const bodyParser = require('body-parser');
+import Promise from 'bluebird';
+import bodyParser from 'body-parser';
+import { TestAdapterType } from 'typings/test-adapter';
 const App = require('./app');
 const {MAX_REQUEST_SIZE} = require('./constants/server');
 const {logger} = require('../server-utils');
 
-exports.start = ({paths, tool, guiApi, configs}) => {
+interface IStartParams {
+    paths: string;
+    tool: TestAdapterType;
+    guiApi: any;
+    configs: any;
+}
+
+exports.start = ({paths, tool, guiApi, configs}: IStartParams) => {
     const {options, pluginConfig} = configs;
     const app = App.create(paths, tool, configs);
     const server = express();
@@ -41,7 +47,7 @@ exports.start = ({paths, tool, guiApi, configs}) => {
 
     server.post('/run', (req, res) => {
         app.run(req.body)
-            .catch((e) => {
+            .catch((e: Error) => {
                 console.error('Error while trying to run tests', e);
             });
 
@@ -50,8 +56,8 @@ exports.start = ({paths, tool, guiApi, configs}) => {
 
     server.post('/update-reference', (req, res) => {
         app.updateReferenceImage(req.body)
-            .then((updatedTests) => res.json(updatedTests))
-            .catch(({message}) => res.status(500).send({error: message}));
+            .then((updatedTests: (...args: any) => any) => res.json(updatedTests))
+            .catch(({message}: {message: string}) => res.status(500).send({error: message}));
     });
 
     onExit(() => {

@@ -1,18 +1,18 @@
-'use strict';
-
-const stringify = require('json-stringify-safe');
+import stringify from 'json-stringify-safe';
 
 module.exports = class EventSource {
+    protected _connections: any[];
+
     constructor() {
         this._connections = [];
     }
 
-    addConnection(connection) {
+    addConnection(connection: any) {
         this._connections.push(connection);
     }
 
-    emit(event, data) {
-        this._connections.forEach(function(connection) {
+    emit(event: string, data: any) {
+        this._connections.forEach((connection) => {
             connection.write('event: ' + event + '\n');
             connection.write('data: ' + stringify(data) + '\n');
             connection.write('\n\n');
