@@ -1,4 +1,6 @@
 import { Pagination } from 'semantic-ui-react';
+import _ from 'lodash';
+
 export default class PaginationExtended extends Pagination{
 
     handleItemClick: (e: Event, { value: nextActivePage }: {
