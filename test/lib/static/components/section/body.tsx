@@ -8,7 +8,7 @@ declare const sinon: any;
 declare const assert: any;
 
 describe('<Body />', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     let Body: any;
     let actionsStub: any;

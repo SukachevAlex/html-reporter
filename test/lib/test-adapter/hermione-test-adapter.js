@@ -3,7 +3,7 @@ const HermioneTestResultAdapter = require('lib/test-adapter/hermione-test-adapte
 const {stubTool, stubConfig} = require('../../utils');
 
 describe('hermione test adapter', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     class ImageDiffError extends Error {}
     class NoRefImageError extends Error {}

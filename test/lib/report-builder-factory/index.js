@@ -4,7 +4,7 @@ const GeminiTestAdapter = require('../../../lib/test-adapter/gemini-test-adapter
 const HermioneTestAdapter = require('../../../lib/test-adapter/hermione-test-adapter');
 
 describe('report builder factory', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     beforeEach(() => {
         sandbox.stub(ReportBuilder, 'create');

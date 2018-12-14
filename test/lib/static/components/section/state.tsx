@@ -6,7 +6,7 @@ declare const sinon: any;
 declare const assert: any;
 
 describe('<State/>', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     let State: any;
     let utilsStub: any;

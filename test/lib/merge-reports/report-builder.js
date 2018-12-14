@@ -5,7 +5,7 @@ const DataTree = require('lib/merge-reports/data-tree');
 const serverUtils = require('lib/server-utils');
 
 describe('lib/merge-reports/report-builder', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const buildReport_ = async (srcPaths, destPath = 'default-dest-report/path') => {
         return await ReportBuilder.create(srcPaths, destPath).build();

@@ -8,7 +8,7 @@ const {getCommonErrors} = require('lib/constants/errors');
 const {NO_REF_IMAGE_ERROR} = getCommonErrors();
 
 describe('ReportBuilder', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
     let hasImage;
     let ReportBuilder;
 

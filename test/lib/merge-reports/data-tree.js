@@ -6,7 +6,7 @@ const {mkSuiteTree, mkSuite, mkState, mkBrowserResult, mkTestResult} = require('
 const {SUCCESS, FAIL, ERROR, SKIPPED} = require('lib/constants/test-statuses');
 
 describe('lib/merge-reports/data-tree', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     const mkDataTree_ = (initialData = {}, destPath = 'default-dest-report/path') => {
         return DataTree.create(initialData, destPath);

@@ -7,7 +7,7 @@ import sinon from 'sinon';
 declare const assert: any;
 
 describe('<ControlButtons />', () => {
-    const sandbox = sinon.sandbox.create();
+    const sandbox = sinon.createSandbox();
 
     let ControlButtons: any;
     let actionsStub: any;
