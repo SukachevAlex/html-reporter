@@ -15,7 +15,7 @@ export default class PaginationExtended extends Pagination{
             onClick: (e: Event, itemProps: any) => {
                 _.invoke(predefinedProps, 'onClick', e, itemProps);
                 this.handleItemClick(e, itemProps);
-            },
+            }
         };
     }
 }
