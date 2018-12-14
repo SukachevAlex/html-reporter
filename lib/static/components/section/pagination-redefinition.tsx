@@ -1,7 +1,7 @@
 import { Pagination } from 'semantic-ui-react';
 export default class PaginationExtended extends Pagination{
 
-    handleItemClick: (e: any, { value: nextActivePage }: {
+    handleItemClick: (e: Event, { value: nextActivePage }: {
         value: any;
     }) => void;
 
