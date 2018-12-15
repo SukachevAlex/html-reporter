@@ -113,7 +113,7 @@
     display: none;
 }
 
-.image-box__image {
+.ImageBox-Image {
     padding: 5px 5px 5px 0;
     display: inline-block;
     vertical-align: top;
@@ -122,9 +122,15 @@
     box-sizing: border-box;
 }
 
-.image-box__screenshot {
+.ImageBox-Screenshot {
     max-width: 100%;
     height: auto;
+}
+.ImageBox-Image_overlay {
+    position: absolute;
+    opacity: 0.6;
+    margin-right: 15px;
+    margin-top: 15px;
 }
 
 .Browser-Name {
