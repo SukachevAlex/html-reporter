@@ -26,42 +26,36 @@ class StateFail extends Component<IStateFail, any> {
     };
 
     render() {
-        const { expected, actual, diff} = this.props;
+        const { expected, actual, diff, viewMode, overlay = true} = this.props;
 
-        if (this.props.viewMode === '2-up'){
-
-            return (
-                <Fragment>
-                    {this._drawExpectedAndActual(expected, actual)}
-                </Fragment>
-            );
+        switch (viewMode) {
+            case '2-up': {
+                return this._drawExpectedAndActual(expected, actual);
+            }
+            case 'OnionSkin': {
+                return (
+                    <Fragment>
+                        <Button.Group basic>
+                            <Button onClick={createMovementHandler('top', -1, this)}><Icon name='angle up'/></Button>
+                            <Button onClick={createMovementHandler('left', -1, this)}><Icon name='angle left' /></Button>
+                            <Button onClick={createMovementHandler('left', 1, this)}><Icon name='angle right' /></Button>
+                            <Button onClick={createMovementHandler('top', 1, this)}><Icon name='angle down' /></Button>
+                        </Button.Group>
+                        <div>
+                            {this._drawExpectedAndActual(expected, actual, overlay)}
+                        </div>
+                    </Fragment>
+                );
+            }
+            default: {
+                return (
+                    <Fragment>
+                        {this._drawExpectedAndActual(expected, actual)}
+                        {this._drawImageBox('Diff', diff)}
+                    </Fragment>
+                );
+            }
         }
-
-        if (this.props.viewMode === 'OnionSkin'){
-
-            const {overlay = true} = this.props;
-
-            return (
-                <Fragment>
-                    <Button.Group basic>
-                        <Button onClick={createMovementHandler('top', -1, this)}><Icon name='angle up'/></Button>
-                        <Button onClick={createMovementHandler('left', -1, this)}><Icon name='angle left' /></Button>
-                        <Button onClick={createMovementHandler('left', 1, this)}><Icon name='angle right' /></Button>
-                        <Button onClick={createMovementHandler('top', 1, this)}><Icon name='angle down' /></Button>
-                    </Button.Group>
-                    <div>
-                        {this._drawExpectedAndActual(expected, actual, overlay)}
-                    </div>
-                </Fragment>
-            );
-        }
-
-        return (
-            <Fragment>
-                {this._drawExpectedAndActual(expected, actual)}
-                {this._drawImageBox('Diff', diff)}
-            </Fragment>
-        );
     }
 
     _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
