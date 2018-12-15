@@ -130,14 +130,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
                     handler={acceptFn}
                 />
             );
+        } else {
+            return null;
         }
-        return (
-            <ControlButton
-                label='✔ Accept'
-                isDisabled={true}
-                handler={() => {}}
-            />
-        );
     }
 
     private _getActiveResult = () => {
