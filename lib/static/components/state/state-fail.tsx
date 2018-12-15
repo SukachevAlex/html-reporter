@@ -11,18 +11,19 @@ interface IStateFail {
     showOnlyDiff: boolean;
     viewMode: string;
     overlay?: boolean;
+    circleDiff: boolean;
 }
 class StateFail extends Component<IStateFail> {
 
     render() {
 
-        const { expected, actual, diff} = this.props;
+        const { expected, actual, diff, circleDiff} = this.props;
 
         if (this.props.viewMode === '2-up'){
 
             return (
                 <Fragment>
-                    {this._drawExpectedAndActual(expected, actual)}
+                    {this._drawExpectedAndActual(expected, actual, circleDiff)}
                 </Fragment>
             );
         }
@@ -32,20 +33,20 @@ class StateFail extends Component<IStateFail> {
 
             return (
                 <Fragment>
-                    {this._drawExpectedAndActual(expected, actual, overlay)}
+                    {this._drawExpectedAndActual(expected, actual, circleDiff, overlay)}
                 </Fragment>
             );
         }
 
         return (
             <Fragment>
-                {this._drawExpectedAndActual(expected, actual)}
-                {this._drawImageBox('Diff', diff)}
+                {this._drawExpectedAndActual(expected, actual, circleDiff)}
+                {this._drawImageBox('Diff', diff, circleDiff)}
             </Fragment>
         );
     }
 
-    _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
+    _drawExpectedAndActual(expected: string, actual: string, circleDiff: boolean, overlay?: boolean) {
 
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
@@ -53,24 +54,24 @@ class StateFail extends Component<IStateFail> {
 
         return (
             <Fragment>
-                {this._drawImageBox('Expected', expected, overlay)}
-                {this._drawImageBox('Actual', actual)}
+                {this._drawImageBox('Expected', expected, circleDiff, overlay)}
+                {this._drawImageBox('Actual', actual, circleDiff)}
             </Fragment>
         );
     }
 
-    _drawImageBox(label: string, path: string, overlay?: boolean) {
+    _drawImageBox(label: string, path: string, circleDiff: boolean, overlay?: boolean) {
         if (!overlay){
             return (
                 <div className={cnImageBox('Image')}>
                     <div className={cnImageBox('Title')}>{label}</div>
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} circleDiff={circleDiff}/>
                 </div>
             );
         } else {
             return (
                 <div className={cnImageBox('Image', {overlay: true})} >
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} circleDiff={circleDiff}/>
                 </div>
             );
         }

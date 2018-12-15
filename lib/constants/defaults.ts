@@ -5,6 +5,6 @@ module.exports = {
         defaultView: 'all',
         baseHost: '',
         scaleImages: false,
-        lazyLoadOffset: 800
+        lazyLoadOffset: 800,
     }
 };
