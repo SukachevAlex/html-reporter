@@ -116,6 +116,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         const acceptHandler = this.onTestAccept;
         const activeResult = this._getActiveResult();
+
         if (activeResult.imagesInfo.length) {
             const {stateName, reason, status} = activeResult.imagesInfo[0];
             const acceptFn = () => acceptHandler(stateName);

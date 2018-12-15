@@ -71,6 +71,7 @@ describe('<Body />', () => {
     //     const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}}/>);
 
     //     assert.lengthOf(component.find('.Tab'), 2);
+
     // });
 
     it('should not render state if state images does not exist and test passed succesfully', () => {

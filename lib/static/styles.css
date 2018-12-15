@@ -138,6 +138,11 @@
 }
 
 
+.Content-Header {
+    margin-bottom: 15px;
+}
+
+
 .Browser-Name {
     display: inline-block;
     min-width: 140px;
