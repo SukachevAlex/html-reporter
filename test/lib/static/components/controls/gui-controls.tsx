@@ -75,7 +75,6 @@ describe('<ControlButtons />', () => {
         {name: 'Accept all', handler: 'acceptAll'}
     ].forEach((button) => {
         describe(`"${button.name}" button`, () => {
-            console.log(button.name, 'button.name');
             it('should be disabled if no failed suites to run', () => {
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {suiteIds: {all: [], failed: []}, running: false}
