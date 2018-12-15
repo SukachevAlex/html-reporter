@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import LazyLoad from 'react-lazyload';
 import { cn } from '@bem-react/classname';
 const cnImageBox = cn('ImageBox');
+import CanvasComponent from './canvas'
 
 interface IScreenshot{
     noCache?: boolean;
@@ -22,7 +23,8 @@ class Screenshot extends Component<IScreenshot> {
             ? addTimestamp(encodeUri(imagePath))
             : encodeUri(imagePath);
 
-        const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
+        // const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
+        const elem  = <div className={cnImageBox('Screenshot')}><CanvasComponent url={url} /></div>;
         return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }
