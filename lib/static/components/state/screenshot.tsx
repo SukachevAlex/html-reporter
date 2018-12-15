@@ -24,10 +24,9 @@ class Screenshot extends Component<IScreenshot> {
             ? addTimestamp(encodeUri(imagePath))
             : encodeUri(imagePath);
 
-        // const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
-        const elem  = circleDiff ? 
-            <div className={cnImageBox('Screenshot')}><CanvasComponent url={url} /></div> :
-            <img src={url}  className={cnImageBox('Screenshot')} />;
+        const elem  = circleDiff
+            ? <div className={cnImageBox('Screenshot')}><CanvasComponent url={url} /></div>
+            : <img src={url}  className={cnImageBox('Screenshot')} />;
         return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }
