@@ -66,7 +66,7 @@ class CommonControlButtons extends Component<IControlButtons> {
                     active={Boolean(view.lazyLoadOffset)}
                     onClick={actions.toggleLazyLoad}
                 >
-                    Lazy image load
+                    Lazy load
                 </Menu.Item>
                 <BaseHostInput/>
             </>
