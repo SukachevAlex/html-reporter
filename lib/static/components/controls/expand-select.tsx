@@ -21,7 +21,7 @@ class ExpandSelect extends Component<IExpandSelect> {
         const {view, options} = this.props;
 
         return (
-            <Dropdown item search selection options={options} value={view.expand} onChange={this._onChange}/>
+            <Dropdown item search compact={true} selection options={options} value={view.expand} onChange={this._onChange}/>
         );
     }
 

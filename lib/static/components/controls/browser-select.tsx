@@ -20,7 +20,7 @@ class BrowserSelect extends Component<IExpandSelect> {
     render() {
         const {view, options} = this.props;
         return (
-            <Dropdown item search selection options={options} value={view.filter} onChange={this._onChange}/>
+            <Dropdown item search compact={true} selection options={options} value={view.filter} onChange={this._onChange}/>
         );
     }
 
