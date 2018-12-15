@@ -8,6 +8,7 @@ interface IScreenshot{
     noCache?: boolean;
     imagePath: string;
     lazyLoadOffset?: number;
+    style?: any;
 }
 
 class Screenshot extends Component<IScreenshot> {
@@ -16,13 +17,13 @@ class Screenshot extends Component<IScreenshot> {
     };
 
     render() {
-        const {noCache, imagePath, lazyLoadOffset} = this.props;
+        const {noCache, imagePath, lazyLoadOffset, style = {}} = this.props;
 
         const url = noCache
             ? addTimestamp(encodeUri(imagePath))
             : encodeUri(imagePath);
 
-        const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
+        const elem = <img style={style} src={url}  className={cnImageBox('Screenshot')} />;
         return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }

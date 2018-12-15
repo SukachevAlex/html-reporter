@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Screenshot from './screenshot';
 import { cn } from '@bem-react/classname';
+import {Icon, Button} from 'semantic-ui-react';
+
 const cnImageBox = cn('ImageBox');
 
 interface IStateFail {
@@ -12,10 +14,14 @@ interface IStateFail {
     viewMode: string;
     overlay?: boolean;
 }
-class StateFail extends Component<IStateFail> {
+
+class StateFail extends Component<IStateFail, any> {
+    state = {
+        left: 0,
+        top: 0
+    };
 
     render() {
-
         const { expected, actual, diff} = this.props;
 
         if (this.props.viewMode === '2-up'){
@@ -26,13 +32,30 @@ class StateFail extends Component<IStateFail> {
                 </Fragment>
             );
         }
+
+        const self = this;
+
+        function some(side: string, diff: number) {
+            return () => {
+                self.setState((state: any) => ({[side]: state[side] + diff}));
+            };
+        }
+
         if (this.props.viewMode === 'OnionSkin'){
 
             const {overlay = true} = this.props;
 
             return (
                 <Fragment>
-                    {this._drawExpectedAndActual(expected, actual, overlay)}
+                    <Button.Group basic>
+                        <Button onClick={some('top', -1)}><Icon name='angle down'/></Button>
+                        <Button onClick={some('left', -1)}><Icon name='angle left' /></Button>
+                        <Button onClick={some('left', 1)}><Icon name='angle right' /></Button>
+                        <Button onClick={some('top', 1)}><Icon name='angle up' /></Button>
+                    </Button.Group>
+                    <div>
+                        {this._drawExpectedAndActual(expected, actual, overlay)}
+                    </div>
                 </Fragment>
             );
         }
@@ -64,7 +87,7 @@ class StateFail extends Component<IStateFail> {
             return (
                 <div className={cnImageBox('Image')}>
                     <div className={cnImageBox('Title')}>{label}</div>
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} style={{marginLeft: `${this.state.left}px`, marginTop: `${this.state.top}px`}} />
                 </div>
             );
         } else {
