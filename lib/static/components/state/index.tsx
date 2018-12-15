@@ -4,8 +4,6 @@ import { cn } from '@bem-react/classname';
 import StateError from './state-error';
 import StateSuccess from './state-success';
 import StateFail from './state-fail';
-import ControlButton from '../controls/button';
-import { isAcceptable } from '../../modules/utils';
 import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus } from '../../../common-utils';
 import { Button } from 'semantic-ui-react';
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
@@ -27,25 +25,6 @@ interface IState {
 }
 
 class State extends Component<IState, {viewMode?: string}> {
-
-    _getAcceptButton() {
-        if (!this.props.gui) {
-            return null;
-        }
-
-        const { state, state: { stateName }, acceptHandler } = this.props;
-        const isAcceptDisabled = !isAcceptable(state);
-        const acceptFn = () => acceptHandler(stateName);
-
-        return (
-            <ControlButton
-                label='✔ Accept'
-                isSuiteControl={true}
-                isDisabled={isAcceptDisabled}
-                handler={acceptFn}
-            />
-        );
-    }
 
     _getStateTitle(stateName: string, status: string) {
         return stateName
@@ -82,7 +61,6 @@ class State extends Component<IState, {viewMode?: string}> {
         return (
             <Fragment>
                 {this._getStateTitle(stateName, status)}
-                {this._getAcceptButton()}
                 <div className={cnScreeenshotViewMode()}>
                     <Button.Group basic>
                         <Button onClick={this._screenshotViewMode('Default')}>Default</Button>

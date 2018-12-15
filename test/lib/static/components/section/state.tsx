@@ -40,47 +40,47 @@ describe('<State/>', () => {
     //     assert.lengthOf(stateComponent.find('.button_type_suite-controls'), 0);
     // });
 
-    describe('"Accept" button', () => {
-        it('should be disabled if test result is not acceptable', () => {
-            const testResult = mkTestResult_({status: 'idle'});
-            utilsStub.isAcceptable.withArgs(testResult).returns(false);
+    // describe('"Accept" button', () => {
+    //     it('should be disabled if test result is not acceptable', () => {
+    //         const testResult = mkTestResult_({status: 'idle'});
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(false);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={() => {}} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={() => {}} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            assert.isTrue(stateComponent.find('[name="✔ Accept"]').find('.button').prop('disabled'));
-        });
+    //         assert.isTrue(stateComponent.find('[name="✔ Accept"]').find('.button').prop('disabled'));
+    //     });
 
-        it('should be enabled if test result is acceptable', () => {
-            const testResult = mkTestResult_();
-            utilsStub.isAcceptable.withArgs(testResult).returns(true);
+    //     it('should be enabled if test result is acceptable', () => {
+    //         const testResult = mkTestResult_();
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={() => {}} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={() => {}} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            assert.isUndefined(stateComponent.find('[name="✔ Accept"]').find('.button').prop('disabled'));
-        });
+    //         assert.isUndefined(stateComponent.find('[name="✔ Accept"]').find('.button').prop('disabled'));
+    //     });
 
-        it('should run accept handler on click', () => {
-            const testResult = mkTestResult_({name: 'bro'});
-            const acceptHandler = sinon.stub();
+    //     it('should run accept handler on click', () => {
+    //         const testResult = mkTestResult_({name: 'bro'});
+    //         const acceptHandler = sinon.stub();
 
-            utilsStub.isAcceptable.withArgs(testResult).returns(true);
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={acceptHandler} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={acceptHandler} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            stateComponent.find('[name="✔ Accept"]').find('.button').simulate('click');
+    //         stateComponent.find('[name="✔ Accept"]').find('.button').simulate('click');
 
-            assert.calledOnce(acceptHandler);
-        });
-    });
+    //         assert.calledOnce(acceptHandler);
+    //     });
+    // });
 
     describe('scaleImages', () => {
         it('should not scale images by default', () => {
