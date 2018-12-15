@@ -1,5 +1,5 @@
 import React from 'react';
-import RunButton from 'lib/static/components/controls/run-button';
+import RunButton from '../../../../../lib/static/components/controls/run-button';
 import proxyquire from 'proxyquire';
 import {mkConnectedComponent} from '../utils';
 import sinon from 'sinon';
@@ -71,16 +71,17 @@ describe('<ControlButtons />', () => {
     });
 
     [
-        {name: 'Retry failed tests', handler: 'runFailedTests'},
+        {name: 'Retry failed', handler: 'runFailedTests'},
         {name: 'Accept all', handler: 'acceptAll'}
     ].forEach((button) => {
         describe(`"${button.name}" button`, () => {
+            console.log(button.name, 'button.name');
             it('should be disabled if no failed suites to run', () => {
                 const component = mkConnectedComponent(<ControlButtons />, {
                     initialState: {suiteIds: {all: [], failed: []}, running: false}
                 });
 
-                assert.isTrue(component.find(`[label="${button.name}"]`).prop('isDisabled'));
+                assert.isTrue(component.find(`[label="${button.name}"]`).find('.item').prop('isDisabled'));
             });
 
             it('should be enabled if failed suites exist to run', () => {
@@ -92,7 +93,7 @@ describe('<ControlButtons />', () => {
                     }
                 });
 
-                assert.isFalse(component.find(`[label="${button.name}"]`).prop('isDisabled'));
+                assert.isFalse(component.find(`[label="${button.name}"]`).find('.item').prop('isDisabled'));
             });
 
             it('should be disabled while tests running', () => {
@@ -100,7 +101,7 @@ describe('<ControlButtons />', () => {
                     initialState: {running: true}
                 });
 
-                assert.isTrue(component.find(`[label="${button.name}"]`).prop('isDisabled'));
+                assert.isTrue(component.find(`[label="${button.name}"]`).find('.item').prop('isDisabled'));
             });
 
             it(`should call "${button.handler}" action on click`, () => {
@@ -113,7 +114,7 @@ describe('<ControlButtons />', () => {
                     }
                 });
 
-                component.find(`[label="${button.name}"]`).simulate('click');
+                component.find(`[label="${button.name}"]`).find('.item').simulate('click');
 
                 assert.calledOnceWith(actionsStub[button.handler], [failedSuite]);
             });
