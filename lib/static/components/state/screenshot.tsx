@@ -1,8 +1,8 @@
-'use strict';
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LazyLoad from 'react-lazyload';
+import { cn } from '@bem-react/classname';
+const cnImageBox = cn('ImageBox');
 
 interface IScreenshot{
     noCache?: boolean;
@@ -22,7 +22,7 @@ class Screenshot extends Component<IScreenshot> {
             ? addTimestamp(encodeUri(imagePath))
             : encodeUri(imagePath);
 
-        const elem = <img src={url} className='image-box__screenshot' />;
+        const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
         return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }
