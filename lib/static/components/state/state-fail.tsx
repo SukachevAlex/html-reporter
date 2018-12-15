@@ -58,7 +58,7 @@ class StateFail extends Component<IStateFail, any> {
         }
     }
 
-    _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
+    protected _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
@@ -71,18 +71,18 @@ class StateFail extends Component<IStateFail, any> {
         );
     }
 
-    _drawImageBox(label: string, path: string, overlay?: boolean) {
+    protected _drawImageBox(label: string, path: string, overlay?: boolean) {
         if (!overlay){
             return (
                 <div className={cnImageBox('Image')}>
                     <div className={cnImageBox('Title')}>{label}</div>
-                    <Screenshot imagePath={path} style={{marginLeft: `${this.state.left}px`, marginTop: `${this.state.top}px`}} />
+                    <Screenshot imagePath={path} />
                 </div>
             );
         } else {
             return (
                 <div className={cnImageBox('Image', {overlay: true})} >
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} style={{transform: `translateX(${this.state.left}px) translateY(${this.state.top}px)`}} />
                 </div>
             );
         }
