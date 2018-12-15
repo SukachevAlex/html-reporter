@@ -15,6 +15,10 @@ interface IStateFail {
     overlay?: boolean;
 }
 
+function createMovementHandler(side: string, diff: number, ctx: any) {
+    return () => ctx.setState((state: any) => ({[side]: state[side] + diff}));
+}
+
 class StateFail extends Component<IStateFail, any> {
     state = {
         left: 0,
@@ -33,14 +37,6 @@ class StateFail extends Component<IStateFail, any> {
             );
         }
 
-        const self = this;
-
-        function some(side: string, diff: number) {
-            return () => {
-                self.setState((state: any) => ({[side]: state[side] + diff}));
-            };
-        }
-
         if (this.props.viewMode === 'OnionSkin'){
 
             const {overlay = true} = this.props;
@@ -48,10 +44,10 @@ class StateFail extends Component<IStateFail, any> {
             return (
                 <Fragment>
                     <Button.Group basic>
-                        <Button onClick={some('top', -1)}><Icon name='angle down'/></Button>
-                        <Button onClick={some('left', -1)}><Icon name='angle left' /></Button>
-                        <Button onClick={some('left', 1)}><Icon name='angle right' /></Button>
-                        <Button onClick={some('top', 1)}><Icon name='angle up' /></Button>
+                        <Button onClick={createMovementHandler('top', -1, this)}><Icon name='angle up'/></Button>
+                        <Button onClick={createMovementHandler('left', -1, this)}><Icon name='angle left' /></Button>
+                        <Button onClick={createMovementHandler('left', 1, this)}><Icon name='angle right' /></Button>
+                        <Button onClick={createMovementHandler('top', 1, this)}><Icon name='angle down' /></Button>
                     </Button.Group>
                     <div>
                         {this._drawExpectedAndActual(expected, actual, overlay)}

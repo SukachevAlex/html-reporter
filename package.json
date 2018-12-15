@@ -1,6 +1,6 @@
 {
-  "name": "harry-reporter",
-  "version": "1.0.0",
+  "name": "newton-reporter",
+  "version": "1.0.3",
   "description": "Plugin for gemini and hermione which is intended to aggregate the results of tests running into html report",
   "scripts": {
     "lint": "tslint -c tslint.json ./**/*.ts ./**/*.tsx -e \"node_modules\"",
