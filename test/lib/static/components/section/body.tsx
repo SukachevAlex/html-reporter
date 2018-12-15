@@ -46,21 +46,20 @@ describe('<Body />', () => {
 
         assert.lengthOf(component.find('.Section-Body').find('.button'), 0);
     });
-    // TODO: rewrite
-    // it('should call "acceptTest" action on Accept button click', () => {
-    //     const retries: any[] = [];
-    //     const imagesInfo = [{status: ERROR, actualPath: 'some/path', reason: {}, image: true}];
-    //     const testResult = mkTestResult_({name: 'bro', imagesInfo});
-    //     utilsStub.isAcceptable.withArgs(imagesInfo[0]).returns(true);
-    //
-    //     const bodyComponent: any = <Body result={testResult} suite={{name: 'some-suite'}} retries={retries}/>;
-    //     const component = mkConnectedComponent(bodyComponent);
-    //
-    //     const c = component.find('[name="✔ Accept"]').find('.button');
-    //     c.simulate('click');
-    //
-    //     assert.calledOnceWith(actionsStub.acceptTest, {name: 'some-suite'}, 'bro', retries.length);
-    // });
+
+    it('should call "acceptTest" action on Accept button click', () => {
+        const retries: any[] = [];
+        const imagesInfo = [{status: ERROR, actualPath: 'some/path', reason: {}, image: true}];
+        const testResult = mkTestResult_({name: 'bro', imagesInfo});
+        utilsStub.isAcceptable.withArgs(imagesInfo[0]).returns(true);
+
+        const bodyComponent: any = <Body result={testResult} suite={{name: 'some-suite'}} retries={retries}/>;
+        const component = mkConnectedComponent(bodyComponent);
+
+        component.find('[name="✔ Accept"]').find('.button').simulate('click');
+
+        assert.calledOnceWith(actionsStub.acceptTest, {name: 'some-suite'}, 'bro', retries.length - 1);
+    });
 
     it('should render state for each state image', () => {
         const imagesInfo = [
