@@ -6,11 +6,12 @@ import ControlButton from '../../controls/button';
 import State from '../../state/index';
 import Description from './description';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
-import { Segment, Tab } from 'semantic-ui-react';
+import { Segment, Tab, Button } from 'semantic-ui-react';
 import SwitcherRetry from '../switcher-retry';
 import { Code } from './states/code';
 import { cn } from '@bem-react/classname';
 import MetaInfo from './states/meta-info';
+import { isAcceptable } from '../../../modules/utils';
 
 const actions = require('../../../modules/actions');
 
@@ -22,6 +23,16 @@ interface IBodyProps extends React.Props<any>{
     running?: boolean;
     actions?: any;
     browserName?: string;
+    state: {
+        status: string;
+        image?: boolean;
+        reason: any;
+        expectedPath: string;
+        actualPath: string;
+        diffPath: string;
+        stateName: string;
+    };
+    acceptHandler: (a: any) => any;
 }
 
 interface IBodyStates extends ComponentState{
@@ -49,7 +60,6 @@ export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: an
 }
 
 const cnTab = cn('Tab');
-const cnBrowserName = cn('Browser-Name');
 const cnSection = cn('Section');
 
 class Body extends Component<IBodyProps, IBodyStates> {
@@ -97,6 +107,37 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 handler={this.onTestRetry}
             />
             : null;
+    }
+
+    _getAcceptButton() {
+        if (!this.props.gui) {
+            return null;
+        }
+
+        const acceptHandler = this.onTestAccept;
+        const activeResult = this._getActiveResult();
+        console.log(this.props);
+        if (activeResult.imagesInfo.length) {
+            const {stateName, reason, status} = activeResult.imagesInfo[0];
+            const acceptFn = () => acceptHandler(stateName);
+            const isAcceptDisabled = !isAcceptable({status, reason});
+
+            return (
+                <ControlButton
+                    label='✔ Accept'
+                    isSuiteControl={true}
+                    isDisabled={isAcceptDisabled}
+                    handler={acceptFn}
+                />
+            );
+        }
+        return (
+            <ControlButton
+                label='✔ Accept'
+                isDisabled={true}
+                handler={() => {}}
+            />
+        );
     }
 
     private _getActiveResult = () => {
@@ -147,7 +188,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description} = activeResult;
 
-        const {retries, browserName, result: {status}, result} = this.props;
+        const {retries, result} = this.props;
 
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
         const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
@@ -170,9 +211,13 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return (
             <Segment className={cnSection('Body')}>
-                <div className={cnBrowserName({status})}>{browserName}</div>
-                {this._addRetryButton()}
-                <SwitcherRetry retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                <div className={'Content-Header'}>
+                    <Button.Group  floated='right'>
+                        {this._addRetryButton()}
+                        {this._getAcceptButton()}
+                    </Button.Group>
+                    <SwitcherRetry retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                </div>
                 <Tab panes={tabs} />
             </Segment>
         );

@@ -30,57 +30,62 @@ describe('<State/>', () => {
     //     assert.equal(stateComponent.find('.button_type_suite-controls').first().text(), '✔ Accept');
     // });
 
-    it('should not render accept button if "gui" is not running', () => {
-        const stateComponent = mkConnectedComponent(
-            // @ts-ignore
-            <State state={mkTestResult_()} gui={false} acceptHandler={() => {}} />,
-            {initialState: {gui: false}}
-        );
+    // it('should not render accept button if "gui" is not running', () => {
+    //     const stateComponent = mkConnectedComponent(
+    //         // @ts-ignore
+    //         <State state={mkTestResult_()} gui={false} acceptHandler={() => {}} />,
+    //         {initialState: {gui: false}}
+    //     );
+    //     // const stateComponent = mkConnectedComponent(
+    //     //     // @ts-ignore
+    //     //     <Body state={mkTestResult_()} gui={false} running={true} acceptHandler={() => {}} />,
+    //     //     {initialState: {gui: false}}
+    //     // );
 
-        assert.lengthOf(stateComponent.find('.button_type_suite-controls'), 0);
-    });
+    //     assert.lengthOf(stateComponent.find('.button_type_suite-controls'), 0);
+    // });
 
-    describe('"Accept" button', () => {
-        it('should be disabled if test result is not acceptable', () => {
-            const testResult = mkTestResult_({status: 'idle'});
-            utilsStub.isAcceptable.withArgs(testResult).returns(false);
+    // describe('"Accept" button', () => {
+    //     it('should be disabled if test result is not acceptable', () => {
+    //         const testResult = mkTestResult_({status: 'idle'});
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(false);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={() => {}} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={() => {}} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            assert.isTrue(stateComponent.find('[label="✔ Accept"]').prop('isDisabled'));
-        });
+    //         assert.isTrue(stateComponent.find('[label="✔ Accept"]').prop('isDisabled'));
+    //     });
 
-        it('should be enabled if test result is acceptable', () => {
-            const testResult = mkTestResult_();
-            utilsStub.isAcceptable.withArgs(testResult).returns(true);
+    //     it('should be enabled if test result is acceptable', () => {
+    //         const testResult = mkTestResult_();
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={() => {}} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={() => {}} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            assert.isFalse(stateComponent.find('[label="✔ Accept"]').prop('isDisabled'));
-        });
+    //         assert.isFalse(stateComponent.find('[label="✔ Accept"]').prop('isDisabled'));
+    //     });
 
-        it('should run accept handler on click', () => {
-            const testResult = mkTestResult_({name: 'bro'});
-            const acceptHandler = sinon.stub();
+    //     it('should run accept handler on click', () => {
+    //         const testResult = mkTestResult_({name: 'bro'});
+    //         const acceptHandler = sinon.stub();
 
-            utilsStub.isAcceptable.withArgs(testResult).returns(true);
+    //         utilsStub.isAcceptable.withArgs(testResult).returns(true);
 
-            const stateComponent = mkConnectedComponent(
-                <State state={testResult} acceptHandler={acceptHandler} />,
-                {initialState: {gui: true}}
-            );
+    //         const stateComponent = mkConnectedComponent(
+    //             <State state={testResult} acceptHandler={acceptHandler} />,
+    //             {initialState: {gui: true}}
+    //         );
 
-            stateComponent.find('[label="✔ Accept"]').simulate('click');
+    //         stateComponent.find('[label="✔ Accept"]').simulate('click');
 
-            assert.calledOnce(acceptHandler);
-        });
-    });
+    //         assert.calledOnce(acceptHandler);
+    //     });
+    // });
 
     describe('scaleImages', () => {
         // TODO: rewrite

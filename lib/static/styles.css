@@ -127,12 +127,16 @@
     height: auto;
 }
 
+.Content-Header {
+    margin-bottom: 15px;
+}
+
+
 .Browser-Name {
     display: inline-block;
     min-width: 140px;
     margin-right: 16px;
     font-size: 13px;
-    line-height: 26px;
     font-weight: 600;
 }
 
@@ -381,6 +385,12 @@ a:active {
     padding-right: 4px;
     margin-right: 7px;
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.ui.segment.Section-Body {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
 }
 
 .ui.vertical.menu {

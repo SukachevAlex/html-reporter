@@ -64,17 +64,17 @@ describe('<Body />', () => {
     //     assert.calledOnceWith(actionsStub.acceptTest, {name: 'some-suite'}, 'bro', retries.length);
     // });
 
-    it('should render state for each state image', () => {
-        const imagesInfo = [
-            {stateName: 'plain1', status: ERROR, actualPath: 'some/path', reason: {}},
-            {stateName: 'plain2', status: ERROR, actualPath: 'some/path', reason: {}}
-        ];
-        const testResult = mkTestResult_({name: 'bro', imagesInfo});
+    // it('should render state for each state image', () => {
+    //     const imagesInfo = [
+    //         {stateName: 'plain1', status: ERROR, actualPath: 'some/path', reason: {}},
+    //         {stateName: 'plain2', status: ERROR, actualPath: 'some/path', reason: {}}
+    //     ];
+    //     const testResult = mkTestResult_({name: 'bro', imagesInfo});
 
-        const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}}/>);
+    //     const component = mkConnectedComponent(<Body result={testResult} suite={{name: 'some-suite'}}/>);
 
-        assert.lengthOf(component.find('.tab'), 2);
-    });
+    //     assert.lengthOf(component.find('.tab'), 2);
+    // });
 
     // TODO: rewrite
     // it('should not render state if state images does not exist and test passed succesfully', () => {
