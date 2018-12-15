@@ -59,7 +59,6 @@ class StateFail extends Component<IStateFail, any> {
     }
 
     _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
-
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
