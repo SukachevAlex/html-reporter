@@ -397,6 +397,11 @@ a:active {
     margin-right: 7px;
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
+.Logo {
+    width: 175px;
+    height: 40px;
+    margin: 20px 0 0 20px;
+}
 
 .ui.segment.Section-Body {
     border-left: none;
