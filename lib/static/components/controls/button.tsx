@@ -16,6 +16,6 @@ export default class ControlButton extends Component<IControlButton> {
     render() {
         const {label, handler, isDisabled = false} = this.props;
 
-        return (<Button onClick={handler} disabled={isDisabled}>{label}</Button>);
+        return (<Button onClick={handler} name={label} disabled={isDisabled}>{label}</Button>);
     }
 }
