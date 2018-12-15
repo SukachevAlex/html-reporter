@@ -24,7 +24,7 @@ interface IState {
     scaleImages?: boolean;
 }
 
-class State extends Component<IState, {viewMode?: string}> {
+class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}> {
 
     _getStateTitle(stateName: string, status: string) {
         return stateName
@@ -38,24 +38,32 @@ class State extends Component<IState, {viewMode?: string}> {
         }).bind(this);
     }
 
+    _circleSmallDiff(circleDiff: boolean) {
+        return(() => {
+            circleDiff ? this.setState({ circleDiff: false }): this.setState({ circleDiff: true })
+        })
+    }
+
     render() {
         const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
         let viewMode;
+        let circleDiff = false;
 
         if (this.state) {
             viewMode = this.state.viewMode;
+            if(this.state.circleDiff) circleDiff = this.state.circleDiff;
         }
 
         let elem = null;
 
         if (isErroredStatus(status)) {
-            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason} />;
+            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;
         } else if (isSuccessStatus(status) || isUpdatedStatus(status) || (isIdleStatus(status) && expectedPath)) {
             elem = <StateSuccess status={status} expected={expectedPath} />;
         } else if (isFailStatus(status)) {
             elem = reason
-                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason} />
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} />;
+                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>
+                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} circleDiff={circleDiff}/>;
         }
 
         return (
@@ -68,6 +76,7 @@ class State extends Component<IState, {viewMode?: string}> {
                         <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
                         <Button>Loupe</Button>
                         <Button onClick={this._screenshotViewMode('OnionSkin')}>Onion Skin</Button>
+                        <Button onClick={this._circleSmallDiff(circleDiff)}>Circle small diff</Button>
                     </Button.Group>
                 </div>
                 <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
