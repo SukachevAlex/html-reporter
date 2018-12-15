@@ -36,10 +36,10 @@ class StateFail extends Component<IStateFail, any> {
                 return (
                     <Fragment>
                         <Button.Group basic>
-                            <Button onClick={createMovementHandler('top', -1, this)}><Icon name='angle up'/></Button>
-                            <Button onClick={createMovementHandler('left', -1, this)}><Icon name='angle left' /></Button>
-                            <Button onClick={createMovementHandler('left', 1, this)}><Icon name='angle right' /></Button>
-                            <Button onClick={createMovementHandler('top', 1, this)}><Icon name='angle down' /></Button>
+                            <Button onPointerDown={createMovementHandler('top', -1, this)}><Icon name='angle up'/></Button>
+                            <Button onPointerDown={createMovementHandler('left', -1, this)}><Icon name='angle left' /></Button>
+                            <Button onPointerDown={createMovementHandler('left', 1, this)}><Icon name='angle right' /></Button>
+                            <Button onPointerDown={createMovementHandler('top', 1, this)}><Icon name='angle down' /></Button>
                         </Button.Group>
                         <div>
                             {this._drawExpectedAndActual(expected, actual, overlay)}
