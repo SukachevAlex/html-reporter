@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import LazyLoad from 'react-lazyload';
 import { cn } from '@bem-react/classname';
 const cnImageBox = cn('ImageBox');
-import CanvasComponent from './canvas'
+import CanvasComponent from './canvas';
 
 interface IScreenshot{
     noCache?: boolean;

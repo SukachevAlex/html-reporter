@@ -40,8 +40,8 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
 
     _circleSmallDiff(circleDiff: boolean) {
         return(() => {
-            circleDiff ? this.setState({ circleDiff: false }): this.setState({ circleDiff: true })
-        })
+            circleDiff ? this.setState({ circleDiff: false }) : this.setState({ circleDiff: true });
+        });
     }
 
     render() {
@@ -51,7 +51,7 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
 
         if (this.state) {
             viewMode = this.state.viewMode;
-            if(this.state.circleDiff) circleDiff = this.state.circleDiff;
+            if (this.state.circleDiff) circleDiff = this.state.circleDiff;
         }
 
         let elem = null;
