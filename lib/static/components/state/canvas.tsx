@@ -9,7 +9,7 @@ export default class CanvasComponent extends React.Component<IMyCanvasComponent>
     constructor(props: IMyCanvasComponent) {
         super(props);
     }
-    componentDidMount() { 
+    componentDidMount() {
         this.updateCanvas();
     }
     updateCanvas() {
