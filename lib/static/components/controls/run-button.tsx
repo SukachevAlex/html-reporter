@@ -11,7 +11,7 @@ interface IRunButton {
     isControlGroup?: boolean;
     className?: string;
     color?: string;
-    inverted?: string;
+    inverted?: boolean;
 }
 
 export default class RunButton extends Component<IRunButton> {
@@ -24,11 +24,10 @@ export default class RunButton extends Component<IRunButton> {
 
     render() {
         const { handler, label = 'Run' } = this.props;
-        return (<Menu.Item
-                    label={label}
-                    onClick={handler}
-                >
-                    Run
-                 </Menu.Item>);
+        return (
+            <Menu.Item label={label} onClick={handler} >
+                Run
+            </Menu.Item>
+        );
     }
 }

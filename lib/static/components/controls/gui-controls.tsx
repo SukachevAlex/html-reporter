@@ -33,33 +33,17 @@ class ControlButtons extends Component<IControllButtonsProps> {
 
         return (
             <>
-                <RunButton
-                    autoRun={autoRun}
-                    handler={actions.runAllTests}
-                    inverted='true'
-                />
+                <RunButton autoRun={autoRun} handler={actions.runAllTests} inverted />
 
-                <Menu.Item
-                    inverted='true'
-                    label='Retry failed'
-                    onClick={this._runFailedTests}
-                >
+                <Menu.Item inverted label='Retry failed' onClick={this._runFailedTests}>
                     Retry failed
                 </Menu.Item>
 
-                <Menu.Item
-                    inverted='true'
-                    label='Accept all'
-                    onClick={this._acceptAll}
-                >
+                <Menu.Item inverted label='Accept all' onClick={this._acceptAll} >
                     Accept all
                 </Menu.Item>
 
-                <Menu.Item
-                    inverted='true'
-                    label='Clear retries'
-                    onClick={actions.clearRetries}
-                >
+                <Menu.Item inverted label='Clear retries' onClick={actions.clearRetries} >
                     Clear retries
                 </Menu.Item>
             </>
