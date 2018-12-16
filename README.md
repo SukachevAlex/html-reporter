@@ -43,14 +43,12 @@ https://localhost:8000/?expand=all
 That example open all tests.
 
 Options:
-| query | type |
-| --- | --- |
-| expand | 'all' \| 'errors' |
-| showOnlyDiff | true \| none |
-| autoRun | true \| none |
-| filter | string - browsername |
-| showSkipped | true \| none |
-| baseHost | string - host for tests |
+* **expand** 'all' | 'errors', expands tests
+* **showOnlyDiff** true | none, set mode for image
+* **autoRun** true | none, auto run on in
+* **filter** string - browsername for filter
+* **showSkipped** true | none, shows skipped tests
+* **baseHost** string - host for tests
 
 ### Gemini Usage
 
