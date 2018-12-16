@@ -16,9 +16,9 @@ export default class CanvasComponent extends React.Component<IMyCanvasComponent>
 
         function matrixArray(pix: Uint8ClampedArray, rows: number, columns: number){
             const arr = new Array();
-            for (var i = 0; i < rows; i++) {
+            for (let i = 0; i < rows; i++) {
               arr[i] = new Array();
-              for (var j = 0; j < columns; j++) {
+              for (let j = 0; j < columns; j++) {
                     const idx = 4 * i * columns + j * 4;
                     arr[i][j] = [pix[idx], pix[idx + 1], pix[idx + 2], pix[idx + 3]];
               }

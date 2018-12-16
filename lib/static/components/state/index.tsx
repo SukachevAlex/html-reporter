@@ -74,9 +74,8 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
                         <Button onClick={this._screenshotViewMode('Default')}>Default</Button>
                         <Button onClick={this._screenshotViewMode('2-up')}>2-up</Button>
                         <Button onClick={this._screenshotViewMode('OnlyDiff')}>Only Diff</Button>
-                        <Button>Loupe</Button>
                         <Button onClick={this._screenshotViewMode('OnionSkin')}>Onion Skin</Button>
-                        <Button onClick={this._circleSmallDiff(circleDiff)}>Circle small diff</Button>
+                        <Button onClick={this._circleSmallDiff(circleDiff)}>Pixel hunting</Button>
                     </Button.Group>
                 </div>
                 <div className={cnImageBox('Container', { scale: this.props.scaleImages })} >
