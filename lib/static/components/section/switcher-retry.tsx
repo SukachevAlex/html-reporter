@@ -18,7 +18,7 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
 
     public static defaultProps: Partial<ISwitcherRetryProps> = {
         retries: [],
-        siblingRange: 3,
+        siblingRange: 3
     };
 
     constructor(props: ISwitcherRetryProps, state: ISwitcherRetryStates) {
@@ -26,15 +26,12 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
         this.state = {retry: !this.props.retries ? 0 : this.props.retries.length};
         this._onChange = this._onChange.bind(this);
 
-        // TODO: remove that
-        this.props.retries && this.props.retries.push(this.props.result);
     }
 
     render() {
         const {retries = [], siblingRange} = this.props;
 
-        // TODO: if "TODO: remove that" did, rewrite "1" to "0"
-        if (retries.length === 1) {
+        if (retries.length === 0) {
             return null;
         }
 

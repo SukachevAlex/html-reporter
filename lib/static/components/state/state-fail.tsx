@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Screenshot from './screenshot';
 import { cn } from '@bem-react/classname';
+import {Icon, Button} from 'semantic-ui-react';
+
 const cnImageBox = cn('ImageBox');
 
 interface IStateFail {
@@ -12,41 +14,59 @@ interface IStateFail {
     viewMode: string;
     overlay?: boolean;
 }
-class StateFail extends Component<IStateFail> {
+
+function createMovementHandler(side: string, diff: number, ctx: any) {
+    return () => ctx.setState((state: any) => ({[side]: state[side] + diff}));
+}
+
+class StateFail extends Component<IStateFail, any> {
+    state = {
+        left: 0,
+        top: 0
+    };
 
     render() {
+        const { expected, actual, diff, viewMode, overlay = true} = this.props;
 
-        const { expected, actual, diff} = this.props;
-
-        if (this.props.viewMode === '2-up'){
-
-            return (
-                <Fragment>
-                    {this._drawExpectedAndActual(expected, actual)}
-                </Fragment>
-            );
+        switch (viewMode) {
+            case '2-up': {
+                return this._drawExpectedAndActual(expected, actual);
+            }
+            case 'OnionSkin': {
+                return (
+                    <Fragment>
+                        <Button.Group basic>
+                            <Button onPointerDown={createMovementHandler('top', -1, this)}>
+                                <Icon name='angle up'/>
+                            </Button>
+                            <Button onPointerDown={createMovementHandler('left', -1, this)}>
+                                <Icon name='angle left' />
+                            </Button>
+                            <Button onPointerDown={createMovementHandler('left', 1, this)}>
+                                <Icon name='angle right' />
+                            </Button>
+                            <Button onPointerDown={createMovementHandler('top', 1, this)}>
+                                <Icon name='angle down' />
+                            </Button>
+                        </Button.Group>
+                        <div className='OnionWrapper'>
+                            {this._drawExpectedAndActual(expected, actual, overlay)}
+                        </div>
+                    </Fragment>
+                );
+            }
+            default: {
+                return (
+                    <Fragment>
+                        {this._drawExpectedAndActual(expected, actual)}
+                        {this._drawImageBox('Diff', diff)}
+                    </Fragment>
+                );
+            }
         }
-        if (this.props.viewMode === 'OnionSkin'){
-
-            const {overlay = true} = this.props;
-
-            return (
-                <Fragment>
-                    {this._drawExpectedAndActual(expected, actual, overlay)}
-                </Fragment>
-            );
-        }
-
-        return (
-            <Fragment>
-                {this._drawExpectedAndActual(expected, actual)}
-                {this._drawImageBox('Diff', diff)}
-            </Fragment>
-        );
     }
 
-    _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
-
+    protected _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
@@ -59,7 +79,7 @@ class StateFail extends Component<IStateFail> {
         );
     }
 
-    _drawImageBox(label: string, path: string, overlay?: boolean) {
+    protected _drawImageBox(label: string, path: string, overlay?: boolean) {
         if (!overlay){
             return (
                 <div className={cnImageBox('Image')}>
@@ -70,7 +90,7 @@ class StateFail extends Component<IStateFail> {
         } else {
             return (
                 <div className={cnImageBox('Image', {overlay: true})} >
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} style={{transform: `translateX(${this.state.left}px) translateY(${this.state.top}px)`}} />
                 </div>
             );
         }
