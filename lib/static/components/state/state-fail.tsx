@@ -13,6 +13,7 @@ interface IStateFail {
     showOnlyDiff: boolean;
     viewMode: string;
     overlay?: boolean;
+    circleDiff: boolean;
 }
 
 function createMovementHandler(side: string, diff: number, ctx: any) {
@@ -26,11 +27,11 @@ class StateFail extends Component<IStateFail, any> {
     };
 
     render() {
-        const { expected, actual, diff, viewMode, overlay = true} = this.props;
+        const { expected, actual, diff, viewMode, circleDiff, overlay = true} = this.props;
 
         switch (viewMode) {
             case '2-up': {
-                return this._drawExpectedAndActual(expected, actual);
+                return this._drawExpectedAndActual(expected, actual, circleDiff);
             }
             case 'OnionSkin': {
                 return (
@@ -50,7 +51,7 @@ class StateFail extends Component<IStateFail, any> {
                             </Button>
                         </Button.Group>
                         <div className='OnionWrapper'>
-                            {this._drawExpectedAndActual(expected, actual, overlay)}
+                            {this._drawExpectedAndActual(expected, actual, circleDiff, overlay)}
                         </div>
                     </Fragment>
                 );
@@ -58,39 +59,39 @@ class StateFail extends Component<IStateFail, any> {
             default: {
                 return (
                     <Fragment>
-                        {this._drawExpectedAndActual(expected, actual)}
-                        {this._drawImageBox('Diff', diff)}
+                        {this._drawExpectedAndActual(expected, actual, circleDiff)}
+                        {this._drawImageBox('Diff', diff, circleDiff)}
                     </Fragment>
                 );
             }
         }
     }
 
-    protected _drawExpectedAndActual(expected: string, actual: string, overlay?: boolean) {
+    protected _drawExpectedAndActual(expected: string, actual: string, circleDiff: boolean, overlay?: boolean) {
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
 
         return (
             <Fragment>
-                {this._drawImageBox('Expected', expected, overlay)}
-                {this._drawImageBox('Actual', actual)}
+                {this._drawImageBox('Expected', expected, circleDiff, overlay)}
+                {this._drawImageBox('Actual', actual, circleDiff)}
             </Fragment>
         );
     }
 
-    protected _drawImageBox(label: string, path: string, overlay?: boolean) {
+    protected _drawImageBox(label: string, path: string, circleDiff: boolean, overlay?: boolean) {
         if (!overlay){
             return (
                 <div className={cnImageBox('Image')}>
                     <div className={cnImageBox('Title')}>{label}</div>
-                    <Screenshot imagePath={path} />
+                    <Screenshot imagePath={path} circleDiff={circleDiff}/>
                 </div>
             );
         } else {
             return (
                 <div className={cnImageBox('Image', {overlay: true})} >
-                    <Screenshot imagePath={path} style={{transform: `translateX(${this.state.left}px) translateY(${this.state.top}px)`}} />
+                    <Screenshot imagePath={path} circleDiff={circleDiff} style={{transform: `translateX(${this.state.left}px) translateY(${this.state.top}px)`}} />
                 </div>
             );
         }
