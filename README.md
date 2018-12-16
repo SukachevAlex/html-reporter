@@ -1,4 +1,4 @@
-# html-reporter
+# newton-reporter
 
 Plugin for [gemini](https://github.com/gemini-testing/gemini) and [hermione](https://github.com/gemini-testing/hermione) which is intended to aggregate the results of tests running into html report.
 
@@ -7,7 +7,7 @@ You can read more about gemini plugins [here](https://github.com/gemini-testing/
 ## Installation
 
 ```bash
-npm install html-reporter
+npm install newton-reporter
 ```
 
 ## Usage
@@ -27,12 +27,12 @@ directory.
 
 Also there is ability to override plugin parameters by CLI options or environment variables
 (see [configparser](https://github.com/gemini-testing/configparser)).
-Use `html_reporter_` prefix for the environment variables and `--html-reporter-` for the cli options.
+Use `html_reporter_` prefix for the environment variables and `--newton-reporter-` for the cli options.
 
 For example you can override `path` option like so:
 ```bash
 $ html_reporter_path=custom/dir gemini test
-$ gemini test --html-reporter-path custom/dir
+$ gemini test --newton-reporter-path custom/dir
 ```
 
 ### Gemini Usage
@@ -44,7 +44,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'html-reporter/gemini': {
+            'newton-reporter/gemini': {
                 enabled: true,
                 path: 'my/gemini-reports',
                 defaultView: 'all',
@@ -65,7 +65,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'html-reporter/hermione': {
+            'newton-reporter/hermione': {
                 enabled: true,
                 path: 'my/hermione-reports',
                 defaultView: 'all',

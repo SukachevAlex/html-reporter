@@ -27,7 +27,7 @@ module.exports = {
     },
     resolve,
     output: {
-        path: staticPath,
+        path: path.resolve(__dirname, 'build/lib/static'),
         filename: '[name].min.js',
         hotUpdateChunkFilename: '../../hot/hot-update.js',
         hotUpdateMainFilename: '../../hot/hot-update.json'

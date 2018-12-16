@@ -1,6 +1,6 @@
 {
-  "name": "harry-reporter",
-  "version": "1.0.0",
+  "name": "newton-reporter",
+  "version": "1.0.10",
   "description": "Plugin for gemini and hermione which is intended to aggregate the results of tests running into html report",
   "scripts": {
     "lint": "tslint -c tslint.json ./**/*.ts ./**/*.tsx -e \"node_modules\"",
@@ -11,8 +11,10 @@
     "start": "webpack-dev-server --config=webpack.dev.js --progress --colors --hot --inline",
     "commitmsg": "conventional-changelog-lint -e",
     "release": "standard-version",
-    "build": "NODE_ENV=production webpack --config=webpack.prod.js",
-    "watch": "webpack --progress -d --config=webpack.dev.js --watch"
+    "build": "tsc && NODE_ENV=production webpack --config=webpack.prod.js",
+    "webpack-watch": "webpack --progress -d --config=webpack.dev.js --watch",
+    "tsc-watch": "tsc -w",
+    "watch": "npm run webpack-watch | npm run tsc-watch"
   },
   "repository": {
     "type": "git",
