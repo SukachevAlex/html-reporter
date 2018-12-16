@@ -35,6 +35,23 @@ $ html_reporter_path=custom/dir gemini test
 $ gemini test --html-reporter-path custom/dir
 ```
 
+Also, you can use option in get request.
+Example:
+```sh
+https://localhost:8000/?expand=all
+```
+That example open all tests.
+
+Options:
+| query | type |
+| --- | --- |
+| expand | 'all' \| 'errors' |
+| showOnlyDiff | true \| none |
+| autoRun | true \| none |
+| filter | string - browsername |
+| showSkipped | true \| none |
+| baseHost | string - host for tests |
+
 ### Gemini Usage
 
 Add plugin to your `gemini` config file:
