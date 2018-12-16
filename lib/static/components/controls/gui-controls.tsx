@@ -29,35 +29,39 @@ class ControlButtons extends Component<IControllButtonsProps> {
     }
 
     render() {
-        const {actions, suiteIds, failed, running, autoRun} = this.props;
+        const {actions, autoRun} = this.props;
 
         return (
             <>
                 <RunButton
                     autoRun={autoRun}
-                    isDisabled={!suiteIds.all.length || running}
                     handler={actions.runAllTests}
+                    inverted='true'
                 />
-                <Menu.Item
-                    inverted={true}
-                    label='Retry failed'
-                    isDisabled={running || !failed.length}
-                    onClick={this._runFailedTests}
-                    >Retry failed</Menu.Item>
-                <Menu.Item
-                    inverted={true}
-                    label='Accept all'
-                    isDisabled={running || !failed.length}
-                    onClick={this._acceptAll}
-                    >Accept all</Menu.Item>
 
                 <Menu.Item
-                    inverted={true}
+                    inverted='true'
+                    label='Retry failed'
+                    onClick={this._runFailedTests}
+                >
+                    Retry failed
+                </Menu.Item>
+
+                <Menu.Item
+                    inverted='true'
+                    label='Accept all'
+                    onClick={this._acceptAll}
+                >
+                    Accept all
+                </Menu.Item>
+
+                <Menu.Item
+                    inverted='true'
                     label='Clear retries'
-                    isDisabled={!!running}
                     onClick={actions.clearRetries}
-                    isAction={true}
-                >Clear retries</Menu.Item>
+                >
+                    Clear retries
+                </Menu.Item>
             </>
         );
     }
