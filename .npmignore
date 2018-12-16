@@ -1,7 +1,8 @@
 .*
 test
+build/hot
 hot
-lib
+./lib
 typings
 .travis.yml
 hermione.ts

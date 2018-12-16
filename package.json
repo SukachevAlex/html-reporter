@@ -1,13 +1,14 @@
 {
   "name": "newton-reporter",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Plugin for gemini and hermione which is intended to aggregate the results of tests running into html report",
+  "main": "hermione-entry",
   "scripts": {
     "lint": "tslint -c tslint.json ./**/*.ts ./**/*.tsx -e \"node_modules\"",
     "test": "npm run lint && npm run test-unit",
     "test-unit": "NODE_ENV=test mocha test",
     "precommit": "npm run test",
-    "prepublish": "NODE_ENV=production webpack --config=webpack.prod.js",
+    "prepublish": "npm run build",
     "start": "webpack-dev-server --config=webpack.dev.js --progress --colors --hot --inline",
     "commitmsg": "conventional-changelog-lint -e",
     "release": "standard-version",
