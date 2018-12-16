@@ -28,7 +28,6 @@ class Screenshot extends Component<IScreenshot> {
         const elem  = circleDiff
             ? <div style={style} className={cnImageBox('Screenshot')}><CanvasComponent url={url} /></div>
             : <img src={url} style={style} className={cnImageBox('Screenshot')} />;
-        const elem = <img src={url}  className={cnImageBox('Screenshot')} />;
         return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
     }

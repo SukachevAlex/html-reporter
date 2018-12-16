@@ -16,7 +16,6 @@ interface IStateFail {
     circleDiff: boolean;
 }
 
-const { expected, actual, diff, circleDiff} = this.props;
 function createMovementHandler(side: string, diff: number, ctx: any) {
     return () => ctx.setState((state: any) => ({[side]: state[side] + diff}));
 }
@@ -28,7 +27,7 @@ class StateFail extends Component<IStateFail, any> {
     };
 
     render() {
-        const { expected, actual, diff, viewMode, overlay = true} = this.props;
+        const { expected, actual, diff, viewMode, circleDiff, overlay = true} = this.props;
 
         switch (viewMode) {
             case '2-up': {
