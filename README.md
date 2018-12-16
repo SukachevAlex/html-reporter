@@ -124,7 +124,7 @@ Run [mocha](http://mochajs.org) tests:
 npm run test-unit
 ```
 
-Run [eslint](http://eslint.org) codestyle verification
+Run [tslint](https://palantir.github.io/tslint/) codestyle verification
 ```bash
 npm run lint
 ```
