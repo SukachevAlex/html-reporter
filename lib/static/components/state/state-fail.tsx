@@ -67,7 +67,7 @@ class StateFail extends Component<IStateFail, any> {
         }
     }
 
-    protected _drawExpectedAndActual(expected: string, actual: string, circleDiff: boolean,overlay?: boolean) {
+    protected _drawExpectedAndActual(expected: string, actual: string, circleDiff: boolean, overlay?: boolean) {
         if (this.props.showOnlyDiff || this.props.viewMode === 'OnlyDiff') {
             return null;
         }
