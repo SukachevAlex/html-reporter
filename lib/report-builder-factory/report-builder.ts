@@ -135,7 +135,7 @@ module.exports = class ReportBuilder {
 
         return Object.assign({
             suiteUrl, name: browserId, metaInfo, description, imagesInfo,
-            screenshot: Boolean(screenshot), multipleTabs, code: suite.body
+            screenshot: Boolean(screenshot), multipleTabs
         }, props);
     }
 

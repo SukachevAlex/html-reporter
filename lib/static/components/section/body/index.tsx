@@ -189,12 +189,12 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
 
         const ImagePane = () => <Pane><Image /></Pane>;
-        const CodePane = () => <Pane><Code code={code} /></Pane>;
+        const CodePane = () => <Pane><Code file={metaInfo.file} code={code} /></Pane>;
         const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
         const AllPane = () => <Pane>
             <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} />
             <Image />
-            <Code code={code} />
+            <Code file={metaInfo.file} code={code} />
         </Pane>;
 
         const tabs: ITab[] = [
