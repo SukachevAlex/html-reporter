@@ -1,5 +1,11 @@
 .*
 test
+build/hot
 hot
-/lib/static/js/
-/lib/static/report.css
+./lib
+typings
+.travis.yml
+hermione.ts
+gemini.ts
+webpack.*
+images
