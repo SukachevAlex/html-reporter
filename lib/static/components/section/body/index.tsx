@@ -61,6 +61,7 @@ export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: an
 
 const cnTab = cn('Tab');
 const cnSection = cn('Section');
+const cnContent = cn('Content');
 
 class Body extends Component<IBodyProps, IBodyStates> {
 
@@ -101,10 +102,24 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return gui
             ? <ControlButton
+                basic={true}
                 label='↻ Retry'
                 isSuiteControl={true}
                 isDisabled={running}
                 handler={this.onTestRetry}
+            />
+            : null;
+    }
+
+    private _addSkipButton = () => {
+        const {gui, running} = this.props;
+
+        return gui
+            ? <ControlButton
+                label='↷ Skip'
+                isSuiteControl={true}
+                isDisabled={running}
+                handler={() => {}}
             />
             : null;
     }
@@ -206,12 +221,18 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return (
             <Segment className={cnSection('Body')}>
-                <div className={'Content-Header'}>
-                    <Button.Group  floated='right'>
-                        {this._addRetryButton()}
+                <div className={cnContent('Header')}>
+                    {this._addRetryButton()}
+                    <Button.Group
+                        basic
+                        style={{
+                            marginLeft: '30px'
+                        }}
+                    >
+                        {this._addSkipButton()}
                         {this._getAcceptButton()}
                     </Button.Group>
-                    <SwitcherRetry retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                    <SwitcherRetry className={cnContent('Pswitcher')} retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
                 </div>
                 <Tab panes={tabs} />
             </Segment>
