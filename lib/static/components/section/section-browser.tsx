@@ -37,8 +37,6 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
         const {name, result, retries, result: {status}} = this.props.browser;
         const active = !this.state.collapsed;
 
-        console.log(parsedHost, result.suiteUrl);
-
         return (
             <Accordion className={this._resolveSectionStatus(status)}>
                 <Accordion.Title
