@@ -35,6 +35,21 @@ $ html_reporter_path=custom/dir gemini test
 $ gemini test --newton-reporter-path custom/dir
 ```
 
+Also, you can use option in get request.
+Example:
+```sh
+https://localhost:8000/?expand=all
+```
+That example open all tests.
+
+Options:
+* **expand** 'all' | 'errors', expands tests
+* **showOnlyDiff** true | none, set mode for image
+* **autoRun** true | none, auto run on in
+* **filter** string - browsername for filter
+* **showSkipped** true | none, shows skipped tests
+* **baseHost** string - host for tests
+
 ### Gemini Usage
 
 Add plugin to your `gemini` config file:
@@ -107,7 +122,7 @@ Run [mocha](http://mochajs.org) tests:
 npm run test-unit
 ```
 
-Run [eslint](http://eslint.org) codestyle verification
+Run [tslint](https://palantir.github.io/tslint/) codestyle verification
 ```bash
 npm run lint
 ```
