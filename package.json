@@ -1,6 +1,6 @@
 {
   "name": "newton-reporter",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Plugin for gemini and hermione which is intended to aggregate the results of tests running into html report",
   "main": "hermione-entry",
   "scripts": {
@@ -31,7 +31,8 @@
     "gemini",
     "hermione",
     "plugin",
-    "html-reporter"
+    "html-reporter",
+    "newton-reporter"
   ],
   "homepage": "https://github.com/SukachevAlex/html-reporter#readme",
   "license": "MIT",
