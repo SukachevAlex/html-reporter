@@ -57,7 +57,7 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
                         </a>
                     </div>
                 </Accordion.Title>
-                <Accordion.Content
+                {active ? <Accordion.Content
                     className={cnSection('Body')}
                     active={active}
                 >
@@ -66,7 +66,7 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
                             ? <BrowserSkippedTitle result={result}/>
                             : <Body result={result} suite={this.props.suite} retries={retries} />
                     }
-                </Accordion.Content>
+                </Accordion.Content> : null}
             </Accordion>
         );
     }
