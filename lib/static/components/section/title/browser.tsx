@@ -7,7 +7,6 @@ interface ISectionBrowserTitleChildProps extends React.Props<any>{
     result: any;
     parsedHost: string;
 }
-
 class SectionBrowserTitle extends Component<ISectionBrowserTitleChildProps> {
     render() {
         const {name, result, parsedHost} = this.props;

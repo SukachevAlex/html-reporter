@@ -1,13 +1,13 @@
-'use strict';
-
 import React from 'react';
 import {connect} from 'react-redux';
 import {Base, IBaseProps} from './section-base';
 import BrowserSkippedTitle from './title/browser-skipped';
 import Body from './body';
 import {isFailStatus, isErroredStatus, isSkippedStatus} from '../../../common-utils';
-import { Accordion } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
 import { cn } from '@bem-react/classname';
+import url from 'url';
+import {getColorState} from '../../modules/utils';
 
 interface ISectionBrowserProps extends IBaseProps {
     browser: {
@@ -15,6 +15,7 @@ interface ISectionBrowserProps extends IBaseProps {
         result: any,
         retries: any[]
     };
+    parsedHost?: string;
     suite?: {};
 }
 
@@ -27,9 +28,16 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
         super(props);
     }
 
+    private _buildUrl(href: string, host: any) {
+        return !host.hostname ? href : url.format({...url.parse(href), host});
+    }
+
     render() {
+        const {parsedHost} = this.props;
         const {name, result, retries, result: {status}} = this.props.browser;
         const active = !this.state.collapsed;
+
+        console.log(parsedHost, result.suiteUrl);
 
         return (
             <Accordion className={this._resolveSectionStatus(status)}>
@@ -37,9 +45,19 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
                     onClick={this._toggleState}
                     active={active}
                     className={cnSection('Title')}
-
                 >
-                    <div className={cnBrowserName({status})}>{name}</div>
+                    <div className={cnBrowserName({status})}>
+                        {name}
+                        <a
+                            style={{color: getColorState(status), textDecoration: 'none', marginLeft: '10px'}}
+                            href={this._buildUrl(result.suiteUrl, parsedHost)}
+                            onClick={(e) => e.stopPropagation()}
+                            title='view in browser'
+                            target='_blank'
+                        >
+                            <Icon name='eye' />
+                        </a>
+                    </div>
                 </Accordion.Title>
                 <Accordion.Content
                     className={cnSection('Body')}
@@ -67,5 +85,5 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
 }
 
 export default connect<{}, {}, ISectionBrowserProps>(
-    ({view: {expand}}: any) => ({expand})
+    ({view: {expand, parsedHost}}: any) => ({expand, parsedHost}),
 )(SectionBrowser);
