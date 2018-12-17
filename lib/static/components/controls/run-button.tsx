@@ -7,7 +7,6 @@ interface IRunButton {
     handler: () => any;
     isActive?: boolean;
     isAction?: boolean;
-    isDisabled?: boolean;
     isSuiteControl?: boolean;
     isControlGroup?: boolean;
     className?: string;
@@ -24,15 +23,11 @@ export default class RunButton extends Component<IRunButton> {
     }
 
     render() {
-        const { handler, isDisabled, label = 'Run' } = this.props;
-        return (<Menu.Item
-                    inverted={true}
-                    label={label}
-                    isAction={true}
-                    onClick={handler}
-                    isDisabled={isDisabled}
-                >
-                    Run
-                 </Menu.Item>);
+        const { handler, label = 'Run' } = this.props;
+        return (
+            <Menu.Item label={label} onClick={handler} >
+                Run
+            </Menu.Item>
+        );
     }
 }
