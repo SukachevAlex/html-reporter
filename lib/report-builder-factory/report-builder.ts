@@ -201,7 +201,7 @@ module.exports = class ReportBuilder {
 
     save() {
         return this.saveDataFileAsync()
-            .then(() => this._copyToReportDir(['index.html', 'report.min.js', 'report.min.css']))
+            .then(() => this._copyToReportDir(['index.html', 'report.min.js', 'report.min.css', 'logo.png']))
             .then(() => this)
             .catch((e: Error) => logger.warn(e.message || e));
     }

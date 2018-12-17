@@ -19,7 +19,6 @@ class Summary extends Component<ISummaryProps> {
         const { total, passed, failed, skipped, retries } = this.props.stats;
 
         return <>
-            <img src='logo.png'/>
             <dl className='SummaryWrapper'>
                 <Statistic.Group widths='five' size={'mini'}>
                         <SummaryKey color='black' state='total' label='Total Tests' value={total} />
