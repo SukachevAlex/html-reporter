@@ -15,7 +15,7 @@
     "build": "tsc && NODE_ENV=production webpack --config=webpack.prod.js",
     "webpack-watch": "webpack --progress -d --config=webpack.dev.js --watch",
     "tsc-watch": "tsc -w",
-    "watch": "npm run webpack-watch | npm run tsc-watch"
+    "watch": "npm run webpack-watch || npm run tsc-watch"
   },
   "repository": {
     "type": "git",
