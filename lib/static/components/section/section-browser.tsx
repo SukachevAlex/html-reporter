@@ -17,6 +17,7 @@ interface ISectionBrowserProps extends IBaseProps {
     };
     parsedHost?: string;
     suite?: {};
+    handler?: any;
 }
 
 const cnSection = cn('Section');
@@ -26,6 +27,11 @@ export class SectionBrowser extends Base<ISectionBrowserProps>{
 
     constructor(props: ISectionBrowserProps) {
         super(props);
+    }
+
+    protected _toggleState() {
+        this.props.handler && this.props.handler();
+        super._toggleState();
     }
 
     private _buildUrl(href: string, host: any) {

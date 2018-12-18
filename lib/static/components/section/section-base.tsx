@@ -1,5 +1,3 @@
-'use strict';
-
 import React, {Component, ComponentState, ReactNode} from 'react';
 import {cn } from '@bem-react/classname';
 import {isFailStatus, isSkippedStatus} from '../../../common-utils';
