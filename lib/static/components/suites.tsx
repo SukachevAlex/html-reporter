@@ -27,7 +27,7 @@ class Suites extends Component<ISuitesProps> {
         });
 
         // binding
-        this.clearAll = this.clearCacheAndUpd();
+        this.clearAll = this.clearCacheAndUpd().bind(this);
         this.rowRender = this.rowRender.bind(this);
         this.clearCacheAndUpd = this.clearCacheAndUpd.bind(this);
     }
@@ -62,8 +62,9 @@ class Suites extends Component<ISuitesProps> {
     }
 
     protected clearCacheAndUpd(idx?: number) {
-        let wrapper: any;
-        if (!idx) {
+        let wrapper;
+
+        if (idx === undefined || isNaN(+idx)) {
             wrapper = () => {
                 this.cache.clearAll();
                 this.list && this.list.recomputeRowHeights();
@@ -71,14 +72,16 @@ class Suites extends Component<ISuitesProps> {
         } else {
             wrapper = () => {
                 this.cache.clear(idx, 0);
-                this.list && this.list.recomputeRowHeights;
+                this.list && this.list.recomputeRowHeights();
             };
         }
+
         return wrapper.bind(this);
     }
 
     rowRender({index, key, parent, style}: any) {
         const {suiteIds = []} = this.props;
+
         return (
             <CellMeasurer
                 key={key}
