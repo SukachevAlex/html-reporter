@@ -16,6 +16,7 @@ class Suites extends Component<ISuitesProps> {
     private cache: CellMeasurerCache;
     protected list: List | null;
     protected measure: any;
+    protected clearAll: () => void;
 
     constructor(props: ISuitesProps) {
         super(props);
@@ -26,6 +27,7 @@ class Suites extends Component<ISuitesProps> {
         });
 
         // binding
+        this.clearAll = this.clearCacheAndUpd();
         this.rowRender = this.rowRender.bind(this);
         this.clearCacheAndUpd = this.clearCacheAndUpd.bind(this);
     }
@@ -59,9 +61,20 @@ class Suites extends Component<ISuitesProps> {
         });
     }
 
-    protected clearCacheAndUpd() {
-        this.cache.clearAll();
-        this.list && this.list.recomputeRowHeights();
+    protected clearCacheAndUpd(idx?: number) {
+        let wrapper: any;
+        if (!idx) {
+            wrapper = () => {
+                this.cache.clearAll();
+                this.list && this.list.recomputeRowHeights();
+            };
+        } else {
+            wrapper = () => {
+                this.cache.clear(idx, 0);
+                this.list && this.list.recomputeRowHeights;
+            };
+        }
+        return wrapper.bind(this);
     }
 
     rowRender({index, key, parent, style}: any) {
@@ -78,7 +91,7 @@ class Suites extends Component<ISuitesProps> {
                     this.measure = measure.bind(this);
 
                     return <div style={style} onLoad={measure}>
-                        <SectionCommon handler={this.clearCacheAndUpd} isRoot={true} suiteId={suiteIds[index]} />
+                        <SectionCommon handler={this.clearAll} isRoot={true} suiteId={suiteIds[index]} />
                     </div>;
                 }}
             </CellMeasurer>
@@ -107,7 +120,7 @@ class Suites extends Component<ISuitesProps> {
     }
 
     componentDidUpdate() {
-        this.clearCacheAndUpd();
+        this.clearAll();
     }
 }
 
