@@ -74,7 +74,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
         );
 
         const content = (
-            <Accordion.Content
+            active ? <Accordion.Content
                 className={cnSection('Body')}
                 active={active}
                 style={{
@@ -97,7 +97,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                         })
                     )}
                 </Accordion>
-            </Accordion.Content>
+            </Accordion.Content> : null
         );
 
         return isRoot
