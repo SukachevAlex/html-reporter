@@ -59,7 +59,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'newton-reporter/gemini': {
+            'newton-reporter/gemini-entry': {
                 enabled: true,
                 path: 'my/gemini-reports',
                 defaultView: 'all',
@@ -80,7 +80,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'newton-reporter/hermione': {
+            'newton-reporter/hermione-entry': {
                 enabled: true,
                 path: 'my/hermione-reports',
                 defaultView: 'all',

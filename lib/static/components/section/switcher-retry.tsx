@@ -1,9 +1,10 @@
 import React, {Component, ComponentState} from 'react';
 import PaginationExtended from './pagination-redefinition';
-import { cn } from '@bem-react/classname';
+import { cn, classnames } from '@bem-react/classname';
 const cnPagination = cn('Pswitcher');
 
 interface ISwitcherRetryProps extends React.Props<any>{
+    className?: string;
     retries?: any[];
     result: any;
     siblingRange?: number;
@@ -29,14 +30,14 @@ export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitc
     }
 
     render() {
-        const {retries = [], siblingRange} = this.props;
+        const {retries = [], siblingRange, className} = this.props;
 
         if (retries.length === 0) {
             return null;
         }
 
         return (
-            <div className={cnPagination()} >
+            <div className={classnames(cnPagination(), className)} >
                 <PaginationExtended
                     defaultActivePage={retries.length}
                     totalPages={retries.length}
