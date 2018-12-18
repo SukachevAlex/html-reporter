@@ -4,8 +4,9 @@ import {initial} from '../modules/actions';
 import MenuControls from './controls/gui-menu-controls';
 import SkippedList from './skipped-list';
 import Suites from './suites';
-import { cn } from '@bem-react/classname';
+import { cn, classnames } from '@bem-react/classname';
 const cnLogo = cn('Logo');
+const cnContainer = cn('Container');
 
 interface IGuiProps extends React.Props<any> {
     gui?: any;
@@ -21,7 +22,7 @@ class Gui extends Component<IGuiProps> {
         return <>
             <MenuControls/>
             <div className='Container'>
-            <img className={cnLogo()} src='logo.png' />
+            <img className={classnames(cnLogo(), cnContainer('Logo'))} src='logo.png' />
                 <SkippedList/>
                 <Suites/>
             </div>

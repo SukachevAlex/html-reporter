@@ -381,7 +381,6 @@ a:active {
     padding: 5px;
 }
 
-
 .cswitcher {
     padding-left: 0;
 }
@@ -391,16 +390,17 @@ a:active {
     padding-right: 4px;
 }
 
-.Pswitcher:before{
-    content: 'Attempts:';
-    padding-right: 4px;
-    margin-right: 7px;
-    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+.Content-Pswitcher {
+    margin-left: 30px;
 }
+
 .Logo {
     width: 175px;
     height: 40px;
-    margin: 20px 0 0 20px;
+}
+
+.Container-Logo {
+    margin: 15px 0;
 }
 
 .ui.segment.Section-Body {
