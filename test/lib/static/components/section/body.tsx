@@ -35,7 +35,7 @@ describe('<Body />', () => {
         const testResult = mkTestResult_({imagesInfo});
         const bodyComponent: any = <Body result={testResult} />;
         const component = mkConnectedComponent(bodyComponent, {initialState: {gui: true}});
-        assert.equal(component.find('.Content-Header').find('[name="✔ Accept"]').find('.button').text(), '✔ Accept');
+        assert.equal(component.find('.Content-Header').find('[name="Accept"]').find('.button').text(), 'Accept');
     });
 
     describe('"Accept" button', () => {
@@ -47,7 +47,7 @@ describe('<Body />', () => {
             const bodyComponent: any = <Body result={testResult} />;
             const component = mkConnectedComponent(bodyComponent, {initialState: {gui: true}});
 
-            assert.isTrue(component.find('[name="✔ Accept"]').find('.button').prop('disabled'));
+            assert.isTrue(component.find('[name="Accept"]').find('.button').prop('disabled'));
         });
 
         it('should be enabled if test result is acceptable', () => {
@@ -59,7 +59,7 @@ describe('<Body />', () => {
             const bodyComponent: any = <Body result={testResult} />;
             const component = mkConnectedComponent(bodyComponent, {initialState: {gui: true}});
 
-            assert.isUndefined(component.find('[name="✔ Accept"]').find('.button').prop('disabled'));
+            assert.isUndefined(component.find('[name="Accept"]').find('.button').prop('disabled'));
         });
 
         it('should run accept handler on click', () => {
@@ -71,7 +71,7 @@ describe('<Body />', () => {
             const bodyComponent: any = <Body result={testResult}/>;
             const component = mkConnectedComponent(bodyComponent, {initialState: {gui: true}});
 
-            component.find('[name="✔ Accept"]').find('.button').simulate('click');
+            component.find('[name="Accept"]').find('.button').simulate('click');
 
             assert.calledOnce(actionsStub.acceptTest);
         });
@@ -80,7 +80,7 @@ describe('<Body />', () => {
     it('should render retry button if "gui" is running', () => {
         const bodyComponent: any = <Body result={mkTestResult_()} />;
         const component = mkConnectedComponent(bodyComponent, {initialState: {gui: true}});
-        assert.equal(component.find('.Content-Header').find('[name="↻ Retry"]').find('.button').text(), '↻ Retry');
+        assert.equal(component.find('.Content-Header').find('[name="Retry"]').find('.button').text(), 'Retry');
     });
 
     it('should not render retry and accept button if "gui" is not running', () => {
@@ -100,7 +100,7 @@ describe('<Body />', () => {
         const bodyComponent: any = <Body result={testResult} suite={{name: 'some-suite'}} retries={retries}/>;
         const component = mkConnectedComponent(bodyComponent);
 
-        component.find('[name="✔ Accept"]').find('.button').simulate('click');
+        component.find('[name="Accept"]').find('.button').simulate('click');
 
         assert.calledOnceWith(actionsStub.acceptTest, {name: 'some-suite'}, 'bro', retries.length);
     });
@@ -181,7 +181,7 @@ describe('<Body />', () => {
 
             const component = mkConnectedComponent(<Body result={testResult} />, {initialState: {running: true}});
 
-            assert.isTrue(component.find('[name="↻ Retry"]').find('.button').prop('disabled'));
+            assert.isTrue(component.find('[name="Retry"]').find('.button').prop('disabled'));
         });
 
         it('should be enabled if tests are not started yet', () => {
@@ -189,7 +189,7 @@ describe('<Body />', () => {
 
             const component = mkConnectedComponent(<Body result={testResult} />, {initialState: {running: false}});
 
-            assert.isUndefined(component.find('[name="↻ Retry"]').find('.button').prop('disabled'));
+            assert.isUndefined(component.find('[name="Retry"]').find('.button').prop('disabled'));
         });
 
         it('should call action "retryTest" on "handler" prop calling', () => {
@@ -199,7 +199,7 @@ describe('<Body />', () => {
             />;
             const component = mkConnectedComponent(bodyComponent, {initialState: {running: false}});
 
-            component.find('[name="↻ Retry"]').find('.button').simulate('click');
+            component.find('[name="Retry"]').find('.button').simulate('click');
 
             assert.calledOnceWith(actionsStub.retryTest, {name: 'some-suite'}, 'bro');
         });
