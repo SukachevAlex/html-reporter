@@ -102,8 +102,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return gui
             ? <ControlButton
+                icon='redo'
                 basic={true}
-                label='↻ Retry'
+                label='Retry'
                 isSuiteControl={true}
                 isDisabled={running}
                 handler={this.onTestRetry}
@@ -116,7 +117,8 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return gui
             ? <ControlButton
-                label='↷ Skip'
+                icon='share'
+                label='Skip'
                 isSuiteControl={true}
                 isDisabled={running}
                 handler={() => {}}
@@ -139,7 +141,8 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
             return (
                 <ControlButton
-                    label='✔ Accept'
+                    icon='check'
+                    label='Accept'
                     isSuiteControl={true}
                     isDisabled={isAcceptDisabled}
                     handler={acceptFn}
