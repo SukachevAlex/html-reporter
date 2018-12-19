@@ -25,6 +25,7 @@ interface IState {
     acceptHandler: (a: any) => any;
     gui?: boolean;
     scaleImages?: boolean;
+    color?: string;
 }
 
 class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}> {
@@ -58,6 +59,7 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
         }
 
         let elem = null;
+        const {color} = this.props;
 
         if (isErroredStatus(status)) {
             elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;
@@ -81,7 +83,7 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
                         <Button onClick={this._circleSmallDiff(circleDiff)}>Pixel hunting</Button>
                     </Button.Group>
                 </div>
-                <div className={cnImageBox('Container', {scale: this.props.scaleImages})} >
+                <div className={cnImageBox('Container', { scale: this.props.scaleImages })} style={{backgroundColor: color}} >
                     {elem}
                 </div>
             </Fragment>

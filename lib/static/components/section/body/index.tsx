@@ -12,6 +12,7 @@ import MetaInfo from './states/meta-info';
 import {Segment, Tab, Button} from 'semantic-ui-react';
 
 import SwitcherRetry from '../switcher-retry';
+import SwitcherStyle from '../switcher-style';
 
 import {Code} from './states/code';
 import {cn} from '@bem-react/classname';
@@ -42,7 +43,7 @@ interface IBodyProps extends React.Props<any>{
 }
 
 interface IBodyStates extends ComponentState{
-    color: number;
+    color: string;
     retry: number;
 }
 
@@ -78,15 +79,20 @@ class Body extends Component<IBodyProps, IBodyStates> {
         super(props, state);
 
         this.state = {
-            color: 1,
+            color: 'white',
             retry: this.props.retries.length
         };
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
+        this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
     }
 
-    onSwitcherRetryChange(index: number) {
+    onSwitcherStyleChange = (color: string) => {
+        this.setState({color});
+    }
+
+    onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
     }
 
@@ -189,10 +195,11 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
+        const {color} = this.state;
         return (
             <div key={key} className={cnTab()}>
                 <div className={cnTab('Item', { active: true })}>
-                    <State state={state} acceptHandler={this.onTestAccept} />
+                    <State state={state} color={color} acceptHandler={this.onTestAccept} />
                 </div>
             </div>
         );
@@ -206,12 +213,12 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description} = activeResult;
 
-        const {retries, result} = this.props;
+        const {retries, result, gui} = this.props;
 
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
         const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
 
-        const ImagePane = () => <Pane><Image /></Pane>;
+        const ImagePane = () => <Pane><Image/></Pane>;
         const CodePane = () => <Pane><Code file={metaInfo.file} code={code} /></Pane>;
         const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
         const AllPane = () => <Pane>
@@ -236,6 +243,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
                         {this._getAcceptButton()}
                     </Button.Group>
                     <SwitcherRetry className={cnContent('Pswitcher')} retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                    <SwitcherStyle gui={gui} onChange={this.onSwitcherStyleChange}/>
                 </div>
                 <Tab panes={tabs} />
             </Segment>

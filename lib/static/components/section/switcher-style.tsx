@@ -1,47 +1,51 @@
 import React, {Component, ComponentState} from 'react';
-import {cn, classnames} from '@bem-react/classname';
+import {Button, Icon} from 'semantic-ui-react';
+import {cn} from '@bem-react/classname';
+const cnCswitcher = cn('Cswitcher');
 
 interface ISwitcherStyleProps extends React.Props<any>{
-    onChange(index: number): void;
+    gui?: boolean;
+    onChange(color: string): void;
 }
 
 interface ISwitcherStyleStates extends ComponentState{
-    color: number;
+    color: string;
 }
 
 export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitcherStyleStates> {
     constructor(props: ISwitcherStyleProps, state: ISwitcherStyleStates) {
         super(props, state);
-        this.state = {color: 1};
+        this.state = {color: 'white'};
     }
 
     render() {
+        if (!this.props.gui) {
+            return null;
+        }
+
         return (
-            <div className='cswitcher'>
-                {this._drawButton(1)}
-                {this._drawButton(2)}
-                {this._drawButton(3)}
+            <div className={cnCswitcher()}>
+                <Button.Group size='mini' basic>
+                    {this._drawButton('white')}
+                    {this._drawButton('grey')}
+                    {this._drawButton('black')}
+                    {this._drawButton('red')}
+                    {this._drawButton('#d5ff09')}
+                </Button.Group>
             </div>
         );
     }
 
-    private _drawButton(index: number) {
-        const stateButton = cn('state-button');
-        const cswitcher = cn('cswitcher');
-
-        const cN = classnames(stateButton(), cswitcher('item', {selected: index === this.state.color, color: index}));
-
+    private _drawButton(color: string) {
         return (
-            <button
-                className={cN}
-                onClick={() => this._onChange(index)}>
-                &nbsp;
-            </button>
+            <Button size='mini' icon onClick={() => this._onChange(color)}>
+                <Icon name='tint' style={{color}} />
+            </Button>
         );
     }
 
-    private _onChange(index: number) {
-        this.setState({color: index});
-        this.props.onChange(index);
+    private _onChange(color: string) {
+        this.setState({color});
+        this.props.onChange(color);
     }
 }
