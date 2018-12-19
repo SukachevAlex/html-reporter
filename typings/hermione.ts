@@ -1,5 +1,4 @@
 import { IBrowser } from './suite-adapter';
-import Mocha from 'mocha';
 
 export interface IOptions {
     enable?: boolean;
