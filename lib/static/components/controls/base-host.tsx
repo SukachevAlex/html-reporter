@@ -1,7 +1,4 @@
-'use strict';
-
-import {Component} from 'react';
-import * as React from 'react';
+import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from '../../modules/actions';
@@ -13,7 +10,6 @@ interface IBaseHostInput {
 }
 
 class BaseHostInput extends Component<IBaseHostInput> {
-
     constructor(props: any) {
         super(props);
         this._onChange = this._onChange.bind(this);

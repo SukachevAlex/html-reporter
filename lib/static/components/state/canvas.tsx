@@ -5,40 +5,52 @@ interface IMyCanvasComponent{
     refs?: any;
 }
 
+function matrixArray(pixels: Uint8ClampedArray, rows: number, columns: number){
+    const arr = new Array();
+
+    for (let i = 0; i < rows; i++) {
+        arr[i] = new Array();
+
+        for (let j = 0; j < columns; j++) {
+            const idx = 4 * i * columns + j * 4;
+            arr[i][j] = [
+                pixels[idx],
+                pixels[idx + 1],
+                pixels[idx + 2],
+                pixels[idx + 3]
+            ];
+        }
+    }
+
+    return arr;
+}
+
 export default class CanvasComponent extends React.Component<IMyCanvasComponent> {
     constructor(props: IMyCanvasComponent) {
         super(props);
     }
+
     componentDidMount() {
         this.updateCanvas();
     }
+
     updateCanvas() {
-
-        function matrixArray(pix: Uint8ClampedArray, rows: number, columns: number){
-            const arr = new Array();
-            for (let i = 0; i < rows; i++) {
-              arr[i] = new Array();
-              for (let j = 0; j < columns; j++) {
-                    const idx = 4 * i * columns + j * 4;
-                    arr[i][j] = [pix[idx], pix[idx + 1], pix[idx + 2], pix[idx + 3]];
-              }
-            }
-            return arr;
-        }
-
         const canv: any = this.refs.canvas;
         const ctx = canv.getContext('2d');
+
         let canvWidth = 0;
         let canvHeight = 0;
+
         const imageObj = new Image();
         imageObj.src = this.props.url;
 
         const drawImage = (image: any) => {
             canv.width = image.width;
             canv.height = image.height;
+
             canvWidth = image.width;
             canvHeight = image.height;
-          
+
             ctx && ctx.drawImage(image, 0, 0);
         };
 
@@ -91,11 +103,11 @@ export default class CanvasComponent extends React.Component<IMyCanvasComponent>
             boundBoxArr.forEach((elem) => {
                 ctx.fillStyle = 'rgba(255,0,255,0.25)';
                 const x1 = elem[2];
-                const x2 = elem[3]; 
+                const x2 = elem[3];
                 const x =  x1 + (x2 - x1) / 2;
 
                 const y1 = elem[0];
-                const y2 = elem[1]; 
+                const y2 = elem[1];
                 const y = y1 + (y2 - y1) / 2;
                 if ((x2 - x1) * (y2 - y1) < minSquare && (x2 - x1) < 20 && (y2 - y1) < 20){
                     ctx.moveTo(x, y);
@@ -105,9 +117,8 @@ export default class CanvasComponent extends React.Component<IMyCanvasComponent>
             });
         };
     }
+
     render() {
-        return (
-            <canvas ref='canvas' style={{width: '100%'}} />
-        );
+        return <canvas ref='canvas' style={{width: '100%'}} />;
     }
 }

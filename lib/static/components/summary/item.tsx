@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Statistic } from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Statistic} from 'semantic-ui-react';
 
 interface ISummaryItemProps {
     label: string;
@@ -10,10 +10,8 @@ interface ISummaryItemProps {
 }
 
 export default class SummaryItem extends Component<ISummaryItemProps> {
-
     render() {
-        const { label, value, isFailed = false, color } = this.props;
-
+        const {label, value, isFailed = false, color} = this.props;
         if (isFailed && value === 0) return null;
 
         return (

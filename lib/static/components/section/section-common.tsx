@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+
 import {connect} from 'react-redux';
 import {uniqueId, merge} from 'lodash';
 import {Base, IBaseProps} from './section-base';
 import SectionBrowser from './section-browser';
 import {allSkipped, hasFails, hasRetries, getColorState} from '../../modules/utils';
+
 import Title from './title/simple';
-import { Accordion } from 'semantic-ui-react';
-import { cn } from '@bem-react/classname';
+
+import {Accordion} from 'semantic-ui-react';
+import {cn} from '@bem-react/classname';
 
 interface IBrowser{
     name: string;
@@ -110,10 +113,10 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                 {title}
                 {content}
             </Accordion>
-            : <>
+            : <Fragment>
                 {title}
                 {content}
-            </>;
+            </Fragment>;
 
     }
 

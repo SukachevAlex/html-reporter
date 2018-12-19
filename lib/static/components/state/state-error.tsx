@@ -1,7 +1,6 @@
-'use strict';
-
 import React, {Component} from 'react';
 import {map} from 'lodash';
+
 import Screenshot from './screenshot';
 
 interface IStateError {
@@ -11,7 +10,6 @@ interface IStateError {
 }
 
 export default class StateError extends Component<IStateError> {
-
     render() {
         const {image, reason, actual} = this.props;
 
@@ -23,7 +21,7 @@ export default class StateError extends Component<IStateError> {
         );
     }
 
-    _drawImage(image: boolean, actual: string) {
+    protected _drawImage(image: boolean, actual: string) {
         return image ? <Screenshot imagePath={actual}/> : null;
     }
 }

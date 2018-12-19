@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Menu} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import CommonControlButtons from './common-controls';
 
@@ -14,7 +14,5 @@ class MenuControls extends Component {
 }
 
 export default connect(
-    (state: any) => ({
-        view: state.view
-    })
+    (state: any) => ({view: state.view})
 )(MenuControls);

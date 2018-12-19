@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {pick, values} from 'lodash';
 import * as actions from '../../modules/actions';
 import RunButton from './run-button';
-import { Menu } from 'semantic-ui-react';
+import {Menu} from 'semantic-ui-react';
 
 interface IControllButtonsProps {
     suiteIds?: any;
@@ -32,7 +32,7 @@ class ControlButtons extends Component<IControllButtonsProps> {
         const {actions, autoRun} = this.props;
 
         return (
-            <>
+            <Fragment>
                 <RunButton autoRun={autoRun} handler={actions.runAllTests}  />
 
                 <Menu.Item label='Retry failed' onClick={this._runFailedTests}>
@@ -46,7 +46,7 @@ class ControlButtons extends Component<IControllButtonsProps> {
                 <Menu.Item label='Clear retries' onClick={actions.clearRetries} >
                     Clear retries
                 </Menu.Item>
-            </>
+            </Fragment>
         );
     }
 }

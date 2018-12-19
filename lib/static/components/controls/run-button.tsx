@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Menu} from 'semantic-ui-react';
 
 interface IRunButton {
     autoRun: any;
@@ -25,7 +25,7 @@ export default class RunButton extends Component<IRunButton> {
     render() {
         const { handler, label = 'Run' } = this.props;
         return (
-            <Menu.Item label={label} onClick={handler} >
+            <Menu.Item label={label} onClick={handler}>
                 Run
             </Menu.Item>
         );
