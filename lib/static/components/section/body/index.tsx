@@ -243,7 +243,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
                         {this._getAcceptButton()}
                     </Button.Group>
                     <SwitcherRetry className={cnContent('Pswitcher')} retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
-                    <SwitcherStyle gui={gui} onChange={this.onSwitcherStyleChange}/>
+                    <SwitcherStyle className={cnContent('Cswitcher')} gui={gui} onChange={this.onSwitcherStyleChange}/>
                 </div>
                 <Tab panes={tabs} />
             </Segment>

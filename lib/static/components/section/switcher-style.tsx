@@ -1,9 +1,10 @@
 import React, {Component, ComponentState} from 'react';
 import {Button, Icon} from 'semantic-ui-react';
-import {cn} from '@bem-react/classname';
+import {cn, classnames} from '@bem-react/classname';
 const cnCswitcher = cn('Cswitcher');
 
 interface ISwitcherStyleProps extends React.Props<any>{
+    className?: string;
     gui?: boolean;
     onChange(color: string): void;
 }
@@ -22,9 +23,9 @@ export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitc
         if (!this.props.gui) {
             return null;
         }
-
+        const {className} = this.props;
         return (
-            <div className={cnCswitcher()}>
+            <div className={classnames(cnCswitcher(), className)}>
                 <Button.Group size='mini' basic>
                     {this._drawButton('white')}
                     {this._drawButton('grey')}
