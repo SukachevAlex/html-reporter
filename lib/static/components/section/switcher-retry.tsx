@@ -1,6 +1,7 @@
 import React, {Component, ComponentState} from 'react';
 import PaginationExtended from './pagination-redefinition';
-import { cn, classnames } from '@bem-react/classname';
+import {cn, classnames} from '@bem-react/classname';
+
 const cnPagination = cn('Pswitcher');
 
 interface ISwitcherRetryProps extends React.Props<any>{
@@ -16,7 +17,6 @@ interface ISwitcherRetryStates extends ComponentState{
 }
 
 export default class SwitcherRetry extends Component<ISwitcherRetryProps, ISwitcherRetryStates> {
-
     public static defaultProps: Partial<ISwitcherRetryProps> = {
         retries: [],
         siblingRange: 3

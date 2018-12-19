@@ -1,11 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {cn} from '@bem-react/classname';
+
 import StateError from './state-error';
 import StateSuccess from './state-success';
 import StateFail from './state-fail';
+
 import {isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus} from '../../../common-utils';
 import {Button} from 'semantic-ui-react';
+
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
 const cnImageBox = cn('ImageBox');
 
@@ -26,27 +29,27 @@ interface IState {
 }
 
 class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}> {
-
-    _getStateTitle(stateName: string, status: string) {
+    protected _getStateTitle(stateName: string, status: string) {
         return stateName
             ? (<div className={`state-title state-title_${status}`}>{stateName}</div>)
             : null;
     }
 
-    _screenshotViewMode(modeName: string) {
+    protected _screenshotViewMode(modeName: string) {
         return (() => {
             this.setState({ viewMode: modeName });
         }).bind(this);
     }
 
-    _circleSmallDiff(circleDiff: boolean) {
+    protected _circleSmallDiff(circleDiff: boolean) {
         return(() => {
             circleDiff ? this.setState({ circleDiff: false }) : this.setState({ circleDiff: true });
         });
     }
 
     render() {
-        const { status, reason, image, expectedPath, actualPath, diffPath, stateName } = this.props.state;
+        const {status, reason, image, expectedPath, actualPath, diffPath, stateName} = this.props.state;
+
         let viewMode;
         let circleDiff = false;
 
@@ -88,4 +91,4 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
     }
 }
 
-export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))(State);
+export default connect(({gui, view: {scaleImages}}: {gui: boolean, view: IState}) => ({gui, scaleImages}))(State);

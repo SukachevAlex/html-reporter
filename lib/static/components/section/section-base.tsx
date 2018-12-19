@@ -1,7 +1,7 @@
 import React, {Component, ComponentState, ReactNode} from 'react';
 import {cn } from '@bem-react/classname';
 import {isFailStatus, isSkippedStatus} from '../../../common-utils';
-import { ISuite } from 'typings/suite-adapter';
+import {ISuite} from 'typings/suite-adapter';
 
 interface IBaseState extends ComponentState {
     collapsed: boolean;
@@ -41,6 +41,7 @@ export class Base<IBaseProps> extends Component<IBaseProps, IBaseState> {
             updated: '',
             expand:  undefined
         };
+
         return returnParams;
     }
 

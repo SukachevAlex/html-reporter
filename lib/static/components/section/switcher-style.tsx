@@ -13,7 +13,6 @@ interface ISwitcherStyleStates extends ComponentState{
 }
 
 export default class SwitcherStyle extends Component<ISwitcherStyleProps, ISwitcherStyleStates> {
-
     constructor(props: ISwitcherStyleProps, state: ISwitcherStyleStates) {
         super(props, state);
         this.state = {color: 'white'};

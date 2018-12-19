@@ -95,6 +95,11 @@
     border-radius: 0 2px 2px 0;
 }
 
+.Sections {
+    outline: none;
+    border: none;
+}
+
 .ImageBox {
     padding: 5px 10px;
     border: 1px solid #ccc;

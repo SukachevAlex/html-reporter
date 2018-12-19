@@ -17,7 +17,6 @@ interface IControlButton {
 }
 
 export default class ControlButton extends Component<IControlButton> {
-
     render() {
         const {label, inverted, handler, isDisabled = false, basic, className, icon} = this.props;
 

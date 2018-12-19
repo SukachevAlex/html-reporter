@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {initial} from '../modules/actions';
 import MenuControls from './controls/gui-menu-controls';
 import SkippedList from './skipped-list';
 import Suites from './suites';
-import { cn, classnames } from '@bem-react/classname';
+import {cn, classnames} from '@bem-react/classname';
+
 const cnLogo = cn('Logo');
 const cnContainer = cn('Container');
 
@@ -19,14 +20,16 @@ class Gui extends Component<IGuiProps> {
     }
 
     render() {
-        return <>
-            <MenuControls/>
-            <div className='Container'>
-            <img className={classnames(cnLogo(), cnContainer('Logo'))} src='logo.png' />
-                <SkippedList/>
-                <Suites/>
-            </div>
-        </>;
+        return (
+            <Fragment>
+                <MenuControls/>
+                <div className='Container'>
+                <img className={classnames(cnLogo(), cnContainer('Logo'))} src='logo.png' />
+                    <SkippedList/>
+                    <Suites/>
+                </div>
+            </Fragment>
+        );
     }
 }
 

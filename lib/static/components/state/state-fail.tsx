@@ -1,8 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import Screenshot from './screenshot';
-import { cn } from '@bem-react/classname';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+
+import {cn} from '@bem-react/classname';
 import {Icon, Button} from 'semantic-ui-react';
+
+import Screenshot from './screenshot';
 
 const cnImageBox = cn('ImageBox');
 
@@ -27,7 +29,7 @@ class StateFail extends Component<IStateFail, any> {
     };
 
     render() {
-        const { expected, actual, diff, viewMode, circleDiff, overlay = true} = this.props;
+        const {expected, actual, diff, viewMode, circleDiff, overlay = true} = this.props;
 
         switch (viewMode) {
             case '2-up': {
@@ -98,4 +100,4 @@ class StateFail extends Component<IStateFail, any> {
     }
 }
 
-export default connect(({ view: { showOnlyDiff} }: { view: IStateFail }) => ({ showOnlyDiff}))(StateFail);
+export default connect(({view: {showOnlyDiff}}: {view: IStateFail}) => ({showOnlyDiff}))(StateFail);
