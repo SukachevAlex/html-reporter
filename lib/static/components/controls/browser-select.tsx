@@ -11,7 +11,6 @@ interface IExpandSelect {
 }
 
 class BrowserSelect extends Component<IExpandSelect> {
-
     constructor(props: any) {
         super(props);
         this._onChange = this._onChange.bind(this);

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LazyLoad from 'react-lazyload';
-import { cn } from '@bem-react/classname';
-const cnImageBox = cn('ImageBox');
+import {cn} from '@bem-react/classname';
 import CanvasComponent from './canvas';
+
+const cnImageBox = cn('ImageBox');
 
 interface IScreenshot{
     noCache?: boolean;
@@ -28,8 +29,8 @@ class Screenshot extends Component<IScreenshot> {
         const elem  = circleDiff
             ? <div style={style} className={cnImageBox('Screenshot')}><CanvasComponent url={url} /></div>
             : <img src={url} style={style} className={cnImageBox('Screenshot')} />;
-        return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
 
+        return lazyLoadOffset ? <LazyLoad offset={lazyLoadOffset}>{elem}</LazyLoad> : elem;
     }
 }
 

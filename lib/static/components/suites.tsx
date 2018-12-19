@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import SectionCommon from './section/section-common';
 import {bindActionCreators} from 'redux';
 import {suiteBegin, testBegin, testResult, testsEnd} from '../modules/actions';
-import { List, AutoSizer, CellMeasurerCache, CellMeasurer } from 'react-virtualized';
+import {List, AutoSizer, CellMeasurerCache, CellMeasurer} from 'react-virtualized';
+
 const clientEvents = require('../../gui/constants/client-events');
 
 interface ISuitesProps extends React.Props<any> {
@@ -39,6 +40,7 @@ class Suites extends Component<ISuitesProps> {
     _subscribeToEvents() {
         const {actions}: any = this.props;
         const eventSource: EventSource = new EventSource('/events');
+
         eventSource.addEventListener(clientEvents.BEGIN_SUITE, (e: any) => {
             const data = JSON.parse(e.data);
             actions.suiteBegin(data);

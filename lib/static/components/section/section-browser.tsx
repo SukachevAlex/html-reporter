@@ -1,12 +1,16 @@
 import React from 'react';
+import url from 'url';
+
 import {connect} from 'react-redux';
+import {cn} from '@bem-react/classname';
+import {Accordion, Icon} from 'semantic-ui-react';
+
 import {Base, IBaseProps} from './section-base';
+import {isFailStatus, isErroredStatus, isSkippedStatus} from '../../../common-utils';
+
 import BrowserSkippedTitle from './title/browser-skipped';
 import Body from './body';
-import {isFailStatus, isErroredStatus, isSkippedStatus} from '../../../common-utils';
-import { Accordion, Icon } from 'semantic-ui-react';
-import { cn } from '@bem-react/classname';
-import url from 'url';
+
 import {getColorState} from '../../modules/utils';
 
 interface ISectionBrowserProps extends IBaseProps {

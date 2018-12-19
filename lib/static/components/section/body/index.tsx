@@ -1,17 +1,23 @@
-import _ from 'lodash';
+import {isEmpty} from 'lodash';
 import React, {Component, ComponentState, Fragment} from 'react';
+
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
+
 import ControlButton from '../../controls/button';
 import State from '../../state/index';
 import Description from './description';
-import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
-import { Segment, Tab, Button } from 'semantic-ui-react';
-import SwitcherRetry from '../switcher-retry';
-import { Code } from './states/code';
-import { cn } from '@bem-react/classname';
 import MetaInfo from './states/meta-info';
-import { isAcceptable } from '../../../modules/utils';
+
+import {Segment, Tab, Button} from 'semantic-ui-react';
+
+import SwitcherRetry from '../switcher-retry';
+
+import {Code} from './states/code';
+import {cn} from '@bem-react/classname';
+
+import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
+import {isAcceptable} from '../../../modules/utils';
 
 const actions = require('../../../modules/actions');
 
@@ -64,7 +70,6 @@ const cnSection = cn('Section');
 const cnContent = cn('Content');
 
 class Body extends Component<IBodyProps, IBodyStates> {
-
     static defaultProps: Partial<IBodyProps> = {
         retries: []
     };
@@ -81,23 +86,23 @@ class Body extends Component<IBodyProps, IBodyStates> {
         this.onTestAccept = this.onTestAccept.bind(this);
     }
 
-    onSwitcherRetryChange = (index: number) => {
+    onSwitcherRetryChange(index: number) {
         this.setState({retry: index});
     }
 
-    onTestAccept = (stateName: any) => {
+    onTestAccept(stateName: any) {
         const {result, suite} = this.props;
 
         this.props.actions.acceptTest(suite, result.name, this.state.retry, stateName);
     }
 
-    onTestRetry = () => {
+    onTestRetry() {
         const {result, suite} = this.props;
 
         this.props.actions.retryTest(suite, result.name);
     }
 
-    private _addRetryButton = () => {
+    private _addRetryButton() {
         const {gui, running} = this.props;
 
         return gui
@@ -112,7 +117,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
             : null;
     }
 
-    private _addSkipButton = () => {
+    private _addSkipButton() {
         const {gui, running} = this.props;
 
         return gui
@@ -126,7 +131,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
             : null;
     }
 
-    _getAcceptButton() {
+    private _getAcceptButton() {
         if (!this.props.gui) {
             return null;
         }
@@ -148,19 +153,19 @@ class Body extends Component<IBodyProps, IBodyStates> {
                     handler={acceptFn}
                 />
             );
-        } else {
-            return null;
         }
+
+        return null;
     }
 
-    private _getActiveResult = () => {
+    private _getActiveResult() {
         const {result, retries} = this.props;
 
         return retries.concat(result)[this.state.retry];
     }
 
     get hasImage() {
-        return !_.isEmpty(this._getActiveResult().imagesInfo);
+        return !isEmpty(this._getActiveResult().imagesInfo);
     }
 
     private _getTabs() {
@@ -226,12 +231,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
             <Segment className={cnSection('Body')}>
                 <div className={cnContent('Header')}>
                     {this._addRetryButton()}
-                    <Button.Group
-                        basic
-                        style={{
-                            marginLeft: '30px'
-                        }}
-                    >
+                    <Button.Group basic style={{marginLeft: '30px'}}>
                         {this._addSkipButton()}
                         {this._getAcceptButton()}
                     </Button.Group>

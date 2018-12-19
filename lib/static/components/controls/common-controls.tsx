@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React, {Component, Fragment} from 'react';
+import {Menu} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../modules/actions';
@@ -14,7 +14,6 @@ interface IControlButtons {
 }
 
 class CommonControlButtons extends Component<IControlButtons> {
-
     constructor(props: IControlButtons){
         super(props);
     }
@@ -23,7 +22,7 @@ class CommonControlButtons extends Component<IControlButtons> {
         const {view, actions} = this.props;
 
         return (
-            <>
+            <Fragment>
                 <ViewSelect options = {[
                     {value: 'all', text: 'Show all'},
                     {value: 'failed', text: 'Show only failed'}
@@ -69,7 +68,7 @@ class CommonControlButtons extends Component<IControlButtons> {
                     Lazy load
                 </Menu.Item>
                 <BaseHostInput/>
-            </>
+            </Fragment>
         );
     }
 }
