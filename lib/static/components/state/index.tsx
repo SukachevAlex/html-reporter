@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { cn } from '@bem-react/classname';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+import {cn} from '@bem-react/classname';
 import StateError from './state-error';
 import StateSuccess from './state-success';
 import StateFail from './state-fail';
-import { isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus } from '../../../common-utils';
-import { Button } from 'semantic-ui-react';
+import {isSuccessStatus, isFailStatus, isErroredStatus, isUpdatedStatus, isIdleStatus} from '../../../common-utils';
+import {Button} from 'semantic-ui-react';
 const cnScreeenshotViewMode = cn('ScreeenshotViewMode');
 const cnImageBox = cn('ImageBox');
 
@@ -56,7 +56,7 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
         }
 
         let elem = null;
-        const color = this.props.color;
+        const {color} = this.props;
 
         if (isErroredStatus(status)) {
             elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;

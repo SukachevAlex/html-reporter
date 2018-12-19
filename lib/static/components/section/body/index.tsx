@@ -6,11 +6,11 @@ import ControlButton from '../../controls/button';
 import State from '../../state/index';
 import Description from './description';
 import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
-import { Segment, Tab, Button } from 'semantic-ui-react';
+import {Segment, Tab, Button} from 'semantic-ui-react';
 import SwitcherRetry from '../switcher-retry';
 import SwitcherStyle from '../switcher-style';
-import { Code } from './states/code';
-import { cn } from '@bem-react/classname';
+import {Code} from './states/code';
+import {cn} from '@bem-react/classname';
 import MetaInfo from './states/meta-info';
 import { isAcceptable } from '../../../modules/utils';
 
@@ -190,7 +190,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
-        const color =  this.state.color;
+        const {color} = this.state;
         return (
             <div key={key} className={cnTab()}>
                 <div className={cnTab('Item', { active: true })}>
