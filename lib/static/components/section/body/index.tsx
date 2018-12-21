@@ -126,6 +126,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
     private _addSkipButton() {
         const {gui, running} = this.props;
 
+        // TODO: create that feature
         return gui
             ? <ControlButton
                 icon='share'
@@ -239,7 +240,6 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 <div className={cnContent('Header')}>
                     {this._addRetryButton()}
                     <Button.Group basic style={{marginLeft: '30px'}}>
-                        {this._addSkipButton()}
                         {this._getAcceptButton()}
                     </Button.Group>
                     <SwitcherRetry className={cnContent('Pswitcher')} retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
