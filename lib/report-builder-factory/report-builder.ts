@@ -41,7 +41,6 @@ module.exports = class ReportBuilder {
     ) {
         this._tree = {name: 'root'};
         this._skips = [];
-
         
         const {_config: config = {}} = _tool;
         const {browsers = {}} = config;
