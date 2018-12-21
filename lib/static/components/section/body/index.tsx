@@ -123,7 +123,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
             : null;
     }
 
-    private _addSkipButton() {
+    protected _addSkipButton() {
         const {gui, running} = this.props;
 
         // TODO: create that feature
