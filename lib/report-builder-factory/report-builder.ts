@@ -42,16 +42,11 @@ module.exports = class ReportBuilder {
         this._tree = {name: 'root'};
         this._skips = [];
 
-        this._browserNames = [];
-
+        
         const {_config: config = {}} = _tool;
         const {browsers = {}} = config;
-
-        for (const browser in browsers) {
-            if (browsers[browser]) {
-                this._browserNames.push(browsers[browser].desiredCapabilities.browserName);
-            }
-        }
+        
+        this._browserNames = Object.keys(browsers);
     }
 
     format(result: ITestResult) {

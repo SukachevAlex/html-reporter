@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from '../../modules/actions';
 import {Dropdown} from 'semantic-ui-react';
-
 interface IExpandSelect {
     view: any;
     actions: any;

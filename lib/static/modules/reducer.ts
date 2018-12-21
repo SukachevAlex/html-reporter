@@ -101,17 +101,8 @@ export default function reducer(state = getInitialState(compiledData), action: a
         case actionNames.VIEW_EXPAND_RETRIES: {
             return _mutateStateView(state, {expand: 'retries'});
         }
-        case actionNames.VIEW_BROWSER_ALL: {
-            return _mutateStateView(state, {filter: 'all'});
-        }
-        case actionNames.VIEW_BROWSER_CHROME: {
-            return _mutateStateView(state, {filter: 'chrome'});
-        }
-        case actionNames.VIEW_BROWSER_FIREFOX: {
-            return _mutateStateView(state, {filter: 'firefox'});
-        }
-        case actionNames.VIEW_BROWSER_IE: {
-            return _mutateStateView(state, {filter: 'ie'});
+        case actionNames.VIEW_BROWSER: {
+            return _mutateStateView(state, {filter: action.value});
         }
         case actionNames.VIEW_COLLAPSE_ALL: {
             return _mutateStateView(state, {expand: 'none'});
