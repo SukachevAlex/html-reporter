@@ -10,7 +10,7 @@ const localStorage = window.localStorage;
 
 function getInitialState(compiledData: any) {
     const {skips, suites, config, total, updated, passed,
-        failed, skipped, warned, retries, gui = false} = compiledData;
+        failed, skipped, warned, retries, gui = false, browsers} = compiledData;
     const formattedSuites = formatSuitesData(suites);
 
     return merge(defaultState, {
@@ -23,17 +23,18 @@ function getInitialState(compiledData: any) {
             scaleImages: config.scaleImages,
             lazyLoadOffset: config.lazyLoadOffset,
             ..._loadBaseHost(config.baseHost, localStorage)
-        }
+        },
+        browsers
     }, formattedSuites);
 }
 
 export default function reducer(state = getInitialState(compiledData), action: any) {
     switch (action.type) {
         case actionNames.VIEW_INITIAL: {
-            const {gui, autoRun, suites, skips, config: {scaleImages, lazyLoadOffset}} = action.payload;
+            const {gui, autoRun, suites, skips, config: {scaleImages, lazyLoadOffset}, browsers} = action.payload;
             const formattedSuites = formatSuitesData(suites);
 
-            return merge({}, state, {gui, autoRun, skips, view: {scaleImages, lazyLoadOffset}}, formattedSuites);
+            return merge({}, state, {gui, autoRun, skips, view: {scaleImages, lazyLoadOffset}, browsers}, formattedSuites);
         }
         case actionNames.CLEAR_RETRIES: {
             const {suites} = action.payload;

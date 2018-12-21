@@ -25,6 +25,7 @@ export default Object.assign(defaults, {
     autoRun: options.autoRun || false,
     skips: [],
     suites: {},
+    browsers: [],
     suiteIds: {
         all: [],
         failed: []
