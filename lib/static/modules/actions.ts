@@ -103,18 +103,7 @@ export const updateBaseHost = (host: string) => {
 };
 
 export function filterBrowser(mode: string) {
-    switch (mode) {
-        case 'chrome':
-            return {type: actionNames.VIEW_BROWSER_CHROME};
-        case 'firefox':
-            return {type: actionNames.VIEW_BROWSER_FIREFOX};
-        case 'ie':
-            return {type: actionNames.VIEW_BROWSER_IE};
-        case 'all':
-            return {type: actionNames.VIEW_BROWSER_ALL};
-        default:
-            return {type: actionNames.VIEW_BROWSER_ALL};
-    }
+    return {type: actionNames.VIEW_BROWSER, value: mode};
 }
 
 export function changeViewMode(mode: string) {

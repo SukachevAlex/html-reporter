@@ -11,6 +11,7 @@ import BrowserSelect from './browser-select';
 interface IControlButtons {
     view: any;
     actions: any;
+    browsers: string[];
 }
 
 class CommonControlButtons extends Component<IControlButtons> {
@@ -19,7 +20,15 @@ class CommonControlButtons extends Component<IControlButtons> {
     }
 
     render() {
-        const {view, actions} = this.props;
+        const {view, actions, browsers} = this.props;
+
+        const browsersArray = [{value: 'all', text: 'All browsers'}];
+        browsers.forEach((elem: string)  => {
+            browsersArray.push({
+                value: elem,
+                text: elem
+            });
+        });
 
         return (
             <Fragment>
@@ -33,12 +42,7 @@ class CommonControlButtons extends Component<IControlButtons> {
                     {value: 'errors', text: 'Expand errors'},
                     {value: 'retries', text: 'Expand retries'}
                 ]}/>
-                <BrowserSelect options = {[
-                    {value: 'chrome', text: 'Chrome'},
-                    {value: 'firefox', text: 'Firefox'},
-                    {value: 'ie', text: 'IE'},
-                    {value: 'all', text: 'All browsers'}
-                ]}/>
+                <BrowserSelect options = {browsersArray}/>
                 <Menu.Item
                     name='show_skipped'
                     active={view.showSkipped}
@@ -75,7 +79,8 @@ class CommonControlButtons extends Component<IControlButtons> {
 
 export default connect(
     (state: any) => ({
-        view: state.view
+        view: state.view,
+        browsers: state.browsers
     }),
     (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
 )(CommonControlButtons);
