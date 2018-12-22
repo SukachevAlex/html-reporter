@@ -1,4 +1,4 @@
-# html-reporter
+# newton-reporter
 
 Plugin for [gemini](https://github.com/gemini-testing/gemini) and [hermione](https://github.com/gemini-testing/hermione) which is intended to aggregate the results of tests running into html report.
 
@@ -7,7 +7,7 @@ You can read more about gemini plugins [here](https://github.com/gemini-testing/
 ## Installation
 
 ```bash
-npm install html-reporter
+npm install newton-reporter
 ```
 
 ## Usage
@@ -27,13 +27,28 @@ directory.
 
 Also there is ability to override plugin parameters by CLI options or environment variables
 (see [configparser](https://github.com/gemini-testing/configparser)).
-Use `html_reporter_` prefix for the environment variables and `--html-reporter-` for the cli options.
+Use `html_reporter_` prefix for the environment variables and `--newton-reporter-` for the cli options.
 
 For example you can override `path` option like so:
 ```bash
 $ html_reporter_path=custom/dir gemini test
-$ gemini test --html-reporter-path custom/dir
+$ gemini test --newton-reporter-path custom/dir
 ```
+
+Also, you can use option in get request.
+Example:
+```sh
+https://localhost:8000/?expand=all
+```
+That example open all tests.
+
+Options:
+* **expand** 'all' | 'errors', expands tests
+* **showOnlyDiff** true | none, set mode for image
+* **autoRun** true | none, auto run on in
+* **filter** string - browsername for filter
+* **showSkipped** true | none, shows skipped tests
+* **baseHost** string - host for tests
 
 ### Gemini Usage
 
@@ -44,7 +59,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'html-reporter/gemini': {
+            'newton-reporter/gemini-entry': {
                 enabled: true,
                 path: 'my/gemini-reports',
                 defaultView: 'all',
@@ -65,7 +80,7 @@ module.exports = {
     // ...
     system: {
         plugins: {
-            'html-reporter/hermione': {
+            'newton-reporter/hermione-entry': {
                 enabled: true,
                 path: 'my/hermione-reports',
                 defaultView: 'all',
@@ -107,7 +122,7 @@ Run [mocha](http://mochajs.org) tests:
 npm run test-unit
 ```
 
-Run [eslint](http://eslint.org) codestyle verification
+Run [tslint](https://palantir.github.io/tslint/) codestyle verification
 ```bash
 npm run lint
 ```

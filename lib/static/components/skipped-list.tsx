@@ -10,7 +10,6 @@ interface ISkippedListProps extends React.Props<any> {
 }
 
 class SkippedList extends Component<ISkippedListProps> {
-
     render() {
         const {showSkipped, skips} = this.props;
         const collapsed = !showSkipped;

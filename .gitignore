@@ -1,11 +1,12 @@
 .DS_Store
 node_modules
 hot
-build
+build/**/*.js
+build/**/*.css
+build/**/*.html
 images
 *.log
 /lib/static/*.min.*
-# /lib/static/data.js
 /lib/static/gui.html
 /lib/static/index.html
 /index.ts

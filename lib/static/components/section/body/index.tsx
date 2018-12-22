@@ -1,18 +1,20 @@
-import _ from 'lodash';
+import {isEmpty} from 'lodash';
 import React, {Component, ComponentState, Fragment} from 'react';
+
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
+
 import ControlButton from '../../controls/button';
 import State from '../../state/index';
 import Description from './description';
-import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
-import { Segment, Tab } from 'semantic-ui-react';
-import SwitcherRetry from '../switcher-retry';
-import { Code } from './states/code';
-import { cn } from '@bem-react/classname';
 import MetaInfo from './states/meta-info';
-import { isAcceptable } from '../../../modules/utils';
-
+import {Segment, Tab, Button} from 'semantic-ui-react';
+import SwitcherRetry from '../switcher-retry';
+import SwitcherStyle from '../switcher-style';
+import {Code} from './states/code';
+import {cn} from '@bem-react/classname';
+import {isSuccessStatus, isErroredStatus} from '../../../../common-utils';
+import {isAcceptable} from '../../../modules/utils';
 const actions = require('../../../modules/actions');
 
 interface IBodyProps extends React.Props<any>{
@@ -25,10 +27,20 @@ interface IBodyProps extends React.Props<any>{
     running?: boolean;
     actions?: any;
     browserName?: string;
+    state: {
+        status: string;
+        image?: boolean;
+        reason: any;
+        expectedPath: string;
+        actualPath: string;
+        diffPath: string;
+        stateName: string;
+    };
+    acceptHandler: (a: any) => any;
 }
 
 interface IBodyStates extends ComponentState{
-    color: number;
+    color: string;
     retry: number;
 }
 
@@ -52,11 +64,10 @@ export function tabCreate(menuItem: IMenuItem, render: RenderType, toExpect?: an
 }
 
 const cnTab = cn('Tab');
-const cnBrowserName = cn('Browser-Name');
 const cnSection = cn('Section');
+const cnContent = cn('Content');
 
 class Body extends Component<IBodyProps, IBodyStates> {
-
     static defaultProps: Partial<IBodyProps> = {
         retries: []
     };
@@ -65,13 +76,18 @@ class Body extends Component<IBodyProps, IBodyStates> {
         super(props, state);
 
         this.state = {
-            color: 1,
+            color: 'white',
             retry: this.props.retries.length
         };
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
+        this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
         this.onTestNotAccept = this.onTestNotAccept.bind(this);
+    }
+
+    onSwitcherStyleChange = (color: string) => {
+        this.setState({color});
     }
 
     onSwitcherRetryChange = (index: number) => {
@@ -96,12 +112,14 @@ class Body extends Component<IBodyProps, IBodyStates> {
         this.props.actions.retryTest(suite, result.name);
     }
 
-    private _addRetryButton = () => {
+    private _addRetryButton() {
         const {gui, running} = this.props;
 
         return gui
             ? <ControlButton
-                label='↻ Retry'
+                icon='redo'
+                basic={true}
+                label='Retry'
                 isSuiteControl={true}
                 isDisabled={running}
                 handler={this.onTestRetry}
@@ -109,14 +127,75 @@ class Body extends Component<IBodyProps, IBodyStates> {
             : null;
     }
 
-    private _getActiveResult = () => {
+    protected _addSkipButton() {
+        const {gui, running} = this.props;
+
+        // TODO: create that feature
+        return gui
+            ? <ControlButton
+                icon='share'
+                label='Skip'
+                isSuiteControl={true}
+                isDisabled={running}
+                handler={() => {}}
+            />
+            : null;
+    }
+
+    private _getAcceptButton() {
+        if (!this.props.gui) {
+            return null;
+        }
+
+        const acceptHandler = this.onTestAccept;
+        const activeResult = this._getActiveResult();
+
+        if (activeResult.imagesInfo.length) {
+            const {stateName, reason, status} = activeResult.imagesInfo[0];
+            const acceptFn = () => acceptHandler(stateName);
+            const isAcceptDisabled = !isAcceptable({status, reason});
+            const notAcceptFn = () => this.onTestNotAccept();
+            const {suite} = this.props;
+            let canBeAccepted;
+            if (suite) {
+                if (suite.canBeAccepted !== undefined) {
+                    canBeAccepted = suite.canBeAccepted;
+                }else{
+                    canBeAccepted = !isAcceptDisabled;
+                }
+            }
+            return (
+                <>
+                    <ControlButton
+                        icon='check'
+                        label='Accept'
+                        isSuiteControl={true}
+                        isDisabled={!canBeAccepted}
+                        handler={acceptFn}
+                    />
+                    <ControlButton
+                        icon='close'
+                        label='Not Accept'
+                        isSuiteControl={true}
+                        isDisabled={isAcceptDisabled}
+                        handler={notAcceptFn}
+                        isRed={!canBeAccepted}
+                    />
+                </>
+            );
+        }
+
+        return null;
+    }
+
+    private _getActiveResult() {
         const {result, retries} = this.props;
 
         return retries.concat(result)[this.state.retry];
     }
 
     get hasImage() {
-        return !_.isEmpty(this._getActiveResult().imagesInfo);
+        return !isEmpty(this._getActiveResult().imagesInfo);
     }
 
     private _getTabs() {
@@ -140,17 +219,11 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
-        const {suite} = this.props;
-        let canBeAccepted = isAcceptable(state);
-        if (suite) {
-            if (suite.canBeAccepted !== undefined){
-                canBeAccepted = suite.canBeAccepted;
-            }
-        }
+        const {color} = this.state;
         return (
             <div key={key} className={cnTab()}>
                 <div className={cnTab('Item', { active: true })}>
-                    <State state={state} acceptHandler={this.onTestAccept} notAcceptHandler={this.onTestNotAccept} canBeAccepted={canBeAccepted}/>
+                    <State state={state} color={color} acceptHandler={this.onTestAccept} />
                 </div>
             </div>
         );
@@ -164,18 +237,18 @@ class Body extends Component<IBodyProps, IBodyStates> {
         const activeResult = this._getActiveResult();
         const {metaInfo, suiteUrl, code, description} = activeResult;
 
-        const {retries, browserName, result: {status}, result} = this.props;
+        const {retries, result, gui} = this.props;
 
         const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
         const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
 
-        const ImagePane = () => <Pane><Image /></Pane>;
-        const CodePane = () => <Pane><Code code={code} /></Pane>;
+        const ImagePane = () => <Pane><Image/></Pane>;
+        const CodePane = () => <Pane><Code file={metaInfo.file} code={code} /></Pane>;
         const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
         const AllPane = () => <Pane>
             <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} />
             <Image />
-            <Code code={code} />
+            <Code file={metaInfo.file} code={code} />
         </Pane>;
 
         const tabs: ITab[] = [
@@ -187,9 +260,14 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         return (
             <Segment className={cnSection('Body')}>
-                <div className={cnBrowserName({status})}>{browserName}</div>
-                {this._addRetryButton()}
-                <SwitcherRetry retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                <div className={cnContent('Header')}>
+                    {this._addRetryButton()}
+                    <Button.Group basic style={{marginLeft: '30px'}}>
+                        {this._getAcceptButton()}
+                    </Button.Group>
+                    <SwitcherRetry className={cnContent('Pswitcher')} retries={retries} result={result} onChange={this.onSwitcherRetryChange} />
+                    <SwitcherStyle className={cnContent('Cswitcher')} gui={gui} onChange={this.onSwitcherStyleChange}/>
+                </div>
                 <Tab panes={tabs} />
             </Segment>
         );

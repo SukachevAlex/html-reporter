@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react';
+import {Button, Icon} from 'semantic-ui-react';
 
 interface IControlButton {
     label: string;
@@ -10,15 +10,24 @@ interface IControlButton {
     isSuiteControl?: boolean;
     isControlGroup?: boolean;
     isRed?: boolean;
+    className?: string;
+    color?: string;
+    inverted?: boolean;
+    basic?: boolean;
+    icon?: any;
 }
 
 export default class ControlButton extends Component<IControlButton> {
-
     render() {
-        const {label, handler, isRed = false, isDisabled = false} = this.props;
 
-        const redBg = isRed ? { background: 'red' } : {};
+        const {label, inverted, handler, basic, className, icon , isRed = false, isDisabled = false} = this.props;
+        const redBorderStyle = isRed ? { border: '1px solid deeppink' } : {};
 
-        return (<Button style={redBg} onClick={handler} disabled={isDisabled}>{label}</Button>);
+        return (
+            <Button onClick={handler} style={redBorderStyle} name={label} inverted={inverted} className={className} disabled={isDisabled} basic={basic}>
+                {icon && <Icon name={icon} />}
+                {label}
+            </Button>
+            );
     }
 }

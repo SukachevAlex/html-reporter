@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from '../../modules/actions';
 import {Dropdown} from 'semantic-ui-react';
-
 interface IExpandSelect {
     view: any;
     actions: any;
@@ -11,7 +10,6 @@ interface IExpandSelect {
 }
 
 class BrowserSelect extends Component<IExpandSelect> {
-
     constructor(props: any) {
         super(props);
         this._onChange = this._onChange.bind(this);
@@ -20,7 +18,7 @@ class BrowserSelect extends Component<IExpandSelect> {
     render() {
         const {view, options} = this.props;
         return (
-            <Dropdown item search selection options={options} value={view.filter} onChange={this._onChange}/>
+            <Dropdown item search compact={true} selection options={options} value={view.filter} onChange={this._onChange}/>
         );
     }
 

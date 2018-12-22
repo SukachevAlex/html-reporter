@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React, {Component, Fragment} from 'react';
+import {Menu} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../modules/actions';
@@ -11,19 +11,27 @@ import BrowserSelect from './browser-select';
 interface IControlButtons {
     view: any;
     actions: any;
+    browsers: string[];
 }
 
 class CommonControlButtons extends Component<IControlButtons> {
-
     constructor(props: IControlButtons){
         super(props);
     }
 
     render() {
-        const {view, actions} = this.props;
+        const {view, actions, browsers} = this.props;
+
+        const browsersArray = [{value: 'all', text: 'All browsers'}];
+        browsers.forEach((elem: string)  => {
+            browsersArray.push({
+                value: elem,
+                text: elem
+            });
+        });
 
         return (
-            <>
+            <Fragment>
                 <ViewSelect options = {[
                     {value: 'all', text: 'Show all'},
                     {value: 'failed', text: 'Show only failed'}
@@ -34,12 +42,7 @@ class CommonControlButtons extends Component<IControlButtons> {
                     {value: 'errors', text: 'Expand errors'},
                     {value: 'retries', text: 'Expand retries'}
                 ]}/>
-                <BrowserSelect options = {[
-                    {value: 'chrome', text: 'Chrome'},
-                    {value: 'firefox', text: 'Firefox'},
-                    {value: 'ie', text: 'IE'},
-                    {value: 'all', text: 'All browsers'}
-                ]}/>
+                <BrowserSelect options = {browsersArray}/>
                 <Menu.Item
                     name='show_skipped'
                     active={view.showSkipped}
@@ -66,17 +69,18 @@ class CommonControlButtons extends Component<IControlButtons> {
                     active={Boolean(view.lazyLoadOffset)}
                     onClick={actions.toggleLazyLoad}
                 >
-                    Lazy image load
+                    Lazy load
                 </Menu.Item>
                 <BaseHostInput/>
-            </>
+            </Fragment>
         );
     }
 }
 
 export default connect(
     (state: any) => ({
-        view: state.view
+        view: state.view,
+        browsers: state.browsers
     }),
     (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
 )(CommonControlButtons);

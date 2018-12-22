@@ -28,6 +28,7 @@ module.exports = class ReportBuilder {
 
     protected _skips: ISkip[];
     protected _stats: any;
+    protected _browserNames: string[];
 
     static create(tool: ITestTool, pluginConfig: IPluginConfig, TestAdapter: TestAdapterType) {
         return new ReportBuilder(tool, pluginConfig, TestAdapter);
@@ -40,6 +41,11 @@ module.exports = class ReportBuilder {
     ) {
         this._tree = {name: 'root'};
         this._skips = [];
+        
+        const {_config: config = {}} = _tool;
+        const {browsers = {}} = config;
+        
+        this._browserNames = Object.keys(browsers);
     }
 
     format(result: ITestResult) {
@@ -135,7 +141,7 @@ module.exports = class ReportBuilder {
 
         return Object.assign({
             suiteUrl, name: browserId, metaInfo, description, imagesInfo,
-            screenshot: Boolean(screenshot), multipleTabs, code: suite.body
+            screenshot: Boolean(screenshot), multipleTabs
         }, props);
     }
 
@@ -201,7 +207,7 @@ module.exports = class ReportBuilder {
 
     save() {
         return this.saveDataFileAsync()
-            .then(() => this._copyToReportDir(['index.html', 'report.min.js', 'report.min.css']))
+            .then(() => this._copyToReportDir(['index.html', 'report.min.js', 'report.min.css', 'logo.png']))
             .then(() => this)
             .catch((e: Error) => logger.warn(e.message || e));
     }
@@ -231,7 +237,8 @@ module.exports = class ReportBuilder {
             // @ts-ignore
             skips: _.uniq(this._skips, JSON.stringify),
             suites: this._tree.children,
-            config: {defaultView, baseHost, scaleImages, lazyLoadOffset}
+            config: {defaultView, baseHost, scaleImages, lazyLoadOffset},
+            browsers: this._browserNames
         }, this._stats);
     }
 

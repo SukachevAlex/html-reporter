@@ -1,12 +1,10 @@
-'use strict';
-
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {pick, values} from 'lodash';
 import * as actions from '../../modules/actions';
-import ControlButton from './button';
 import RunButton from './run-button';
+import {Menu} from 'semantic-ui-react';
 
 interface IControllButtonsProps {
     suiteIds?: any;
@@ -14,6 +12,7 @@ interface IControllButtonsProps {
     autoRun?: any;
     failed?: any;
     actions?: any;
+    label?: string;
 }
 
 class ControlButtons extends Component<IControllButtonsProps> {
@@ -30,31 +29,24 @@ class ControlButtons extends Component<IControllButtonsProps> {
     }
 
     render() {
-        const {actions, suiteIds, failed, running, autoRun} = this.props;
+        const {actions, autoRun} = this.props;
 
         return (
-            <>
-                <RunButton
-                    autoRun={autoRun}
-                    isDisabled={!suiteIds.all.length || running}
-                    handler={actions.runAllTests}
-                />
-                <ControlButton
-                    label='Retry failed tests'
-                    isDisabled={running || !failed.length}
-                    handler={this._runFailedTests}
-                />
-                <ControlButton
-                    label='Accept all'
-                    isDisabled={running || !failed.length}
-                    handler={this._acceptAll}
-                />
-                <ControlButton
-                    label='Clear retries'
-                    isDisabled={!!running}
-                    handler={actions.clearRetries}
-                />
-            </>
+            <Fragment>
+                <RunButton autoRun={autoRun} handler={actions.runAllTests}  />
+
+                <Menu.Item label='Retry failed' onClick={this._runFailedTests}>
+                    Retry failed
+                </Menu.Item>
+
+                <Menu.Item label='Accept all' onClick={this._acceptAll} >
+                    Accept all
+                </Menu.Item>
+
+                <Menu.Item label='Clear retries' onClick={actions.clearRetries} >
+                    Clear retries
+                </Menu.Item>
+            </Fragment>
         );
     }
 }

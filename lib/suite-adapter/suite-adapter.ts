@@ -20,10 +20,6 @@ export class SuiteAdapter {
         protected _config: IOptions
     ) {}
 
-    get body() {
-        return this._suite.body;
-    }
-
     protected _wrapSkipComment(skipComment?: string): string {
         return skipComment ? wrapLinkByTag(skipComment) : 'Unknown reason';
     }

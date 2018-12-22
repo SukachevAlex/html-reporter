@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
-import ControlButton from './button';
+import {Menu} from 'semantic-ui-react';
 
 interface IRunButton {
-    handler: any;
     autoRun: any;
-    isDisabled?: any;
+    label?: string;
+    handler: () => any;
+    isActive?: boolean;
+    isAction?: boolean;
+    isSuiteControl?: boolean;
+    isControlGroup?: boolean;
+    className?: string;
+    color?: string;
+    inverted?: boolean;
 }
 
 export default class RunButton extends Component<IRunButton> {
 
-    componentWillReceiveProps({autoRun}: any) {
+    componentWillReceiveProps({ autoRun }: any) {
         if (this.props.autoRun !== autoRun && autoRun) {
             this.props.handler();
         }
     }
 
     render() {
-        const {handler, isDisabled} = this.props;
-
-        return (<ControlButton label='Run' isAction={true} handler={handler} isDisabled={isDisabled} />);
+        const { handler, label = 'Run' } = this.props;
+        return (
+            <Menu.Item label={label} onClick={handler}>
+                Run
+            </Menu.Item>
+        );
     }
 }

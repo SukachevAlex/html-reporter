@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+
 import {connect} from 'react-redux';
 import {uniqueId, merge} from 'lodash';
 import {Base, IBaseProps} from './section-base';
 import SectionBrowser from './section-browser';
 import {allSkipped, hasFails, hasRetries, getColorState} from '../../modules/utils';
+
 import Title from './title/simple';
-// import BrowserTitle from './title/browser';
-import { Accordion } from 'semantic-ui-react';
-import { cn } from '@bem-react/classname';
+
+import {Accordion} from 'semantic-ui-react';
+import {cn} from '@bem-react/classname';
 
 interface IBrowser{
     name: string;
@@ -32,6 +34,7 @@ interface ISectionCommonProps extends IBaseProps{
     isRoot?: boolean;
     actions?: any;
     filter?: string;
+    handler?: any;
 }
 
 const cnSection = cn('Section');
@@ -41,8 +44,13 @@ export class SectionCommon extends Base<ISectionCommonProps>{
         super(props);
     }
 
+    protected _toggleState() {
+        this.props.handler && this.props.handler();
+        super._toggleState();
+    }
+
     render()  {
-        const {suite, expand, isRoot, filter} = this.props;
+        const {suite, expand, isRoot, filter, handler} = this.props;
 
         if (!suite) return null;
 
@@ -75,7 +83,7 @@ export class SectionCommon extends Base<ISectionCommonProps>{
         );
 
         const content = (
-            <Accordion.Content
+            active ? <Accordion.Content
                 className={cnSection('Body')}
                 active={active}
                 style={{
@@ -87,18 +95,18 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                     {merge(
                         children.map((child: IChild) => {
                             const key = uniqueId(`${suitePath}-${name}`);
-                            return <SectionCommon key={key} suite={child} isRoot={false} expand={expand} filter={filter} />;
+                            return <SectionCommon handler={handler} key={key} suite={child} isRoot={false} expand={expand} filter={filter} />;
                         }),
                         browsers.map((browser: IBrowser) => {
                             if ((filter && filter == 'all') || (filter && filter == browser.name)){
-                                return <SectionBrowser key={browser.name} browser={browser} suite={suite}/>;
+                                return <SectionBrowser handler={handler} key={browser.name} browser={browser} suite={suite}/>;
                             } else {
                                 return null;
                             }
                         })
                     )}
                 </Accordion>
-            </Accordion.Content>
+            </Accordion.Content> : null
         );
 
         return isRoot
@@ -106,10 +114,10 @@ export class SectionCommon extends Base<ISectionCommonProps>{
                 {title}
                 {content}
             </Accordion>
-            : <>
+            : <Fragment>
                 {title}
                 {content}
-            </>;
+            </Fragment>;
 
     }
 

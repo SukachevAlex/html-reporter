@@ -33,6 +33,7 @@ describe('ReportBuilder', () => {
                 path: ['suite'],
                 metaInfo: {sessionId: 'sessionId-default'},
                 file: 'default/path/file.js',
+                code: 'function(){}',
                 getUrl: () => opts.suite.url || ''
             },
             imageDir: '',
@@ -520,5 +521,14 @@ describe('ReportBuilder', () => {
 
             return reportBuilder.save().then(() => assert.calledWith(logger.warn, 'some-error'));
         });
+    });
+
+    it('should clear tests', () => {
+        const reportBuilder = mkReportBuilder_();
+
+        reportBuilder.addSuccess(stubTest_({retries: [{}, {}]}));
+
+        reportBuilder.clearRetries();
+        assert.equal(reportBuilder.getResult().suites[0].children[0].browsers[0].retries.length, 0);
     });
 });
