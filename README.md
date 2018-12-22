@@ -25,6 +25,33 @@ directory.
 * **scaleImages** (optional) – `Boolean` – fit images into page width; `false` by default
 * **lazyLoadOffset** (optional) - `Number` - allows you to specify how far above and below the viewport you want to begin loading images. Lazy loading would be disabled if you specify 0. `800` by default.
 
+## Yml scripts
+Where you place your test, you can create same .yml file.
+### Example:
+* test.hermione.js
+```js
+const {assert} = require('chai');
+
+it('should replace url', function() {
+    return this.browser
+        url('/')
+        .click('a')
+        .getUrl()
+        .then((url) => {
+            assert.equal(url, '/exmaple-url', 'click on link isn\'t correct')
+        });
+});
+```
+* test.hermione.yml
+```yml
+should replace url:
+    do:
+        - got to 127.0.0.1/
+        - check the url - it must be equal '127.0.0.1/example-url'
+    assert:
+        - click on link isn't correct
+```
+
 Also there is ability to override plugin parameters by CLI options or environment variables
 (see [configparser](https://github.com/gemini-testing/configparser)).
 Use `html_reporter_` prefix for the environment variables and `--newton-reporter-` for the cli options.
@@ -36,7 +63,7 @@ $ gemini test --newton-reporter-path custom/dir
 ```
 
 Also, you can use option in get request.
-Example:
+### Example:
 ```sh
 https://localhost:8000/?expand=all
 ```
