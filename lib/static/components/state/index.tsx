@@ -16,7 +16,10 @@ interface IState {
         image?: boolean;
         reason: any;
         expectedPath: string;
-        actualPath: string;
+        actualPath?: string;
+        actualImg?: {
+            path: string;
+        }
         diffPath: string;
         stateName: string;
     };
@@ -46,7 +49,10 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
     }
 
     render() {
-        const {status, reason, image, expectedPath, actualPath, diffPath, stateName} = this.props.state;
+        const {status, reason, image, expectedPath, diffPath, stateName} = this.props.state;
+        const {actualPath, actualImg} = this.props.state;
+
+        const path = actualPath || (actualImg && actualImg.path) || '';
 
         let viewMode;
         let circleDiff = false;
@@ -61,13 +67,13 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
         let viewModeMenu = null;
 
         if (isErroredStatus(status)) {
-            elem = <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>;
+            elem = <StateError image={Boolean(image)} actual={path} reason={reason}/>;
         } else if (isSuccessStatus(status) || isUpdatedStatus(status) || (isIdleStatus(status) && expectedPath)) {
             elem = <StateSuccess status={status} expected={expectedPath} />;
         } else if (isFailStatus(status)) {
             elem = reason
-                ? <StateError image={Boolean(image)} actual={actualPath} reason={reason}/>
-                : <StateFail expected={expectedPath} actual={actualPath} diff={diffPath} viewMode={viewMode as string} circleDiff={circleDiff}/>;
+                ? <StateError image={Boolean(image)} actual={path} reason={reason}/>
+                : <StateFail expected={expectedPath} actual={path} diff={diffPath} viewMode={viewMode as string} circleDiff={circleDiff}/>;
 
             viewModeMenu = <div className={cnScreeenshotViewMode()}>
                 <Button.Group basic>
