@@ -232,8 +232,6 @@ class Body extends Component<IBodyProps, IBodyStates> {
             const reason = imageInfo.reason || activeResult.reason;
             const state = Object.assign({image: true, reason}, imageInfo);
 
-            console.log(reason);
-
             return this._drawTab(state, stateName || idx);
         });
 
