@@ -280,8 +280,8 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
         const tabs: ITab[] = [
             tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
-            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
             tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo),
+            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
             tabCreate({key: 'yml', icon: 'list', content: 'Script'}, YmlPane, yml),
             tabCreate({key: 'all', icon: 'th', content: 'All'}, AllPane, this.hasImage || code || metaInfo || yml)
         ].filter((item: ITab) => item !== null) as ITab[];
