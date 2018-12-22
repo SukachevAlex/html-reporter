@@ -126,7 +126,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     componentWillMount() {
-        if ('fetch' in window) {
+        if (/https?:/.test(location.protocol)) {
             const self = this;
 
             const {metaInfo: {file}} = this._getActiveResult();
