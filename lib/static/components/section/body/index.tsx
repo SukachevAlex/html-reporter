@@ -145,7 +145,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 .then((data) => data.text())
                 .then((code) => self.setState({code}))
                 .catch((e) => {
-                    console.error(e.message);
+                    if (process.env.NODE_ENV === 'production') {
+                        console.error(e.message);
+                    }
                 });
 
             fetch(ymlFile)
@@ -159,7 +161,9 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 .then((data) => data.text())
                 .then((yml) => self.setState({yml}))
                 .catch((e) => {
-                    console.error(e.message);
+                    if (process.env.NODE_ENV === 'production') {
+                        console.error(e.message);
+                    }
                 });
         }
     }
@@ -228,6 +232,8 @@ class Body extends Component<IBodyProps, IBodyStates> {
             const reason = imageInfo.reason || activeResult.reason;
             const state = Object.assign({image: true, reason}, imageInfo);
 
+            console.log(reason);
+
             return this._drawTab(state, stateName || idx);
         });
 
@@ -279,7 +285,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
         );
 
         const tabs: ITab[] = [
-            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
+            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage || description),
             tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo),
             tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
             tabCreate({key: 'yml', icon: 'list', content: 'Script'}, YmlPane, yml),
