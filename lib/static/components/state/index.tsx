@@ -21,29 +21,45 @@ interface IState {
         diffPath: string;
         stateName: string;
     };
-    acceptHandler: (a: any) => any;
+    acceptHandler: (a: string) => void;
+    notAcceptHandler: () => void;
     gui?: boolean;
     scaleImages?: boolean;
+    canBeAccepted: boolean;
 }
 
 class State extends Component<IState, {viewMode?: string}> {
+
+    constructor(props: any){
+        super(props);
+    }
 
     _getAcceptButton() {
         if (!this.props.gui) {
             return null;
         }
 
-        const { state, state: { stateName }, acceptHandler } = this.props;
+        const { state, state: { stateName }, acceptHandler, notAcceptHandler } = this.props;
         const isAcceptDisabled = !isAcceptable(state);
         const acceptFn = () => acceptHandler(stateName);
+        const notAcceptFn = () => notAcceptHandler();
 
         return (
-            <ControlButton
-                label='✔ Accept'
-                isSuiteControl={true}
-                isDisabled={isAcceptDisabled}
-                handler={acceptFn}
-            />
+            <>
+                <ControlButton
+                    label='✔ Accept'
+                    isSuiteControl={true}
+                    isDisabled={!this.props.canBeAccepted || isAcceptDisabled}
+                    handler={acceptFn}
+                />
+                <ControlButton
+                    label='Not Accept'
+                    isSuiteControl={true}
+                    isDisabled={isAcceptDisabled}
+                    handler={notAcceptFn}
+                    isRed={!this.props.canBeAccepted}
+                />
+            </>
         );
     }
 
@@ -101,4 +117,4 @@ class State extends Component<IState, {viewMode?: string}> {
     }
 }
 
-export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState }) => ({ gui, scaleImages }))(State);
+export default connect(({ gui, view: { scaleImages } }: { gui: boolean, view: IState}) => ({ gui, scaleImages }))(State);

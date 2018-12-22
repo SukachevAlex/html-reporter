@@ -11,13 +11,16 @@ import SwitcherRetry from '../switcher-retry';
 import { Code } from './states/code';
 import { cn } from '@bem-react/classname';
 import MetaInfo from './states/meta-info';
+import { isAcceptable } from '../../../modules/utils';
 
 const actions = require('../../../modules/actions');
 
 interface IBodyProps extends React.Props<any>{
     result: any;
     retries?: any;
-    suite?: {};
+    suite?: {
+        canBeAccepted?: boolean;
+    };
     gui?: boolean;
     running?: boolean;
     actions?: any;
@@ -68,16 +71,23 @@ class Body extends Component<IBodyProps, IBodyStates> {
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
         this.onTestRetry = this.onTestRetry.bind(this);
         this.onTestAccept = this.onTestAccept.bind(this);
+        this.onTestNotAccept = this.onTestNotAccept.bind(this);
     }
 
     onSwitcherRetryChange = (index: number) => {
         this.setState({retry: index});
     }
 
-    onTestAccept = (stateName: any) => {
+    onTestAccept = (stateName: string) => {
         const {result, suite} = this.props;
 
         this.props.actions.acceptTest(suite, result.name, this.state.retry, stateName);
+    }
+
+    onTestNotAccept = () => {
+        const {suite} = this.props;
+
+        this.props.actions.notAcceptTest(suite);
     }
 
     onTestRetry = () => {
@@ -130,10 +140,17 @@ class Body extends Component<IBodyProps, IBodyStates> {
     }
 
     private _drawTab(state: any, key: string = '') {
+        const {suite} = this.props;
+        let canBeAccepted = isAcceptable(state);
+        if (suite) {
+            if (suite.canBeAccepted !== undefined){
+                canBeAccepted = suite.canBeAccepted;
+            }
+        }
         return (
             <div key={key} className={cnTab()}>
                 <div className={cnTab('Item', { active: true })}>
-                    <State state={state} acceptHandler={this.onTestAccept} />
+                    <State state={state} acceptHandler={this.onTestAccept} notAcceptHandler={this.onTestNotAccept} canBeAccepted={canBeAccepted}/>
                 </div>
             </div>
         );

@@ -22,6 +22,7 @@ interface IChild{
     children: any[];
     status?: string;
     result?: any;
+    canBeAccepted?: boolean;
 }
 
 interface ISectionCommonProps extends IBaseProps{

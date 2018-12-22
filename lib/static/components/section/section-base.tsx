@@ -7,6 +7,9 @@ import { ISuite } from 'typings/suite-adapter';
 
 interface IBaseState extends ComponentState {
     collapsed: boolean;
+    failed: any;
+    retried: any;
+    skipped: boolean;
 }
 
 export interface IBaseProps extends React.Props<any>{

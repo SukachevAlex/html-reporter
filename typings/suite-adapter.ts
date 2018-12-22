@@ -11,6 +11,7 @@ export interface IBrowser {
 export type SuiteType = SuiteAdapter | HermioneSuiteAdapter | GeminiSuiteAdapter;
 
 export interface ISuite {
+    canBeAccepted?: boolean;
     acceptTestAttempt?: number;
     imagesInfo?: string[];
     skipComment?: string;

@@ -29,10 +29,11 @@ function getInitialState(compiledData: any) {
 
 export default function reducer(state = getInitialState(compiledData), action: any) {
     switch (action.type) {
+
         case actionNames.VIEW_INITIAL: {
             const {gui, autoRun, suites, skips, config: {scaleImages, lazyLoadOffset}} = action.payload;
             const formattedSuites = formatSuitesData(suites);
-
+            console.log(formattedSuites);
             return merge({}, state, {gui, autoRun, skips, view: {scaleImages, lazyLoadOffset}}, formattedSuites);
         }
         case actionNames.CLEAR_RETRIES: {
@@ -54,6 +55,20 @@ export default function reducer(state = getInitialState(compiledData), action: a
         case actionNames.RETRY_SUITE:
         case actionNames.RETRY_TEST: {
             return assign(clone(state), {running: true});
+        }
+        case actionNames.NOT_ACCEPT_TEST: {
+            const suites = clone(state.suites);
+            const {suitePath} = action.payload;
+            const test = findNode(suites, suitePath);
+            if (test) {
+                if (test.canBeAccepted === undefined){
+                    test.canBeAccepted = false;
+                }else{
+                    test.canBeAccepted = !test.canBeAccepted;
+                }
+                forceUpdateSuiteData(suites, test);
+            }
+            return assign({}, state, {suites});
         }
         case actionNames.SUITE_BEGIN: {
             const suites = clone(state.suites);
@@ -149,9 +164,9 @@ function addTestResult(state: any, action: any) {
 
     [].concat(action.payload).forEach((suite: ISuite) => {
         const {suitePath, browserResult, browserId} = suite;
-        const test = findNode(suites, suitePath);
 
-        if (!test) {
+        const test = findNode(suites, suitePath);
+        if (!test || (!test.canBeAccepted !== undefined && !test.canBeAccepted) ) {
             return;
         }
 

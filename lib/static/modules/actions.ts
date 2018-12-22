@@ -86,6 +86,7 @@ export const acceptTest = (suite: ISuite, browserId: string, attempt: number, st
     return acceptAll(assign({browserId, stateName}, suite, {acceptTestAttempt: attempt}));
 };
 
+export const notAcceptTest = (suite: ISuite) => ({type: actionNames.NOT_ACCEPT_TEST, payload: suite});
 export const suiteBegin = (suite: ISuite) => ({type: actionNames.SUITE_BEGIN, payload: suite});
 export const testBegin = (test: any) => ({type: actionNames.TEST_BEGIN, payload: test});
 export const testResult = (result: string) => ({type: actionNames.TEST_RESULT, payload: result});
