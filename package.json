@@ -1,6 +1,6 @@
 {
   "name": "newton-reporter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Plugin for gemini and hermione which is intended to aggregate the results of tests running into html report",
   "main": "hermione-entry",
   "scripts": {
