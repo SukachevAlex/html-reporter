@@ -176,7 +176,7 @@ class Body extends Component<IBodyProps, IBodyStates> {
                         isSuiteControl={true}
                         isDisabled={isAcceptDisabled}
                         handler={notAcceptFn}
-                        isBorderColor={!canBeAccepted}
+                        isChecked={!canBeAccepted}
                     />
                 </>
             );

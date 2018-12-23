@@ -9,7 +9,7 @@ interface IControlButton {
     isDisabled?: boolean;
     isSuiteControl?: boolean;
     isControlGroup?: boolean;
-    isBorderColor?: boolean;
+    isChecked?: boolean;
     className?: string;
     color?: string;
     inverted?: boolean;
@@ -20,8 +20,8 @@ interface IControlButton {
 export default class ControlButton extends Component<IControlButton> {
     render() {
 
-        const {label, inverted, handler, basic, className, icon , isBorderColor = false, isDisabled = false} = this.props;
-        const borderStyle = isBorderColor ? { border: '1px solid #fc0' } : {};
+        const {label, inverted, handler, basic, className, icon , isChecked = false, isDisabled = false} = this.props;
+        const borderStyle = isChecked ? { border: '1px solid #fc0' } : {};
 
         return (
             <Button onClick={handler} style={borderStyle} name={label} inverted={inverted} className={className} disabled={isDisabled} basic={basic}>
