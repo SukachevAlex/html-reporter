@@ -42,6 +42,8 @@ interface IBodyProps extends React.Props<any>{
 interface IBodyStates extends ComponentState{
     color: string;
     retry: number;
+    code: string | undefined;
+    yml: string | undefined;
 }
 
 interface IMenuItem {
@@ -68,16 +70,16 @@ const cnSection = cn('Section');
 const cnContent = cn('Content');
 
 class Body extends Component<IBodyProps, IBodyStates> {
-    static defaultProps: Partial<IBodyProps> = {
-        retries: []
-    };
+    static defaultProps: Partial<IBodyProps> = {retries: []};
 
     constructor(props: IBodyProps, state: IBodyStates) {
         super(props, state);
 
         this.state = {
             color: 'white',
-            retry: this.props.retries.length
+            retry: this.props.retries.length,
+            code: undefined,
+            yml: undefined
         };
         this.onSwitcherRetryChange = this.onSwitcherRetryChange.bind(this);
         this.onSwitcherStyleChange = this.onSwitcherStyleChange.bind(this);
@@ -125,6 +127,49 @@ class Body extends Component<IBodyProps, IBodyStates> {
                 handler={this.onTestRetry}
             />
             : null;
+    }
+
+    componentWillMount() {
+        if (/https?:/.test(location.protocol)) {
+            const self = this;
+
+            const {metaInfo: {file}} = this._getActiveResult();
+
+            const codeFile = file;
+            const ymlFile = `${file.slice(0, file.lastIndexOf('.js'))}.yml`;
+
+            fetch(codeFile)
+                .then((data) => {
+                    if (!data.ok) {
+                        throw new Error('The code file not found (404)');
+                    }
+
+                    return data;
+                })
+                .then((data) => data.text())
+                .then((code) => self.setState({code}))
+                .catch((e) => {
+                    if (process.env.NODE_ENV === 'production') {
+                        console.error(e.message);
+                    }
+                });
+
+            fetch(ymlFile)
+                .then((data) => {
+                    if (!data.ok) {
+                        throw new Error('The script file not found (404)');
+                    }
+
+                    return data;
+                })
+                .then((data) => data.text())
+                .then((yml) => self.setState({yml}))
+                .catch((e) => {
+                    if (process.env.NODE_ENV === 'production') {
+                        console.error(e.message);
+                    }
+                });
+        }
     }
 
     protected _addSkipButton() {
@@ -232,27 +277,37 @@ class Body extends Component<IBodyProps, IBodyStates> {
 
     render() {
         const activeResult = this._getActiveResult();
-        const {metaInfo, suiteUrl, code, description} = activeResult;
+        const {metaInfo, suiteUrl, description} = activeResult;
+        const {code, yml} = this.state;
 
         const {retries, result, gui} = this.props;
 
-        const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
-        const Image = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
+        const ImageComponent = () => <Fragment>{description && <Description content={description}/>} {this._getTabs()}</Fragment>;
+        const CodeComponent = () => <Code code={code} />;
+        const YmlCompoenent = () => <Code lang='yml' code={yml} />;
+        const MetaInfoComponent = () => <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} />;
 
-        const ImagePane = () => <Pane><Image/></Pane>;
-        const CodePane = () => <Pane><Code file={metaInfo.file} code={code} /></Pane>;
-        const MetaInfoPane = () => <Pane><MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} /></Pane>;
-        const AllPane = () => <Pane>
-            <MetaInfo metaInfo={metaInfo} suiteUrl={suiteUrl} />
-            <Image />
-            <Code file={metaInfo.file} code={code} />
-        </Pane>;
+        const Pane = (props: any) => <Tab.Pane >{props.children}</Tab.Pane>;
+
+        const ImagePane = () => <Pane><ImageComponent /></Pane>;
+        const CodePane = () => <Pane><CodeComponent /></Pane>;
+        const YmlPane = () => <Pane><YmlCompoenent /></Pane>;
+        const MetaInfoPane = () => <Pane><MetaInfoComponent /></Pane>;
+        const AllPane = () => (
+            <Pane>
+                <MetaInfoComponent />
+                <ImageComponent />
+                <CodeComponent />
+                <YmlCompoenent />
+            </Pane>
+        );
 
         const tabs: ITab[] = [
-            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage),
-            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
+            tabCreate({key: 'image', icon: 'file image', content: 'Image'}, ImagePane, this.hasImage || description),
             tabCreate({key: 'multi-media', icon: 'file alternate outline', content: 'Meta-info'}, MetaInfoPane, metaInfo),
-            tabCreate({key: 'all', icon: 'th', content: 'All'}, AllPane, true)
+            tabCreate({key: 'code', icon: 'code', content: 'Code'}, CodePane, code),
+            tabCreate({key: 'yml', icon: 'list', content: 'Script'}, YmlPane, yml),
+            tabCreate({key: 'all', icon: 'th', content: 'All'}, AllPane, this.hasImage || code || metaInfo || yml)
         ].filter((item: ITab) => item !== null) as ITab[];
 
         return (

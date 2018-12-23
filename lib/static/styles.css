@@ -244,6 +244,10 @@
     opacity: 1;
 }
 
+.CodeView {
+    max-height: 300px;
+}
+
 .section__icon:before
 .Section-Icon:before {
     display: block;
@@ -364,7 +368,7 @@ a:active {
 }
 
 .Logo {
-    width: 175px;
+    width: 165px;
     height: 40px;
 }
 
