@@ -15,9 +15,18 @@ interface IState {
         status: string;
         image?: boolean;
         reason: any;
-        expectedPath: string;
-        actualPath: string;
-        diffPath: string;
+        expectedPath?: string;
+        expectedImg?: {
+            path: string;
+        };
+        actualPath?: string;
+        actualImg?: {
+            path: string;
+        }
+        diffPath?: string;
+        diffImg?: {
+            path: string;
+        };
         stateName: string;
     };
     acceptHandler: (a: any) => any;
@@ -46,7 +55,20 @@ class State extends Component<IState, {viewMode?: string, circleDiff?: boolean}>
     }
 
     render() {
-        const {status, reason, image, expectedPath, actualPath, diffPath, stateName} = this.props.state;
+        const {state} = this.props;
+        const {status, reason, image, stateName} = state;
+
+        // Actual part
+        const {actualPath: actual, actualImg} = state;
+        const actualPath = actual || (actualImg && actualImg.path) || '';
+
+        // Expected part
+        const {expectedPath: expected, expectedImg} = state;
+        const expectedPath = expected || (expectedImg && expectedImg.path) || '';
+
+        // Diff part
+        const {diffPath: diff, diffImg} = state;
+        const diffPath = diff || (diffImg && diffImg.path) || '';
 
         let viewMode;
         let circleDiff = false;
