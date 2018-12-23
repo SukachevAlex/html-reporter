@@ -155,15 +155,12 @@ class Body extends Component<IBodyProps, IBodyStates> {
             const acceptFn = () => acceptHandler(stateName);
             const isAcceptDisabled = !isAcceptable({status, reason});
             const notAcceptFn = () => this.onTestNotAccept();
-            const {suite} = this.props;
-            let canBeAccepted;
-            if (suite) {
-                if (suite.canBeAccepted !== undefined) {
-                    canBeAccepted = suite.canBeAccepted;
-                }else{
-                    canBeAccepted = !isAcceptDisabled;
-                }
+            const {suite = {}} = this.props;
+            let {canBeAccepted} = suite;
+            if (canBeAccepted === undefined) {
+                canBeAccepted = !isAcceptDisabled;
             }
+
             return (
                 <>
                     <ControlButton
