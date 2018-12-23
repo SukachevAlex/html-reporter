@@ -158,7 +158,7 @@ function addTestResult(state: any, action: any) {
         const {suitePath, browserResult, browserId} = suite;
 
         const test = findNode(suites, suitePath);
-        if (!test || (!test.canBeAccepted !== undefined && !test.canBeAccepted) ) {
+        if (!test || !test.canBeAccepted) {
             return;
         }
 
