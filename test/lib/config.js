@@ -1,14 +1,12 @@
 const parseConfig = require('../../lib/config');
-const {
-    config: configDefaults
-} = require('../../lib/constants/defaults');
+const {config: configDefaults} = require('../../lib/constants/defaults');
 
 describe('config', () => {
-    beforeEach(function () {
+    beforeEach(function() {
         this.oldArgv = process.argv;
     });
 
-    afterEach(function () {
+    afterEach(function() {
         process.argv = this.oldArgv;
 
         delete process.env['html_reporter_enabled'];
@@ -25,9 +23,7 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({
-                enabled: false
-            });
+            const config = parseConfig({enabled: false});
 
             assert.isFalse(config.enabled);
         });
@@ -51,9 +47,7 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({
-                path: 'some/report/path'
-            });
+            const config = parseConfig({path: 'some/report/path'});
 
             assert.equal(config.path, 'some/report/path');
         });
@@ -77,9 +71,7 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({
-                defaultView: 'some-view'
-            });
+            const config = parseConfig({defaultView: 'some-view'});
 
             assert.equal(config.defaultView, 'some-view');
         });
@@ -103,9 +95,7 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({
-                baseHost: 'some-host'
-            });
+            const config = parseConfig({baseHost: 'some-host'});
 
             assert.equal(config.baseHost, 'some-host');
         });
@@ -129,9 +119,7 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({
-                scaleImages: true
-            });
+            const config = parseConfig({scaleImages: true});
 
             assert.isTrue(config.scaleImages);
         });
@@ -175,9 +163,7 @@ describe('config', () => {
         });
 
         it('should validate if passed value is number', () => {
-            assert.throws(() => parseConfig({
-                lazyLoadOffset: 'some-value'
-            }), /option must be number, but got string/);
+            assert.throws(() => parseConfig({lazyLoadOffset: 'some-value'}), /option must be number, but got string/);
         });
     });
 });
