@@ -1,12 +1,14 @@
 const parseConfig = require('../../lib/config');
-const {config: configDefaults} = require('../../lib/constants/defaults');
+const {
+    config: configDefaults
+} = require('../../lib/constants/defaults');
 
 describe('config', () => {
-    beforeEach(function() {
+    beforeEach(function () {
         this.oldArgv = process.argv;
     });
 
-    afterEach(function() {
+    afterEach(function () {
         process.argv = this.oldArgv;
 
         delete process.env['html_reporter_enabled'];
@@ -23,43 +25,47 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({enabled: false});
+            const config = parseConfig({
+                enabled: false
+            });
 
             assert.isFalse(config.enabled);
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_enabled'] = 'false';
+            process.env['newton_reporter_enabled'] = 'false';
 
             assert.isFalse(parseConfig({}).enabled);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-enabled', 'false');
+            process.argv = process.argv.concat('--newton-reporter-enabled', 'false');
 
             assert.isFalse(parseConfig({}).enabled);
         });
     });
 
     describe('"path" option', () => {
-        it('should be "html-report" by default', () => {
-            assert.equal(parseConfig({}).path, 'html-report');
+        it('should be "newton-report" by default', () => {
+            assert.equal(parseConfig({}).path, 'newton-report');
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({path: 'some/report/path'});
+            const config = parseConfig({
+                path: 'some/report/path'
+            });
 
             assert.equal(config.path, 'some/report/path');
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_path'] = 'env/report/path';
+            process.env['newton_reporter_path'] = 'env/report/path';
 
             assert.equal(parseConfig({}).path, 'env/report/path');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-path', 'cli/report/path');
+            process.argv = process.argv.concat('--newton-reporter-path', 'cli/report/path');
 
             assert.equal(parseConfig({}).path, 'cli/report/path');
         });
@@ -71,19 +77,21 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({defaultView: 'some-view'});
+            const config = parseConfig({
+                defaultView: 'some-view'
+            });
 
             assert.equal(config.defaultView, 'some-view');
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_default_view'] = 'env/some-view';
+            process.env['newton_reporter_default_view'] = 'env/some-view';
 
             assert.equal(parseConfig({}).defaultView, 'env/some-view');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-default-view', 'cli/some-view');
+            process.argv = process.argv.concat('--newton-reporter-default-view', 'cli/some-view');
 
             assert.equal(parseConfig({}).defaultView, 'cli/some-view');
         });
@@ -95,19 +103,21 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({baseHost: 'some-host'});
+            const config = parseConfig({
+                baseHost: 'some-host'
+            });
 
             assert.equal(config.baseHost, 'some-host');
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_base_host'] = 'env/some-host';
+            process.env['newton_reporter_base_host'] = 'env/some-host';
 
             assert.equal(parseConfig({}).baseHost, 'env/some-host');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-base-host', 'cli/some-host');
+            process.argv = process.argv.concat('--newton-reporter-base-host', 'cli/some-host');
 
             assert.equal(parseConfig({}).baseHost, 'cli/some-host');
         });
@@ -119,19 +129,21 @@ describe('config', () => {
         });
 
         it('should set from configuration file', () => {
-            const config = parseConfig({scaleImages: true});
+            const config = parseConfig({
+                scaleImages: true
+            });
 
             assert.isTrue(config.scaleImages);
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_scale_images'] = 'true';
+            process.env['newton_reporter_scale_images'] = 'true';
 
             assert.isTrue(parseConfig({}).scaleImages);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-scale-images', 'true');
+            process.argv = process.argv.concat('--newton-reporter-scale-images', 'true');
 
             assert.isTrue(parseConfig({}).scaleImages);
         });
@@ -151,19 +163,21 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_lazy_load_offset'] = 600;
+            process.env['newton_reporter_lazy_load_offset'] = 600;
 
             assert.equal(parseConfig({}).lazyLoadOffset, 600);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-lazy-load-offset', 500);
+            process.argv = process.argv.concat('--newton-reporter-lazy-load-offset', 500);
 
             assert.equal(parseConfig({}).lazyLoadOffset, 500);
         });
 
         it('should validate if passed value is number', () => {
-            assert.throws(() => parseConfig({lazyLoadOffset: 'some-value'}), /option must be number, but got string/);
+            assert.throws(() => parseConfig({
+                lazyLoadOffset: 'some-value'
+            }), /option must be number, but got string/);
         });
     });
 });
