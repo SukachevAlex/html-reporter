@@ -9,12 +9,12 @@ describe('config', () => {
     afterEach(function() {
         process.argv = this.oldArgv;
 
-        delete process.env['html_reporter_enabled'];
-        delete process.env['html_reporter_path'];
-        delete process.env['html_reporter_default_view'];
-        delete process.env['html_reporter_base_host'];
-        delete process.env['html_reporter_scale_images'];
-        delete process.env['html_reporter_lazy_load_offset'];
+        delete process.env['newton_reporter_enabled'];
+        delete process.env['newton_reporter_path'];
+        delete process.env['newton_reporter_default_view'];
+        delete process.env['newton_reporter_base_host'];
+        delete process.env['newton_reporter_scale_images'];
+        delete process.env['newton_reporter_lazy_load_offset'];
     });
 
     describe('"enabled" option', () => {
