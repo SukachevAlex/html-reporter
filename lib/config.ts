@@ -5,8 +5,8 @@ const root = configParser.root;
 const section = configParser.section;
 const option = configParser.option;
 
-const ENV_PREFIX = 'html_reporter_';
-const CLI_PREFIX = '--html-reporter-';
+const ENV_PREFIX = 'newton_reporter_';
+const CLI_PREFIX = '--newton-reporter-';
 
 const {config: configDefaults} = require('./constants/defaults');
 
@@ -30,7 +30,7 @@ const getParser = () => {
             validate: assertBoolean('enabled')
         }),
         path: option({
-            defaultValue: 'html-report',
+            defaultValue: 'newton-report',
             validate: assertString('path')
         }),
         defaultView: option({

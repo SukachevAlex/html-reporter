@@ -27,7 +27,9 @@ directory.
 
 ## Yml scripts
 Where you place your test, you can create same .yml file.
+
 ### Example:
+
 * test.hermione.js
 ```js
 const {assert} = require('chai');
@@ -42,6 +44,7 @@ it('should replace url', function() {
         });
 });
 ```
+
 * test.hermione.yml
 ```yml
 should replace url:
@@ -54,11 +57,11 @@ should replace url:
 
 Also there is ability to override plugin parameters by CLI options or environment variables
 (see [configparser](https://github.com/gemini-testing/configparser)).
-Use `html_reporter_` prefix for the environment variables and `--newton-reporter-` for the cli options.
+Use `newton_reporter_` prefix for the environment variables and `--newton-reporter-` for the cli options.
 
 For example you can override `path` option like so:
 ```bash
-$ html_reporter_path=custom/dir gemini test
+$ newton_reporter_path=custom/dir gemini test
 $ gemini test --newton-reporter-path custom/dir
 ```
 
@@ -105,19 +108,25 @@ Add plugin to your `hermione` config file:
 ```js
 module.exports = {
     // ...
-    system: {
-        plugins: {
-            'newton-reporter/hermione-entry': {
-                enabled: true,
-                path: 'my/hermione-reports',
-                defaultView: 'all',
-                baseHost: 'test.com'
-            }
+    plugins: {
+        'newton-reporter/hermione-entry': {
+            enabled: true,
+            path: 'my/hermione-reports',
+            defaultView: 'all',
+            baseHost: 'test.com'
         }
     },
     //...
 }
 ```
+
+## Migrate from html-reporter to newton-reporter
+
+### Hermione
+* Rename plugins['html-reporter/hermione'] to plugins['newton-reporter/hermione-entry']
+
+### Gemini
+* Rename system.plugins['html-reporter/gemini'] to system.plugins['newton-reporter/gemini-entry']
 
 ## Additional commands
 

@@ -9,12 +9,12 @@ describe('config', () => {
     afterEach(function() {
         process.argv = this.oldArgv;
 
-        delete process.env['html_reporter_enabled'];
-        delete process.env['html_reporter_path'];
-        delete process.env['html_reporter_default_view'];
-        delete process.env['html_reporter_base_host'];
-        delete process.env['html_reporter_scale_images'];
-        delete process.env['html_reporter_lazy_load_offset'];
+        delete process.env['newton_reporter_enabled'];
+        delete process.env['newton_reporter_path'];
+        delete process.env['newton_reporter_default_view'];
+        delete process.env['newton_reporter_base_host'];
+        delete process.env['newton_reporter_scale_images'];
+        delete process.env['newton_reporter_lazy_load_offset'];
     });
 
     describe('"enabled" option', () => {
@@ -29,21 +29,21 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_enabled'] = 'false';
+            process.env['newton_reporter_enabled'] = 'false';
 
             assert.isFalse(parseConfig({}).enabled);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-enabled', 'false');
+            process.argv = process.argv.concat('--newton-reporter-enabled', 'false');
 
             assert.isFalse(parseConfig({}).enabled);
         });
     });
 
     describe('"path" option', () => {
-        it('should be "html-report" by default', () => {
-            assert.equal(parseConfig({}).path, 'html-report');
+        it('should be "newton-report" by default', () => {
+            assert.equal(parseConfig({}).path, 'newton-report');
         });
 
         it('should set from configuration file', () => {
@@ -53,13 +53,13 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_path'] = 'env/report/path';
+            process.env['newton_reporter_path'] = 'env/report/path';
 
             assert.equal(parseConfig({}).path, 'env/report/path');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-path', 'cli/report/path');
+            process.argv = process.argv.concat('--newton-reporter-path', 'cli/report/path');
 
             assert.equal(parseConfig({}).path, 'cli/report/path');
         });
@@ -77,13 +77,13 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_default_view'] = 'env/some-view';
+            process.env['newton_reporter_default_view'] = 'env/some-view';
 
             assert.equal(parseConfig({}).defaultView, 'env/some-view');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-default-view', 'cli/some-view');
+            process.argv = process.argv.concat('--newton-reporter-default-view', 'cli/some-view');
 
             assert.equal(parseConfig({}).defaultView, 'cli/some-view');
         });
@@ -101,13 +101,13 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_base_host'] = 'env/some-host';
+            process.env['newton_reporter_base_host'] = 'env/some-host';
 
             assert.equal(parseConfig({}).baseHost, 'env/some-host');
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-base-host', 'cli/some-host');
+            process.argv = process.argv.concat('--newton-reporter-base-host', 'cli/some-host');
 
             assert.equal(parseConfig({}).baseHost, 'cli/some-host');
         });
@@ -125,13 +125,13 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_scale_images'] = 'true';
+            process.env['newton_reporter_scale_images'] = 'true';
 
             assert.isTrue(parseConfig({}).scaleImages);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-scale-images', 'true');
+            process.argv = process.argv.concat('--newton-reporter-scale-images', 'true');
 
             assert.isTrue(parseConfig({}).scaleImages);
         });
@@ -151,13 +151,13 @@ describe('config', () => {
         });
 
         it('should set from environment variable', () => {
-            process.env['html_reporter_lazy_load_offset'] = 600;
+            process.env['newton_reporter_lazy_load_offset'] = 600;
 
             assert.equal(parseConfig({}).lazyLoadOffset, 600);
         });
 
         it('should set from cli', () => {
-            process.argv = process.argv.concat('--html-reporter-lazy-load-offset', 500);
+            process.argv = process.argv.concat('--newton-reporter-lazy-load-offset', 500);
 
             assert.equal(parseConfig({}).lazyLoadOffset, 500);
         });
